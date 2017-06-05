@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jhony Kaesemodel Pontes on Jhony Kaesemodel Pontes</title>
+    <link>https://jhonykaesemodel.com/</link>
+    <description>Recent content in Jhony Kaesemodel Pontes on Jhony Kaesemodel Pontes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Jhony Kaesemodel Pontes</copyright>
+    <lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Two-stage facial age prediction using group-specific features</title>
+      <link>https://jhonykaesemodel.com/publication/icassp2017/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/icassp2017/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>A flexible hierarchical approach for facial age estimation based on multiple features</title>
+      <link>https://jhonykaesemodel.com/publication/pr2016/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/pr2016/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
