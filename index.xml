@@ -11,6 +11,39 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>5 papers I found pretty cool at CVPR 2017!</title>
+      <link>https://jhonykaesemodel.com/post/top5cvpr17/</link>
+      <pubDate>Sun, 20 Aug 2017 17:47:09 -0400</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/post/top5cvpr17/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Deep learning human mind for automated visual classification (oral)&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://perceive.dieei.unict.it/files/cvpr_3126_draft.pdf&#34; target=&#34;_blank&#34;&gt;[Paper]&lt;/a&gt;
+&lt;a href=&#34;http://perceive.dieei.unict.it/deep_learning_human_mind.php&#34; target=&#34;_blank&#34;&gt;[Project webpage]&lt;/a&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=9eKtMjW7T7w&#34; target=&#34;_blank&#34;&gt;[Video]&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;A point set generation network for 3D object reconstruction (oral)&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;https://arxiv.org/pdf/1612.00603.pdf&#34; target=&#34;_blank&#34;&gt;[Paper]&lt;/a&gt;
+&lt;a href=&#34;https://github.com/fanhqme/PointSetGeneration&#34; target=&#34;_blank&#34;&gt;[Project webpage]&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;SurfNet: Generating 3D shape surfaces using deep residual networks (poster)&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://openaccess.thecvf.com/content_cvpr_2017/papers/Sinha_SurfNet_Generating_3D_CVPR_2017_paper.pdf&#34; target=&#34;_blank&#34;&gt;[Paper]&lt;/a&gt;
+&lt;a href=&#34;https://github.com/sinhayan/surfnet&#34; target=&#34;_blank&#34;&gt;[Project webpage]&lt;/a&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=cRdVMay-5wk&#34; target=&#34;_blank&#34;&gt;[Video]&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Learning shape abstractions by assembling volumetric primitives (poster)&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://openaccess.thecvf.com/content_cvpr_2017/papers/Tulsiani_Learning_Shape_Abstractions_CVPR_2017_paper.pdf&#34; target=&#34;_blank&#34;&gt;[Paper]&lt;/a&gt;
+&lt;a href=&#34;https://shubhtuls.github.io/volumetricPrimitives/&#34; target=&#34;_blank&#34;&gt;[Project webpage]&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;IM2CAD (spotlight)&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;https://homes.cs.washington.edu/~izadinia/files/im2cad_CVPR17.pdf&#34; target=&#34;_blank&#34;&gt;[Paper]&lt;/a&gt;
+&lt;a href=&#34;https://homes.cs.washington.edu/~izadinia/im2cad.html&#34; target=&#34;_blank&#34;&gt;[Project webpage]&lt;/a&gt;
+&lt;a href=&#34;https://www.youtube.com/watch?v=P_tt1sjR3jU&#34; target=&#34;_blank&#34;&gt;[Video]&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Compact Model Representation for 3D Reconstruction</title>
       <link>https://jhonykaesemodel.com/publication/3dv2017/</link>
       <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
