@@ -37,7 +37,7 @@ body {
   font-size: 1rem;
   line-height: inherit;
   color: inherit;
-  margin-top: 71px; /* Offset body content by navbar height. */
+  margin-top: 50px; /* Offset body content by navbar height. */
   padding-top: 0;
   counter-reset: captions;
 }
@@ -84,9 +84,9 @@ h2 {
   font-size: 1.5rem;
 }
 h3 {
-  font-weight: 400;
-  margin-top: 1.5rem;
-  font-size: 1.25rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  font-size: 1.05rem;
 }
 h4, h5, h6 {
   font-weight: 700;
@@ -211,7 +211,7 @@ blockquote p:last-child {
 
 .home-section {
   background-color: rgb(255, 255, 255);
-  padding: 110px 0 110px 0;
+  padding: 30px 0 30px 0;
   animation: intro 0.3s both;
   animation-delay: 0.15s;
 }
@@ -389,7 +389,7 @@ article {
 }
 
 .article-container {
-  max-width: 760px;
+  max-width: 1100px;
   padding: 1rem 20px 0 20px;
   margin: 0 auto 0 auto;
 }
@@ -400,8 +400,10 @@ article {
 }
 
 .article-banner {
-  width: 100%;
+  width: 70%;
   height: auto;
+  margin: auto;
+  padding: 40px 0px;
 }
 
 .article-header-caption {
@@ -430,7 +432,8 @@ article {
 }
 
 .article-title {
-  font-size: 1.75rem;
+  font-size: 0.9rem;
+  margin-left: -200px;
 }
 
 .article-title a {
@@ -440,7 +443,7 @@ article {
 
 .article-metadata {
   margin-bottom: 20px;
-  line-height: 30px; /* Match share bar line height. */
+  line-height: 20px; /* Match share bar line height. */
   font-size: 14px;
   letter-spacing: 0.03em;
   color: #888;
@@ -456,6 +459,7 @@ article {
 
 .article-list-item {
   margin-bottom: 40px;
+  margin-left: -200px;
 }
 
 .article-list-item:last-child {
@@ -474,11 +478,11 @@ article {
 
 .article-style img,
 .article-style video {
-  box-shadow: 1px 1px 0px #edefed, -1px -1px 0px #edefed, 1px -1px 0px #edefed, -1px 1px 0px #edefed;
+  /*box-shadow: 0px 0px 0px #edefed, -1px -1px 0px #edefed, 1px -1px 0px #edefed, -1px 1px 0px #edefed;*/
   margin-left: auto;
   margin-right: auto;
-  margin-top: 60px;
-  margin-bottom: 60px;
+  margin-top: 50px;
+  margin-bottom: 50px;
   padding-left: 0;
   padding-right: 0;
 }
@@ -508,14 +512,29 @@ article {
 }
 
 .pub-banner {
-  max-width: 100%;
+  max-width: 70%;
   height: auto;
   margin-left: auto;
   margin-right: auto;
 }
 
+.col-md-12_left {
+  max-width: 25%;
+  height: auto;
+  margin-left: -180px;
+  margin-right: auto;
+  padding-top: 10px;
+}
+
+.col-md-12 {
+  max-width: 75%;
+  height: auto;
+  margin-left: -180px;
+  margin-right: auto;
+}
+
 .pub .pub-title {
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 
 .pub .pub-authors {
@@ -528,7 +547,7 @@ article {
 }
 
 .pub-list-item {
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
 
 .pub-list-item .pub-abstract {
@@ -538,17 +557,20 @@ article {
 .pub-list-item .pub-authors {
   line-height: normal;
   font-style: normal;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: #3170A5;
+  margin-left: -200px;
 }
 
 .pub-list-item .pub-publication {
   color: #090;
   font-size: 1rem;
+  margin-left: -200px;
 }
 
 .pub-list-item .pub-links {
-  padding-top: 10px;
+  padding-top: 5px;
+  margin-left: -200px;
 }
 
 #container-publications {
@@ -726,10 +748,12 @@ article {
 #contact.home-section li {
   padding-top: 0.8rem; /* Align text with bottom of `fa-2x` icon. */
   margin-bottom: 0.3rem;
+  margin-left: -200px;
 }
 
 #contact.home-section li:last-of-type {
   margin-bottom: 0;
+  margin-left: -200px;
 }
 
 /*************************************************

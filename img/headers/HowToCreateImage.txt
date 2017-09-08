@@ -1,0 +1,9 @@
+image should be 526 x 526 (pain resize)
+open corel photo-paint
+select image
+Click Mask -> Create -> Create mask from object
+then
+Mask -> Mask Outline -> Border
+Put 4 and Hard
+Select Fill (from left menu bar, tinta) and paint with black
+Save and done!
