@@ -80,7 +80,7 @@
         
 
         <li class="nav-item">
-          <a href="/#publications_selected">
+          <a href="/#publications">
             
             <span>Publications</span>
           </a>
@@ -95,18 +95,6 @@
           <a href="/#posts">
             
             <span>Posts</span>
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        <li class="nav-item">
-          <a href="/#projects">
-            
-            <span>Projects</span>
           </a>
         </li>
 
@@ -146,7 +134,7 @@
     <h1 itemprop="name">Compact Model Representation for 3D Reconstruction</h1>
     <span class="pub-authors" itemprop="author">
       
-      Jhony K. Pontes, Chen Kong, Anders Eriksson, Clinton Fookes, Sridha Sridharan, Simon Lucey
+      <strong>Jhony K. Pontes</strong>, <a href="http://www.cs.cmu.edu/~chenk/" target="_blank">Chen Kong</a>, <a href="https://ando.000webhostapp.com/" target="_blank">Anders Eriksson</a>, <a href="http://staff.qut.edu.au/staff/fookes/" target="_blank">Clinton Fookes</a>, <a href="http://staff.qut.edu.au/staff/sridhara/" target="_blank">Sridha Sridharan</a>, <a href="http://www.simonlucey.com/" target="_blank">Simon Lucey</a>
       
     </span>
     <span class="pull-right">
@@ -197,10 +185,10 @@
 </div>
 <div class="article-container">
 
-  
+
 
   <h3>Abstract</h3>
-  <p class="pub-abstract" itemprop="text">3D reconstruction from 2D images is a central problem in computer vision. Recent works have been focusing on reconstruction directly from a single image. It is well known however that only one image cannot provide enough information for such a reconstruction. A prior knowledge that has been entertained are 3D CAD models due to its online ubiquity. A fundamental question is how to compactly represent millions of CAD models while allowing generalization to new unseen objects with fine-scaled geometry. We introduce an approach to compactly represent a 3D mesh. Our method first selects a 3D model from a graph structure by using a novel free-form deformation FFD 3D-2D registration, and then the selected 3D model is refined to best fit the image silhouette. We perform a comprehensive quantitative and qualitative analysis that demonstrates impressive dense and realistic 3D reconstruction from single images.</p>
+  <p class="pub-abstract" itemprop="text">3D reconstruction from 2D images is a central problem in computer vision. Recent works have been focusing on reconstruction directly from a single image. It is well known however that only one image cannot provide enough information for such a reconstruction. A prior knowledge that has been entertained are 3D CAD models due to its online ubiquity. A fundamental question is how to compactly represent millions of CAD models while allowing generalization to new unseen objects with fine-scaled geometry. We introduce an approach to compactly represent a 3D mesh. Our method first selects a 3D model from a graph structure by using a novel free-form deformation (FFD) 3D-2D registration, and then the selected 3D model is refined to best fit the image silhouette. We perform a comprehensive quantitative and qualitative analysis that demonstrates impressive dense and realistic 3D reconstruction from single images.</p>
 
   
   <div class="row">
@@ -227,7 +215,7 @@
     <div class="col-sm-10">
       <div class="row">
         <div class="col-xs-12 col-sm-3 pub-row-heading">Publication</div>
-        <div class="col-xs-12 col-sm-9">In <em>arXiv cs.CV</em></div>
+        <div class="col-xs-12 col-sm-9">In <em>3DV 2017</em></div>
       </div>
     </div>
     <div class="col-sm-1"></div>
@@ -240,7 +228,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-3 pub-row-heading">Date</div>
         <div class="col-xs-12 col-sm-9" itemprop="datePublished">
-          July, 2017
+          October, 2017
         </div>
       </div>
     </div>
@@ -266,12 +254,16 @@
 
 
 
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/Supplementary_Material_3DV_2017.pptx">
+  Video
+</a>
 
 
 
 
 
-<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/ArXiV_3DV2017.html">
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/3DV2017.html">
   BibTeX
 </a>
 
@@ -297,7 +289,26 @@
 
   <div class="space-below"></div>
 
-  <div class="article-style"></div>
+  <div class="article-style">
+
+<p><img src="/3dv2017.gif" alt="Drawing" style="width: 600px;"/></p>
+
+<h3 id="example-of-a-3d-cad-model-being-fit-to-a-single-image-using-our-ffd-anchor-registration-and-silhouette-fitting">Example of a 3D CAD model being fit to a single image using our FFD anchor registration and silhouette fitting.</h3>
+
+<p><img src="/3DV_img1.png" alt="Drawing" style="width: 800px;"/>
+<img src="/3dv2017_1.gif" alt="Drawing" style="width: 700px;"/>
+<img src="/3DV_img2.png" alt="Drawing" style="width: 1200px;"/></p>
+
+<h3 id="example-of-our-3d-reconstruction-from-a-single-image">Example of our 3D reconstruction from a single image.</h3>
+
+<p><img src="/3DV_img3.png" alt="Drawing" style="width: 300px;"/>
+<img src="/3DV_img4.png" alt="Drawing" style="width: 700px;"/>
+<img src="/3dv2017_3.gif" alt="Drawing" style="width: 900px;"/></p>
+
+<p><strong>Please check the supplementary material out for more examples.</strong></p>
+
+<p><a href="http://ci2cv.net/media/papers/chenkong_cvpr_2017.pdf" target="_blank">[1] C. Kong, C-H. Lin and S. Lucey, Using Locally Corresponding CAD Models for Dense 3D Reconstructions from a Single Image, CVPR 2017.</a></p>
+</div>
 
 </div>
 

@@ -7,16 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Jhony Kaesemodel Pontes</copyright>
-    <lastBuildDate>Sun, 23 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 23 Oct 2017 00:00:00 +0000</lastBuildDate>
     <atom:link href="/publication_types/1/" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Compact Model Representation for 3D Reconstruction</title>
       <link>https://jhonykaesemodel.com/publication/3dv2017/</link>
-      <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jhonykaesemodel.com/publication/3dv2017/</guid>
-      <description></description>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/3dv2017.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 600px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-of-a-3d-cad-model-being-fit-to-a-single-image-using-our-ffd-anchor-registration-and-silhouette-fitting&#34;&gt;Example of a 3D CAD model being fit to a single image using our FFD anchor registration and silhouette fitting.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/3DV_img1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/3dv2017_1.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/3DV_img2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1200px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-of-our-3d-reconstruction-from-a-single-image&#34;&gt;Example of our 3D reconstruction from a single image.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/3DV_img3.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 300px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/3DV_img4.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/3dv2017_3.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please check the supplementary material out for more examples.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ci2cv.net/media/papers/chenkong_cvpr_2017.pdf&#34; target=&#34;_blank&#34;&gt;[1] C. Kong, C-H. Lin and S. Lucey, Using Locally Corresponding CAD Models for Dense 3D Reconstructions from a Single Image, CVPR 2017.&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
