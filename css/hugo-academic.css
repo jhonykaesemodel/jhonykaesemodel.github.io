@@ -433,7 +433,7 @@ article {
 
 .article-title {
   font-size: 0.9rem;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 .article-title a {
@@ -459,7 +459,7 @@ article {
 
 .article-list-item {
   margin-bottom: 40px;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 .article-list-item:last-child {
@@ -512,24 +512,24 @@ article {
 }
 
 .pub-banner {
-  max-width: 70%;
+  max-width: 90%;
   height: auto;
   margin-left: auto;
   margin-right: auto;
 }
 
 .col-md-12_left {
-  max-width: 25%;
+  max-width: 15%;
   height: auto;
-  margin-left: -180px;
+  margin-left: auto;
   margin-right: auto;
   padding-top: 10px;
 }
 
 .col-md-12 {
-  max-width: 75%;
+  max-width: 85%;
   height: auto;
-  margin-left: -180px;
+  margin-left: auto
   margin-right: auto;
 }
 
@@ -559,18 +559,18 @@ article {
   font-style: normal;
   font-size: 0.8rem;
   color: #3170A5;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 .pub-list-item .pub-publication {
   color: #090;
   font-size: 1rem;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 .pub-list-item .pub-links {
   padding-top: 5px;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 #container-publications {
@@ -748,12 +748,12 @@ article {
 #contact.home-section li {
   padding-top: 0.8rem; /* Align text with bottom of `fa-2x` icon. */
   margin-bottom: 0.3rem;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 #contact.home-section li:last-of-type {
   margin-bottom: 0;
-  margin-left: -200px;
+  /*margin-left: -200px;*/
 }
 
 /*************************************************
