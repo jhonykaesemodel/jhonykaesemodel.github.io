@@ -11,6 +11,65 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Image2Mesh: A learning framework for single image 3D reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/image2mesh/</link>
+      <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/image2mesh/</guid>
+      <description>
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;Given a single image, our framework employs a convolutional autoencoder to extract the image&amp;rsquo;s latent space, $\mathbf{z}$, that is used to classify it to an index, $c$, using a multi-label classifier and regress it to a compact shape parametrization using a feedforward network. We use a graph embedding, $\mathcal{G}$, that compactly represents 3D mesh objects to reconstruct the 3D model. Firstly, the estimated index, $c$, selects the closest 3D model to the image from the graph. Secondly, the selected model is deformed through the estimated parameters - free-form deformation (FFD), $\mathbf{\Delta P}$, and sparse linear combination parameters (i.e. $\alpha$&amp;rsquo;s). In this example, model 1 is selected (arrows 1 and 2), FFD is then applied (arrows 3 and 4), and finally the linear combination with the nodes 3, 4, 5, 6, and 7 (blue arrows on the graph that indicates the models in dense correspondence with node 1) are performed (arrow 5) to reconstruct the final 3D mesh model (arrow 6).
+&lt;img src=&#34;https://jhonykaesemodel.com/overview_image2mesh.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 850px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d) and the ground truth in (e).&lt;/p&gt;
+
+&lt;div align=&#34;center&#34;&gt;
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/1_video_synthetic_results.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/2_video_pascal_results.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;p&gt;A closer look at the 3D reconstruction.&lt;/p&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/3_video_details_synthetic_pascal.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;h3 id=&#34;more-static-examples&#34;&gt;More static examples&lt;/h3&gt;
+
+&lt;p&gt;Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). The voxelized final model is shown in column (e) and the ground truth in column (f). In the success cases (blues), one can see that the final models are similar to the ground truth with slightly differences that can be hard to point it out. A failure case is shown on the last row in red where a &amp;ldquo;wrong&amp;rdquo; model was selected from the graph.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/image2mesh_1_header.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 850px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/image2mesh_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/image2mesh_2_header.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 850px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/image2mesh_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please check the supplementary material out for more examples.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://jhonykaesemodel.com/publication/3dv2017/&#34; target=&#34;_blank&#34;&gt;[18] J.K. Pontes, C. Kong, S. Sridharan, S. Lucey, A. Eriksson, and C. Fookes, Compact Model Representation for 3D Reconstruction, 3DV 2017.&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Compact model representation for 3D reconstruction</title>
       <link>https://jhonykaesemodel.com/publication/3dv2017/</link>
       <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>

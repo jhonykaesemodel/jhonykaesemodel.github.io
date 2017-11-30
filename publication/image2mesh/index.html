@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme" content="hugo-academic">
+  <meta name="generator" content="Hugo 0.21" />
+  <meta name="author" content="Jhony Kaesemodel Pontes">
+  <meta name="description" content="Engineer &amp; Computer Visionist">
+
+  
+  
+  
+    
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/highlight.min.css">
+    
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/academicons.min.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Merriweather|Roboto+Mono|Ubuntu">
+  <link rel="stylesheet" href="/css/hugo-academic.css">
+  
+
+  <link rel="alternate" href="https://jhonykaesemodel.com/index.xml" type="application/rss+xml" title="Jhony Kaesemodel Pontes">
+  <link rel="feed" href="https://jhonykaesemodel.com/index.xml" type="application/rss+xml" title="Jhony Kaesemodel Pontes">
+
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/apple-touch-icon.png">
+
+  <link rel="canonical" href="https://jhonykaesemodel.com/publication/image2mesh/">
+
+  
+
+  <title>Image2Mesh: A learning framework for single image 3D reconstruction | Jhony Kaesemodel Pontes</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target=".navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Jhony Kaesemodel Pontes</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse">
+
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#about">
+            
+            <span>Home</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#publications">
+            
+            <span>Publications</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#posts">
+            
+            <span>Posts</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+
+        <li class="nav-item">
+          <a href="/#contact">
+            
+            <span>Contact</span>
+          </a>
+        </li>
+
+        
+        
+
+        
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+<div class="pub" itemscope itemtype="http://schema.org/CreativeWork">
+
+  
+<div class="article-header">
+  <img src="/img/headers/overview_image2mesh.png" class="article-banner" itemprop="image">
+  
+</div>
+
+
+
+  <div class="container pub-title">
+    <h1 itemprop="name">Image2Mesh: A learning framework for single image 3D reconstruction</h1>
+    <span class="pub-authors" itemprop="author">
+      
+      <strong>Jhony K. Pontes</strong>, <a href="http://www.cs.cmu.edu/~chenk/" target="_blank">Chen Kong</a>, <a href="http://staff.qut.edu.au/staff/sridhara/" target="_blank">Sridha Sridharan</a>, <a href="http://www.simonlucey.com/" target="_blank">Simon Lucey</a>, <a href="https://ando.000webhostapp.com/" target="_blank">Anders Eriksson</a>, <a href="http://staff.qut.edu.au/staff/fookes/" target="_blank">Clinton Fookes</a>
+      
+    </span>
+    <span class="pull-right">
+      
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    <li>
+      <a class="facebook"
+         href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fjhonykaesemodel.com%2fpublication%2fimage2mesh%2f"
+         target="_blank">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </li>
+    <li>
+      <a class="twitter"
+         href="https://twitter.com/intent/tweet?text=Image2Mesh%3a%20A%20learning%20framework%20for%20single%20image%203D%20reconstruction&amp;url=https%3a%2f%2fjhonykaesemodel.com%2fpublication%2fimage2mesh%2f"
+         target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </li>
+    <li>
+      <a class="linkedin"
+         href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fjhonykaesemodel.com%2fpublication%2fimage2mesh%2f&amp;title=Image2Mesh%3a%20A%20learning%20framework%20for%20single%20image%203D%20reconstruction"
+         target="_blank">
+        <i class="fa fa-linkedin"></i>
+      </a>
+    </li>
+    <li>
+      <a class="weibo"
+         href="http://service.weibo.com/share/share.php?url=https%3a%2f%2fjhonykaesemodel.com%2fpublication%2fimage2mesh%2f&amp;title=Image2Mesh%3a%20A%20learning%20framework%20for%20single%20image%203D%20reconstruction"
+         target="_blank">
+        <i class="fa fa-weibo"></i>
+      </a>
+    </li>
+    <li>
+      <a class="email"
+         href="mailto:?subject=Image2Mesh%3a%20A%20learning%20framework%20for%20single%20image%203D%20reconstruction&amp;body=https%3a%2f%2fjhonykaesemodel.com%2fpublication%2fimage2mesh%2f">
+        <i class="fa fa-envelope"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+    </span>
+  </div>
+
+</div>
+<div class="article-container">
+
+
+
+  <h3>Abstract</h3>
+  <p class="pub-abstract" itemprop="text">One challenge that remains open in 3D deep learning is how to efficiently represent 3D data to feed deep networks. Recent works have relied on volumetric or point cloud representations, but such approaches suffer from a number of issues such as computational complexity, unordered data, and lack of finer geometry. This paper demonstrates that a mesh representation (i.e. vertices and faces to form polygonal surfaces) is able to capture fine-grained geometry for 3D reconstruction tasks. A mesh however is also unstructured data similar to point clouds. We address this problem by proposing a learning framework to infer the parameters of a compact mesh representation rather than learning from the mesh itself. This compact representation encodes a mesh using free-form deformation and a sparse linear combination of models allowing us to reconstruct 3D meshes from single images. In contrast to prior work, we do not rely on silhouettes and landmarks to perform 3D reconstruction. We evaluate our method on synthetic and real-world datasets with very promising results. Our framework efficiently reconstructs 3D objects in a low-dimensional way while preserving its important geometrical aspects.</p>
+
+  
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 pub-row-heading">Type</div>
+        <div class="col-xs-12 col-sm-9">
+          
+          <a href="/publication/#1">
+            Conference proceedings
+          </a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="visible-xs space-below"></div>
+  
+
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 pub-row-heading">Publication</div>
+        <div class="col-xs-12 col-sm-9">In <em>ArXiv 2017</em></div>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="visible-xs space-below"></div>
+
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 pub-row-heading">Date</div>
+        <div class="col-xs-12 col-sm-9" itemprop="datePublished">
+          November, 2017
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="visible-xs space-below"></div>
+
+  <div class="row" style="padding-top: 10px">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 pub-row-heading" style="line-height:34px;">Links</div>
+        <div class="col-xs-12 col-sm-9">
+
+          
+
+
+
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/ArXiV_image2mesh2017.pdf">
+  PDF
+</a>
+
+
+
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/Coming%20soon%21">
+  Code
+</a>
+
+
+
+
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/image2mesh2017.html">
+  BibTeX
+</a>
+
+
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/ArXiV_image2mesh2017.pdf">
+  arXiv
+</a>
+
+
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/Supplementary_Material_image2mesh_2017.pdf">
+  Supplementary Material
+</a>
+
+
+
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+  <div class="visible-xs space-below"></div>
+
+  <div class="space-below"></div>
+
+  <div class="article-style">
+
+<h3 id="overview">Overview</h3>
+
+<p>Given a single image, our framework employs a convolutional autoencoder to extract the image&rsquo;s latent space, $\mathbf{z}$, that is used to classify it to an index, $c$, using a multi-label classifier and regress it to a compact shape parametrization using a feedforward network. We use a graph embedding, $\mathcal{G}$, that compactly represents 3D mesh objects to reconstruct the 3D model. Firstly, the estimated index, $c$, selects the closest 3D model to the image from the graph. Secondly, the selected model is deformed through the estimated parameters - free-form deformation (FFD), $\mathbf{\Delta P}$, and sparse linear combination parameters (i.e. $\alpha$&rsquo;s). In this example, model 1 is selected (arrows 1 and 2), FFD is then applied (arrows 3 and 4), and finally the linear combination with the nodes 3, 4, 5, 6, and 7 (blue arrows on the graph that indicates the models in dense correspondence with node 1) are performed (arrow 5) to reconstruct the final 3D mesh model (arrow 6).
+<img src="/overview_image2mesh.png" alt="Drawing" style="width: 850px;"/></p>
+
+<h3 id="results">Results</h3>
+
+<p>Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d) and the ground truth in (e).</p>
+
+<div align="center">
+<video width="100%" height="100%" autoplay loop>
+  <source src="/1_video_synthetic_results.mp4"
+  type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+</div>
+
+<p>Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).</p>
+
+<video width="100%" height="100%" autoplay loop>
+  <source src="/2_video_pascal_results.mp4"
+  type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<p>A closer look at the 3D reconstruction.</p>
+
+<video width="100%" height="100%" autoplay loop>
+  <source src="/3_video_details_synthetic_pascal.mp4"
+  type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<h3 id="more-static-examples">More static examples</h3>
+
+<p>Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). The voxelized final model is shown in column (e) and the ground truth in column (f). In the success cases (blues), one can see that the final models are similar to the ground truth with slightly differences that can be hard to point it out. A failure case is shown on the last row in red where a &ldquo;wrong&rdquo; model was selected from the graph.</p>
+
+<p><img src="/image2mesh_1_header.png" alt="Drawing" style="width: 850px;"/>
+<img src="/image2mesh_1.png" alt="Drawing" style="width: 900px;"/></p>
+
+<p>Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).</p>
+
+<p><img src="/image2mesh_2_header.png" alt="Drawing" style="width: 850px;"/>
+<img src="/image2mesh_2.png" alt="Drawing" style="width: 900px;"/></p>
+
+<p><strong>Please check the supplementary material out for more examples.</strong></p>
+
+<p><a href="https://jhonykaesemodel.com/publication/3dv2017/" target="_blank">[18] J.K. Pontes, C. Kong, S. Sridharan, S. Lucey, A. Eriksson, and C. Fookes, Compact Model Representation for 3D Reconstruction, 3DV 2017.</a></p>
+</div>
+
+</div>
+
+<div class="container">
+  <nav>
+  <ul class="pager">
+    
+    <li class="previous"><a href="https://jhonykaesemodel.com/publication/3dv2017/"><span
+      aria-hidden="true">&larr;</span> Compact model representation for 3D reconstruction</a></li>
+    
+
+    
+  </ul>
+</nav>
+
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="powered-by">
+
+      &copy; 2017 Jhony Kaesemodel Pontes &middot; 
+
+      Powered by the <a href="https://github.com/gcushen/hugo-academic" target="_blank">Academic
+      theme</a> for <a href="http://gohugo.io" target="_blank">Hugo</a>.
+
+      <span class="pull-right" aria-hidden="true">
+        <a href="#" id="back_to_top">
+          <span class="button_icon">
+            <i class="fa fa-chevron-up fa-2x"></i>
+          </span>
+        </a>
+      </span>
+
+    </p>
+  </div>
+</footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.4/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/ScrollToPlugin.min.js"></script>
+    <script src="/js/jquery-1.12.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/isotope.pkgd.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.1/imagesloaded.pkgd.min.js"></script>
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-100394787-1', 'auto');
+        ga('send', 'pageview');
+
+         
+        var links = document.querySelectorAll('a');
+        Array.prototype.map.call(links, function(item) {
+            if (item.host != document.location.host) {
+                item.addEventListener('click', function() {
+                    var action = item.getAttribute('data-action') || 'follow';
+                    ga('send', 'event', 'outbound', action, item.href);
+                });
+            }
+        });
+    </script>
+    
+
+    
+    
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+
+      
+
+      
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    <script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+    
+
+  </body>
+</html>
+
