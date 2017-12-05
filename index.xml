@@ -139,16 +139,6 @@
     </item>
     
     <item>
-      <title>CV</title>
-      <link>https://jhonykaesemodel.com/cv/cv/</link>
-      <pubDate>Mon, 05 Jun 2017 17:47:09 -0400</pubDate>
-      
-      <guid>https://jhonykaesemodel.com/cv/cv/</guid>
-      <description>&lt;p&gt;{{% staticref &amp;ldquo;files/cv_jhonykaesemodel.pdf&amp;rdquo; %}}cv{{% /staticref %}}&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Two-stage facial age prediction using group-specific features</title>
       <link>https://jhonykaesemodel.com/publication/icassp2017/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
@@ -164,6 +154,16 @@
       
       <guid>https://jhonykaesemodel.com/publication/pr2016/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://jhonykaesemodel.com/cv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/cv/</guid>
+      <description>&lt;p&gt;Download my CV{{% /staticref %}}&lt;/p&gt;
+</description>
     </item>
     
   </channel>
