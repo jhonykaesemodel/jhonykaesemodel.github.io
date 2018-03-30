@@ -11,6 +11,34 @@
     <atom:link href="/publication/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Learning free-form deformations for 3D object reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/learning_ffd/</link>
+      <pubDate>Thu, 29 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/learning_ffd/</guid>
+      <description>
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;Given a single image, our method uses a CNN to infer free-form deformation (FFD) parameters $\Delta \mathbf{P}$ (red arrows) for multiple templates $T$ (middle meshes). The $\Delta \mathbf{P}$ parameters are then used to deform the template vertices to infer a 3D mesh for each template (right meshes). Trained only with surface-sampled point-clouds, the model learns to apply large deformations to topologically different templates to produce inferred meshes with similar surfaces. Likelihood weightings $\gamma$ are also inferred by the network but not shown for simplicity. FC stands for fully connected layer.
+&lt;img src=&#34;https://jhonykaesemodel.com/learning_ffd_overview.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Representative results for different categories. Column (a) shows the input image. Column (b) shows the selected template model. Column (c ) shows the deformed point cloud by FFD. The deformed voxelized model is shown in column (d). Column (e) shows our final 3D mesh reconstruction, and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/learning_ffd_titles.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 880px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/learning_ffd_bigplot.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;transferring-3d-semantic-labels&#34;&gt;Transferring 3D semantic labels&lt;/h3&gt;
+
+&lt;p&gt;Good (left block) and bad (right block) examples from the chair and plane categories. For each block: Input image; selected template&amp;rsquo;s semantically segmented cloud; deformed segmented cloud; deformed mesh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/learning_ffd_semantics.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1200px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Image2Mesh: A learning framework for single image 3D reconstruction</title>
       <link>https://jhonykaesemodel.com/publication/image2mesh/</link>
       <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
