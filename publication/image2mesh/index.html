@@ -200,7 +200,7 @@
 
 
   <h3>Abstract</h3>
-  <p class="pub-abstract" itemprop="text">One challenge that remains open in 3D deep learning is how to efficiently represent 3D data to feed deep networks. Recent works have relied on volumetric or point cloud representations, but such approaches suffer from a number of issues such as computational complexity, unordered data, and lack of finer geometry. This paper demonstrates that a mesh representation (i.e. vertices and faces to form polygonal surfaces) is able to capture fine-grained geometry for 3D reconstruction tasks. A mesh however is also unstructured data similar to point clouds. We address this problem by proposing a learning framework to infer the parameters of a compact mesh representation rather than learning from the mesh itself. This compact representation encodes a mesh using free-form deformation and a sparse linear combination of models allowing us to reconstruct 3D meshes from single images. In contrast to prior work, we do not rely on silhouettes and landmarks to perform 3D reconstruction. We evaluate our method on synthetic and real-world datasets with very promising results. Our framework efficiently reconstructs 3D objects in a low-dimensional way while preserving its important geometrical aspects.</p>
+  <p class="pub-abstract" itemprop="text">A challenge that remains open in 3D deep learning is how to efficiently represent 3D data to feed deep neural networks. Recent works have been relying on volumetric or point cloud representations, but such approaches suffer from a number of issues such as computational complexity, unordered data, and lack of finer geometry. An efficient way to represent a 3D shape is through a polygon mesh as it encodes both shape&#39;s geometric and topological information. However, the mesh&#39;s data structure is an irregular graph (i.e. collection of vertices connected by edges to form polygonal faces) and it is not straightforward to integrate it into learning frameworks since every mesh is likely to have a different structure. Here we address this drawback by efficiently converting an unstructured 3D mesh into a regular and compact shape parametrization that is ready for machine learning applications. We developed a simple and lightweight learning framework able to reconstruct high-quality 3D meshes from a single image by using a compact representation that encodes a mesh using free-form deformation and sparse linear combination in a small dictionary of 3D models. In contrast to prior work, we do not rely on classical silhouette and landmark registration techniques to perform the 3D reconstruction. We extensively evaluated our method on synthetic and real-world datasets and found that it can efficiently and compactly reconstruct 3D objects while preserving its important geometrical aspects.</p>
 
   
   <div class="row">
@@ -227,7 +227,7 @@
     <div class="col-sm-10">
       <div class="row">
         <div class="col-xs-12 col-sm-3 pub-row-heading">Publication</div>
-        <div class="col-xs-12 col-sm-9">In <em>ArXiv 2017</em></div>
+        <div class="col-xs-12 col-sm-9">In <em>ACCV 2018</em></div>
       </div>
     </div>
     <div class="col-sm-1"></div>
@@ -260,7 +260,7 @@
 
 
 
-<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/ArXiV_image2mesh2017.pdf">
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/image2mesh-accv2018-camera_ready.pdf">
   PDF
 </a>
 
@@ -286,7 +286,7 @@
 </a>
 
 
-<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/Supplementary_Material_image2mesh_2017.pdf">
+<a class="btn btn-primary btn-outline" href="https://jhonykaesemodel.com/papers/Supplementary_Material_image2mesh_accv2018.pdf">
   Supplementary Material
 </a>
 
@@ -376,7 +376,7 @@
   <div class="container">
     <p class="powered-by">
 
-      &copy; 2017 Jhony Kaesemodel Pontes &middot; 
+      &copy; 2018 Jhony Kaesemodel Pontes &middot; 
 
       Powered by the <a href="https://github.com/gcushen/hugo-academic" target="_blank">Academic
       theme</a> for <a href="http://gohugo.io" target="_blank">Hugo</a>.
