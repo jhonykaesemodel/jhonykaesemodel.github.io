@@ -11,6 +11,21 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Deep level sets: Implicit surface representations for 3D shape inference</title>
+      <link>https://jhonykaesemodel.com/publication/deeplevelsets/</link>
+      <pubDate>Thu, 24 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/deeplevelsets/</guid>
+      <description>
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/deeplevelsets_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/deeplevelsets_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Learning free-form deformations for 3D object reconstruction</title>
       <link>https://jhonykaesemodel.com/publication/learning_ffd/</link>
       <pubDate>Thu, 29 Mar 2018 00:00:00 +0000</pubDate>
