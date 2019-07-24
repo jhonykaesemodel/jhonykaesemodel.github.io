@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>[Dominic Jack](https://jackd.github.io/) on Jhony Kaesemodel Pontes</title>
+    <link>https://jhonykaesemodel.com/authors/dominic-jackhttps/jackd.github.io/</link>
+    <description>Recent content in [Dominic Jack](https://jackd.github.io/) on Jhony Kaesemodel Pontes</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
+    <lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jhonykaesemodel.com/authors/dominic-jackhttps/jackd.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Implicit surface representations as layers in neural networks</title>
+      <link>https://jhonykaesemodel.com/publication/deep-levesets-iccv/</link>
+      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/deep-levesets-iccv/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/deeplevelsets.jpg&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/deeplevelsets_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/deeplevelsets_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Learning free-form deformations for 3D object reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/learning-ffd-accv/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/learning-ffd-accv/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;Given a single image, our method uses a CNN to infer free-form deformation (FFD) parameters $\Delta \mathbf{P}$ (red arrows) for multiple templates $T$ (middle meshes). The $\Delta \mathbf{P}$ parameters are then used to deform the template vertices to infer a 3D mesh for each template (right meshes). Trained only with surface-sampled point-clouds, the model learns to apply large deformations to topologically different templates to produce inferred meshes with similar surfaces. Likelihood weightings $\gamma$ are also inferred by the network but not shown for simplicity. FC stands for fully connected layer.&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Representative results for different categories. Column (a) shows the input image. Column (b) shows the selected template model. Column (c ) shows the deformed point cloud by FFD. The deformed voxelized model is shown in column (d). Column (e) shows our final 3D mesh reconstruction, and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_titles.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 880px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_bigplot.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;transferring-3d-semantic-labels&#34;&gt;Transferring 3D semantic labels&lt;/h3&gt;
+
+&lt;p&gt;Good (left block) and bad (right block) examples from the chair and plane categories. For each block: Input image; selected template&amp;rsquo;s semantically segmented cloud; deformed segmented cloud; deformed mesh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_semantics.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1200px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

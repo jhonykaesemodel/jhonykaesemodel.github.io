@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>[Clinton Fookes](http://staff.qut.edu.au/staff/fookes/) on Jhony Kaesemodel Pontes</title>
+    <link>https://jhonykaesemodel.com/authors/clinton-fookeshttp/staff.qut.edu.au/staff/fookes/</link>
+    <description>Recent content in [Clinton Fookes](http://staff.qut.edu.au/staff/fookes/) on Jhony Kaesemodel Pontes</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
+    <lastBuildDate>Thu, 29 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jhonykaesemodel.com/authors/clinton-fookeshttp/staff.qut.edu.au/staff/fookes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Image2Mesh: a learning framework for single image 3D reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/image2mesh-accv/</link>
+      <pubDate>Thu, 29 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/image2mesh-accv/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/image2mesh.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;Given a single image, our framework employs a convolutional autoencoder to extract the image&amp;rsquo;s latent space, $\mathbf{z}$, that is used to classify it to an index, $c$, using a multi-label classifier and regress it to a compact shape parametrization using a feedforward network. We use a graph embedding, $\mathcal{G}$, that compactly represents 3D mesh objects to reconstruct the 3D model. Firstly, the estimated index, $c$, selects the closest 3D model to the image from the graph. Secondly, the selected model is deformed through the estimated parameters - free-form deformation (FFD), $\mathbf{\Delta P}$, and sparse linear combination parameters (i.e. $\alpha$&amp;rsquo;s). In this example, model 1 is selected (arrows 1 and 2), FFD is then applied (arrows 3 and 4), and finally the linear combination with the nodes 3, 4, 5, 6, and 7 (blue arrows on the graph that indicates the models in dense correspondence with node 1) are performed (arrow 5) to reconstruct the final 3D mesh model (arrow 6).&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d) and the ground truth in (e).&lt;/p&gt;
+
+&lt;div align=&#34;center&#34;&gt;
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/1_video_synthetic_results.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/2_video_pascal_results.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;p&gt;A closer look at the 3D reconstruction.&lt;/p&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; autoplay loop&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/3_video_details_synthetic_pascal.mp4&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;h3 id=&#34;more-static-examples&#34;&gt;More static examples&lt;/h3&gt;
+
+&lt;p&gt;Qualitative results for the synthetic dataset. Column (a) shows the input image. Column (b) shows the selected model from the graph. Column (c ) shows the selected model with the FFD parameters applied. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). The voxelized final model is shown in column (e) and the ground truth in column (f). In the success cases (blues), one can see that the final models are similar to the ground truth with slightly differences that can be hard to point it out. A failure case is shown on the last row in red where a &amp;ldquo;wrong&amp;rdquo; model was selected from the graph.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/image2mesh_1_header.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 850px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/image2mesh_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;Qualitative results for the real-world dataset. Column (a) shows the input image. Column (b) shows the selected model. Column (c ) shows the selected model deformed by the FFD parameters. The final 3D model reconstructed by applying the linear combination parameters is shown in column (d). We compare with [18] in column (e) and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/image2mesh_2_header.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 850px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/image2mesh_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please check the supplementary material out for more examples.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://jhonykaesemodel.com/publication/compact-mesh-3dv/&#34; target=&#34;_blank&#34;&gt;[18] J.K. Pontes, C. Kong, S. Sridharan, S. Lucey, A. Eriksson, and C. Fookes, Compact Model Representation for 3D Reconstruction, 3DV 2017.&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Learning free-form deformations for 3D object reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/learning-ffd-accv/</link>
+      <pubDate>Thu, 01 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/learning-ffd-accv/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+
+&lt;p&gt;Given a single image, our method uses a CNN to infer free-form deformation (FFD) parameters $\Delta \mathbf{P}$ (red arrows) for multiple templates $T$ (middle meshes). The $\Delta \mathbf{P}$ parameters are then used to deform the template vertices to infer a 3D mesh for each template (right meshes). Trained only with surface-sampled point-clouds, the model learns to apply large deformations to topologically different templates to produce inferred meshes with similar surfaces. Likelihood weightings $\gamma$ are also inferred by the network but not shown for simplicity. FC stands for fully connected layer.&lt;/p&gt;
+
+&lt;h3 id=&#34;results&#34;&gt;Results&lt;/h3&gt;
+
+&lt;p&gt;Representative results for different categories. Column (a) shows the input image. Column (b) shows the selected template model. Column (c ) shows the deformed point cloud by FFD. The deformed voxelized model is shown in column (d). Column (e) shows our final 3D mesh reconstruction, and the ground truth is shown in column (f).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_titles.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 880px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_bigplot.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1000px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;transferring-3d-semantic-labels&#34;&gt;Transferring 3D semantic labels&lt;/h3&gt;
+
+&lt;p&gt;Good (left block) and bad (right block) examples from the chair and plane categories. For each block: Input image; selected template&amp;rsquo;s semantically segmented cloud; deformed segmented cloud; deformed mesh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/learning_ffd_semantics.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1200px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Compact model representation for 3D reconstruction</title>
+      <link>https://jhonykaesemodel.com/publication/compact-mesh-3dv/</link>
+      <pubDate>Mon, 23 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/compact-mesh-3dv/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/compact-mesh.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/3dv2017.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 600px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-of-a-3d-cad-model-being-fit-to-a-single-image-using-our-ffd-anchor-registration-and-silhouette-fitting&#34;&gt;Example of a 3D CAD model being fit to a single image using our FFD anchor registration and silhouette fitting.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/3DV_img1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/3dv2017_1.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/3DV_img2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 1200px;&#34;/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;example-of-our-3d-reconstruction-from-a-single-image&#34;&gt;Example of our 3D reconstruction from a single image.&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/3DV_img3.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 300px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/3DV_img4.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;img src=&#34;https://jhonykaesemodel.com/media/3dv2017_3.gif&#34; alt=&#34;Drawing&#34; style=&#34;width: 900px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ci2cv.net/media/papers/chenkong_cvpr_2017.pdf&#34; target=&#34;_blank&#34;&gt;[1] C. Kong, C-H. Lin and S. Lucey, Using Locally Corresponding CAD Models for Dense 3D Reconstructions from a Single Image, CVPR 2017.&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Two-stage facial age prediction using group-specific features</title>
+      <link>https://jhonykaesemodel.com/publication/age-estimation-icassp/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/age-estimation-icassp/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/age-estimation-icassp.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A flexible hierarchical approach for facial age estimation based on multiple features</title>
+      <link>https://jhonykaesemodel.com/publication/age-estimation-pr/</link>
+      <pubDate>Wed, 01 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/age-estimation-pr/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/age-estimation-pr.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

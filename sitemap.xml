@@ -1,171 +1,212 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/deeplevelsets/</loc>
-      <lastmod>2019-01-24T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/publication_types/1/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/learning_ffd/</loc>
-      <lastmod>2018-03-29T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/image2mesh/</loc>
-      <lastmod>2017-11-29T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/deep-levesets-iccv/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/3dv2017/</loc>
-      <lastmod>2017-10-23T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/post/top5cvpr17/</loc>
-      <lastmod>2017-08-20T17:47:09-04:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/mateusz-michalkiewicz/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/post/quote/</loc>
-      <lastmod>2017-06-05T17:47:09-04:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/publication_types/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/icassp2017/</loc>
-      <lastmod>2017-03-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/tags/academic/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/tags/source-themes/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/post/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/tags/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/talk/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/anders-erikssonhttp/aeriksson.net/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication/pr2016/</loc>
-      <lastmod>2016-06-01T00:00:00+00:00</lastmod>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/dominic-jackhttps/jackd.github.io/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication_types/1/</loc>
-      <lastmod>2019-01-24T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/mahsa-baktashmotlaghhttps/researchers.uq.edu.au/researcher/23393/</loc>
+    <lastmod>2019-10-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication_types/2/</loc>
-      <lastmod>2016-06-01T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/slides/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/categories/</loc>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/slides/example/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/</loc>
-      <lastmod>2016-04-20T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/image2mesh-accv/</loc>
+    <lastmod>2018-11-29T00:00:00+00:00</lastmod>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/publication_types/</loc>
-      <lastmod>2019-01-24T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/chen-konghttp/www.cs.cmu.edu/~chenk/</loc>
+    <lastmod>2018-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
   
-    
-    
-    <url>
-    
-      <loc>https://jhonykaesemodel.com/tags/</loc>
-      <lastmod>2017-01-01T00:00:00+00:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/clinton-fookeshttp/staff.qut.edu.au/staff/fookes/</loc>
+    <lastmod>2018-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/simon-luceyhttps/ci2cv.net/</loc>
+    <lastmod>2018-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/sridha-sridharanhttp/staff.qut.edu.au/staff/sridhara/</loc>
+    <lastmod>2018-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/learning-ffd-accv/</loc>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/frederic-mairehttps/scholar.google.com.au/citationsuseryuzvddsaaaajhlen/</loc>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/sareh-shirazihttps/scholar.google.com.au/citationsusersvw1cguaaaajhlen/</loc>
+    <lastmod>2018-11-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/compact-mesh-3dv/</loc>
+    <lastmod>2017-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/age-estimation-icassp/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/alceu-s.-britto-jr.https/scholar.google.ca/citationsuserprk8dcuaaaajhlen/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/alessandro-l.-koerichhttp/etsmtl.ca/professeurs/akoerich/home/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/publication_types/2/</loc>
+    <lastmod>2016-06-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/publication/age-estimation-pr/</loc>
+    <lastmod>2016-06-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/tags/deep-learning/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/tags/demo/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/project/external-project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/project/internal-project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/project/</loc>
+    <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/authors/admin/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jhonykaesemodel.com/post/</loc>
+  </url>
   
 </urlset>

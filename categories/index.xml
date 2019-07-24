@@ -4,10 +4,12 @@
     <title>Categories on Jhony Kaesemodel Pontes</title>
     <link>https://jhonykaesemodel.com/categories/</link>
     <description>Recent content in Categories on Jhony Kaesemodel Pontes</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2018 Jhony Kaesemodel Pontes</copyright>
-    <atom:link href="/categories/" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
+    
+	    <atom:link href="https://jhonykaesemodel.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
     
   </channel>
 </rss>

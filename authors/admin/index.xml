@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jhony Kaesemodel Pontes</title>
+    <link>https://jhonykaesemodel.com/authors/admin/</link>
+    <description>Recent content on Jhony Kaesemodel Pontes</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
+    
+	    <atom:link href="https://jhonykaesemodel.com/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://jhonykaesemodel.com/authors/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/admin/</guid>
+      <description>&lt;p&gt;I’m a Postdoctoral Research Scientist at &lt;a href=&#34;https://www.argo.ai&#34; target=&#34;_blank&#34;&gt;Argo AI&lt;/a&gt; working on vision for self-driving vehicles. My research interest is on representation and reconstruction of 3D.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
