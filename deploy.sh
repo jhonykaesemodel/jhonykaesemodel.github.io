@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# First push to webpage repo
+git add -A
+git commit -m "changes"
+git push origin master
+
 # If a command fails then the deploy stops
 set -e
 
