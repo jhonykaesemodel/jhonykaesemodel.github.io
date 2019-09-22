@@ -76,4 +76,4 @@ user_groups:
 - Visitors
 ---
 
-I’m (**will be**) a Postdoctoral Research Scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient self-driving vehicles. My research focuses on representation and reconstruction of 3D shapes.
+I’m a Postdoctoral Research Scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient self-driving vehicles. My research focuses on representation and reconstruction of 3D shapes.
