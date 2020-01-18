@@ -29,8 +29,8 @@ featured: false
 links:
 #- name: Custom Link
 #  url: http://example.org
-url_pdf: https://arxiv.org/pdf/1901.06802.pdf
-url_code: 'Coming soon!'
+url_pdf: http://openaccess.thecvf.com/content_ICCV_2019/papers/Michalkiewicz_Implicit_Surface_Representations_As_Layers_in_Neural_Networks_ICCV_2019_paper.pdf
+url_code: https://github.com/JeremyFisher/deep_level_sets
 #url_dataset: '#'
 #url_poster: '#'
 #url_project: ''
