@@ -23,7 +23,7 @@ date_format = "Jan 2006"
   company_url = "https://www.argo.ai/"
   location = "USA"
   date_start = "2019-09-03"
-  description = """Working on 3D perception for self-driving systems."""
+  description = """Working on 3D perception for autonomous vehicles."""
 
 [[experience]]
   title = "Research Software Engineer"

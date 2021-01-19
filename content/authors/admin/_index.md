@@ -23,10 +23,9 @@ bio:
 interests:
 - Artificial Intelligence
 - Computer Vision
+- Machine Learning
 - 3D Vision
 - 3D Reconstruction
-- Machine Learning
-- Deep Learning
 
 education:
   courses:
@@ -51,9 +50,9 @@ social:
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/jhonykaesemodel/
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/jhonykaesemodel
+# - icon: twitter
+#   icon_pack: fab
+#   link: https://twitter.com/jhonykaesemodel
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.com/citations?user=gOfBGxsAAAAJ&hl=en
@@ -76,4 +75,4 @@ user_groups:
 - Visitors
 ---
 
-I’m a Postdoctoral Research Scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient self-driving vehicles. My research focuses on representation and reconstruction of 3D shapes.
+I’m a postdoctoral research scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient autonomous vehicles.
