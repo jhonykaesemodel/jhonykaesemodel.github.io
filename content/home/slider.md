@@ -30,7 +30,7 @@ height = "300px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Project Page"
-  cta_url = "https://jhonykaesemodel/publication/sceneflow-3dv2020/"
+  cta_url = "https://jhonykaesemodel.com/publication/sceneflow-3dv2020/"
   cta_icon_pack = "fas"
   cta_icon = "code"
 
@@ -49,7 +49,7 @@ height = "300px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Project Page"
-  cta_url = "https://jhonykaesemodel/publication/deep-levesets-iccv/"
+  cta_url = "https://jhonykaesemodel.com/publication/deep-levesets-iccv/"
   cta_icon_pack = "fas"
   cta_icon = "code"
 
@@ -68,7 +68,7 @@ height = "300px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Project Page"
-  cta_url = "https://jhonykaesemodel/publication/image2mesh-accv/"
+  cta_url = "https://jhonykaesemodel.com/publication/image2mesh-accv/"
   cta_icon_pack = "fas"
   cta_icon = "code"
 
