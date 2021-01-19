@@ -30,7 +30,7 @@ height = "300px"
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   cta_label = "Project Page"
-  cta_url = "http://localhost:61785/publication/sceneflow-3dv2020/"
+  cta_url = "https://jhonykaesemodel/publication/sceneflow-3dv2020/"
   cta_icon_pack = "fas"
   cta_icon = "code"
 
