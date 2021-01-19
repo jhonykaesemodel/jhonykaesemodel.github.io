@@ -7,10 +7,37 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
-    <lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://jhonykaesemodel.com/authors/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[**Jhony K. Pontes**](https://www.jhonykaesemodel.com)</title>
+      <link>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[James Hays](https://www.cc.gatech.edu/~hays/)</title>
+      <link>https://jhonykaesemodel.com/authors/james-hayshttps/www.cc.gatech.edu/~hays/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/james-hayshttps/www.cc.gatech.edu/~hays/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Simon Lucey](http://www.cs.cmu.edu/~slucey/)</title>
+      <link>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Mateusz Michalkiewicz</title>
@@ -18,15 +45,6 @@
       <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
       
       <guid>https://jhonykaesemodel.com/authors/mateusz-michalkiewicz/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>[**Jhony K. Pontes**](https://www.jhonykaesemodel.com)</title>
-      <link>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</link>
-      <pubDate>Tue, 01 Oct 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</guid>
       <description></description>
     </item>
     
@@ -135,7 +153,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jhonykaesemodel.com/authors/admin/</guid>
-      <description>&lt;p&gt;I’m a Postdoctoral Research Scientist at &lt;a href=&#34;https://www.argo.ai&#34; target=&#34;_blank&#34;&gt;Argo AI&lt;/a&gt; working on challenging vision problems to help build safe and efficient self-driving vehicles. My research focuses on representation and reconstruction of 3D shapes.&lt;/p&gt;
+      <description>&lt;p&gt;I’m a postdoctoral research scientist at &lt;a href=&#34;https://www.argo.ai&#34; target=&#34;_blank&#34;&gt;Argo AI&lt;/a&gt; working on challenging vision problems to help build safe and efficient autonomous vehicles.&lt;/p&gt;
 </description>
     </item>
     

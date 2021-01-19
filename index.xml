@@ -7,10 +7,42 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
-    <lastBuildDate>Tue, 01 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://jhonykaesemodel.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Scene flow from point clouds with or without learning</title>
+      <link>https://jhonykaesemodel.com/publication/sceneflow-3dv2020/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/sceneflow-3dv2020/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/teaser-3DV2020.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;short-video-presentation&#34;&gt;Short video presentation&lt;/h3&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-short.m4v&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;long-video-presentation&#34;&gt;Long video presentation&lt;/h3&gt;
+
+&lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-long.m4v&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt;
+</description>
+    </item>
     
     <item>
       <title>Implicit surface representations as layers in neural networks</title>
