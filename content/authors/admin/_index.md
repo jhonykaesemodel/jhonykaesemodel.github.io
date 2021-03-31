@@ -10,7 +10,7 @@ authors:
 superuser: true
 
 # Role/position
-role: Postdoctoral Research Scientist
+role: Research Scientist
 
 # Organizations/Affiliations
 organizations:
@@ -75,4 +75,4 @@ user_groups:
 - Visitors
 ---
 
-I’m a postdoctoral research scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient autonomous vehicles.
+I’m a research scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient autonomous vehicles.
