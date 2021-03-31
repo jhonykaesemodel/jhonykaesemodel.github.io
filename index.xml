@@ -13,6 +13,44 @@
     
     
     <item>
+      <title>PointNetLK revisited</title>
+      <link>https://jhonykaesemodel.com/publication/pointnetlk-cvpr2021/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/pointnetlk-cvpr2021/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/teaser-CVPR2021_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+Our analytical derivation of PointNetLK can be trained on a clean, dense, synthetic 3D object dataset and still accurately align noisy, sparse, real-world 3D scenes. Green is the template point cloud, purple is the registered point cloud, and the orange point clouds are an object training set. ξ are the rigid transforma- tion parameters inferred by our method.
+&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/teaser-CVPR2021_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+Visual results on complex, real-world scenes. Our voxelized analytical PointNetLK is able to register complex, real-world scenes with high fidelity. These scenes are from 8 different testing categories of the 3DMatch dataset. Purple is the registered scene and green is the template.
+&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;short-video-presentation&#34;&gt;Short video presentation&lt;/h3&gt;
+
+&lt;p&gt;coming soon
+&lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-short.m4v&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt; --&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;long-video-presentation&#34;&gt;Long video presentation&lt;/h3&gt;
+
+&lt;p&gt;coming soon
+&lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-long.m4v&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt; --&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Scene flow from point clouds with or without learning</title>
       <link>https://jhonykaesemodel.com/publication/sceneflow-3dv2020/</link>
       <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
