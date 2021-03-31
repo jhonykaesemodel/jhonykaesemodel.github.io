@@ -20,7 +20,7 @@ publication_short: In *ICASSP*
 abstract: A novel two-stage age prediction approach with group-specific features is proposed in this paper. Aging process is captured through a highly discriminating feature representation that models shape, appearance, skin spots, and wrinkles. The two-stage method consists of a multi-class Support Vector Machine (SVM) to predict the age bracket while the final age prediction is carried out using Support Vector Regression (SVR). The novelty of our work is that the feature extraction is group-specific and can therefore be tailored to each age bracket in the specific age prediction step. The FG-NET Aging dataset was used to evaluate the proposed method and an impressive mean absolute error (MAE) of 3.98 was achieved. Our approach outperforms the current state-of-the-art while increasing the robustness to blur, expression and lighting variation with local phase features.
 
 # Summary. An optional shortened abstract.
-summary: " "
+summary: "**ICASSP 2017**"
 
 tags:
 - Source Themes

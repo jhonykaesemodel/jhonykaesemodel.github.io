@@ -20,7 +20,7 @@ publication_short: In *3DV*
 abstract: We address the generalization ability of recent learning- based point cloud registration methods. Despite their success, these approaches tend to have poor performance when applied to mismatched conditions that are not well- represented in the training set, such as unseen object cat- egories, different complex scenes, or unknown depth sen- sors. In these circumstances, it has often been better to rely on classical non-learning methods (e.g., Iterative Clos- est Point), which have better generalization ability. Hybrid learning methods, that use learning for predicting point correspondences and then a deterministic step for alignment, have offered some respite, but are still limited in their generalization abilities. We revisit a recent innovation—PointNetLK—and show that the inclusion of an analytical Jacobian can exhibit remarkable generalization properties while reaping the inherent fidelity benefits of a learning framework. Our approach not only outperforms the state- of-the-art in mismatched conditions but also produces re- sults competitive with current learning methods when oper- ating on real-world test data close to the training set.
 
 # Summary. An optional shortened abstract.
-summary: " "
+summary: "**CVPR 2021 (oral)**"
 
 tags:
 - Source Themes

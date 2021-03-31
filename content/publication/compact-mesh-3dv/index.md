@@ -20,7 +20,7 @@ publication_short: In *3DV*
 abstract: 3D reconstruction from 2D images is a central problem in computer vision. Recent works have been focusing on reconstruction directly from a single image. It is well known however that only one image cannot provide enough information for such a reconstruction. A prior knowledge that has been entertained are 3D CAD models due to its online ubiquity. A fundamental question is how to compactly represent millions of CAD models while allowing generalization to new unseen objects with fine-scaled geometry. We introduce an approach to compactly represent a 3D mesh. Our method first selects a 3D model from a graph structure by using a novel free-form deformation (FFD) 3D-2D registration, and then the selected 3D model is refined to best fit the image silhouette. We perform a comprehensive quantitative and qualitative analysis that demonstrates impressive dense and realistic 3D reconstruction from single images.
 
 # Summary. An optional shortened abstract.
-summary: " "
+summary: "**3DV 2017**"
 
 tags:
 - Source Themes

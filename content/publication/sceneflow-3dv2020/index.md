@@ -20,7 +20,7 @@ publication_short: In *3DV*
 abstract: Scene flow is the three-dimensional (3D) motion field of a scene. It provides information about the spatial arrangement and rate of change of objects in dynamic environ- ments. Current learning-based approaches seek to estimate the scene flow directly from point clouds and have achieved state-of-the-art performance. However, supervised learn- ing methods are inherently domain specific and require a large amount of labeled data. Annotation of scene flow on real-world point clouds is expensive and challenging, and the lack of such datasets has recently sparked interest in self-supervised learning methods. How to accurately and robustly learn scene flow representations without labeled real-world data is still an open problem. Here we present a simple and interpretable objective function to recover the scene flow from point clouds. We use the graph Laplacian of a point cloud to regularize the scene flow to be “as- rigid-as-possible”. Our proposed objective function can be used with or without learning—as a self-supervisory signal to learn scene flow representations, or as a non-learning- based method in which the scene flow is optimized during runtime. Our approach outperforms related works in many datasets. We also show the immediate applications of our proposed method for two applications*:* motion segmentation and point cloud densification.
 
 # Summary. An optional shortened abstract.
-summary: " "
+summary: "**3DV 2020 (oral)**"
 
 tags:
 - Source Themes
