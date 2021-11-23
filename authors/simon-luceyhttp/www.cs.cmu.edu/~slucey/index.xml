@@ -7,10 +7,44 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
-    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 23 Nov 2021 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Neural scene flow prior</title>
+      <link>https://jhonykaesemodel.com/publication/nsfp-neurips2021/</link>
+      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/nsfp-neurips2021/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/nsfp-quali.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+Qualitative example of a scene flow estimation using our proposed method. The complex and highly dynamic driving scene is from the Argoverse Scene Flow dataset. The scene flow estimated by our method is close to the ground truth. We also show a prediction using the supervised FlowNet3D method trained on FlyingThings3D and fine-tuned on the KITTI Scene Flow dataset. Note how the scene flow deviated from the ground truth when the inference was performed on an out-of-the-distribution sample. The scene flow color encodes the magnitude (color intensity) and direction (angle) of the flow vectors. For example, the purplish vehicles are heading northeast.
+&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/optim-nsfp.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+Example showing how the estimated scene flow and the continuous flow field (bottom) given by our neural prior change as the optimization converges to a solution. We show a top-view dynamic driving scene from Argoverse Scene Flow. The scene flow color encodes the magnitude (color intensity) and direction (angle) of the flow vectors. For example, the purplish vehicles are heading northeast. The red arrow shows the position and direction of travel of the autonomous vehicle, which is stopped, waiting for a pedestrian to cross the street. Note how the predicted scene flow is close to the ground truth at iteration 2k. At iteration 0, the scene flow is random, given the random initialization of the neural prior. Thus having very small magnitudes for the random directions. As the optimization went on, the flow fields became better constrained. A simple way to interpret the
+flow fields is to imagine sampling a point at any location in the continuous scene flow field to recover an estimated flow vector. For example, imagine sampling a point around the orange region in the flow field at iteration 2k (green arrow in the bottom right). The direction of the flow vector will be pointing southeast at a specific magnitude, similar to the vehicles in the orange region.
+&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/accum-nsfp.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
+Example of a scene flow integration to densify an Argoverse lidar point cloud. The left and middle columns are a top and front view of the point cloud, respectively. The rightmost column shows the accumulated point cloud projected onto the image. Note the smearing effect on the dynamic objects when rigidly accumulating the point clouds (middle row). Accumulation using our neural prior nicely produced a denser point cloud while taking care of all dynamic objects in the scene. Here, rigid means that the point cloud accumulation was performed using a rigid registration method (i.e., ICP) where rigid 6-DoF poses are used for the registrations
+&lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;video-presentation&#34;&gt;Video presentation&lt;/h3&gt;
+
+&lt;p&gt;coming soon
+&lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
+  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-short.m4v&#34;
+  type=&#34;video/mp4&#34; /&gt;
+  Your browser does not support the video tag.
+&lt;/video&gt; --&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br/&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>PointNetLK revisited</title>
@@ -21,32 +55,24 @@
       <description>
 
 &lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/teaser-CVPR2021_1.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
-Our analytical derivation of PointNetLK can be trained on a clean, dense, synthetic 3D object dataset and still accurately align noisy, sparse, real-world 3D scenes. Green is the template point cloud, purple is the registered point cloud, and the orange point clouds are an object training set. ξ are the rigid transforma- tion parameters inferred by our method.
+Our analytical derivation of PointNetLK can be trained on a clean, dense, synthetic 3D object dataset and still accurately align noisy, sparse, real-world 3D scenes. Green is the template point cloud, purple is the registered point cloud, and the orange point clouds are an object training set. ξ are the rigid transformation parameters inferred by our method.
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://jhonykaesemodel.com/media/teaser-CVPR2021_2.png&#34; alt=&#34;Drawing&#34; style=&#34;width: 800px;&#34;/&gt;
 Visual results on complex, real-world scenes. Our voxelized analytical PointNetLK is able to register complex, real-world scenes with high fidelity. These scenes are from 8 different testing categories of the 3DMatch dataset. Purple is the registered scene and green is the template.
 &lt;br/&gt;&lt;br/&gt;&lt;/p&gt;
 
-&lt;h3 id=&#34;short-video-presentation&#34;&gt;Short video presentation&lt;/h3&gt;
+&lt;h3 id=&#34;video-presentation&#34;&gt;Video presentation&lt;/h3&gt;
 
-&lt;p&gt;coming soon
 &lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
-  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-short.m4v&#34;
+  &lt;source src=&#34;https://www.youtube.com/watch?v=L8dWTFryhLI&#34;
   type=&#34;video/mp4&#34; /&gt;
   Your browser does not support the video tag.
-&lt;/video&gt; --&gt;&lt;/p&gt;
+&lt;/video&gt; --&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=L8dWTFryhLI&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.youtube.com/vi/L8dWTFryhLI/0.jpg&#34; alt=&#34;PointNetLK Revisited&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;long-video-presentation&#34;&gt;Long video presentation&lt;/h3&gt;
-
-&lt;p&gt;coming soon
-&lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
-  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-long.m4v&#34;
-  type=&#34;video/mp4&#34; /&gt;
-  Your browser does not support the video tag.
-&lt;/video&gt; --&gt;&lt;/p&gt;
 </description>
     </item>
     
