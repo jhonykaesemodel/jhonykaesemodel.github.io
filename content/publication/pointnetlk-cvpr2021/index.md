@@ -30,13 +30,13 @@ links:
 #- name: Custom Link
 #  url: http://example.org
 url_pdf: https://arxiv.org/pdf/2008.09527.pdf
-url_code: soon
+url_code: https://github.com/Lilac-Lee/PointNetLK_Revisited
 #url_dataset: '#'
-# url_poster: files/3DV2020-poster.pdf
+url_poster: https://drive.google.com/file/d/1KVlcwTo2dK7dDuPVsyR6QqOWtH7BYxLl/preview
 #url_project: ''
 #url_slides: ''
 #url_source: '#'
-# url_video: media/029-short.m4v
+url_video: https://www.youtube.com/watch?v=L8dWTFryhLI
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -61,27 +61,20 @@ slides: ""
 ---
 
 <img src="/media/teaser-CVPR2021_1.png" alt="Drawing" style="width: 800px;"/>
-Our analytical derivation of PointNetLK can be trained on a clean, dense, synthetic 3D object dataset and still accurately align noisy, sparse, real-world 3D scenes. Green is the template point cloud, purple is the registered point cloud, and the orange point clouds are an object training set. ξ are the rigid transforma- tion parameters inferred by our method.
+Our analytical derivation of PointNetLK can be trained on a clean, dense, synthetic 3D object dataset and still accurately align noisy, sparse, real-world 3D scenes. Green is the template point cloud, purple is the registered point cloud, and the orange point clouds are an object training set. ξ are the rigid transformation parameters inferred by our method.
 <br/><br/>
 
 <img src="/media/teaser-CVPR2021_2.png" alt="Drawing" style="width: 800px;"/>
 Visual results on complex, real-world scenes. Our voxelized analytical PointNetLK is able to register complex, real-world scenes with high fidelity. These scenes are from 8 different testing categories of the 3DMatch dataset. Purple is the registered scene and green is the template.
 <br/><br/>
 
-### Short video presentation
-coming soon
+### Video presentation
 <!-- <video width="100%" height="100%" controls>
-  <source src="/media/029-short.m4v"
+  <source src="https://www.youtube.com/watch?v=L8dWTFryhLI"
   type="video/mp4" />
   Your browser does not support the video tag.
 </video> -->
+
+[![PointNetLK Revisited](https://img.youtube.com/vi/L8dWTFryhLI/0.jpg)](https://www.youtube.com/watch?v=L8dWTFryhLI)
 
 <br/>
-
-### Long video presentation
-coming soon
-<!-- <video width="100%" height="100%" controls>
-  <source src="/media/029-long.m4v"
-  type="video/mp4" />
-  Your browser does not support the video tag.
-</video> -->

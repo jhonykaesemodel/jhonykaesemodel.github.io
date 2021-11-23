@@ -16,6 +16,25 @@ height = "300px"
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
+  title = "NeurIPS 2021"
+  content = "Neural Scene Flow Prior"
+  align = "center"  # Choose `center`, `left`, or `right`.
+
+  # Overlay a color or image (optional).
+  #   Deactivate an option by commenting out the line, prefixing it with `#`.
+  overlay_color = "#666"  # An HTML color value.
+  overlay_img = "headers/teaser-neurips2021.png"  # Image path relative to your `static/img/` folder.
+  overlay_filter = 0.5  # Darken the image. Value in range 0-1.
+
+  # Call to action button (optional).
+  #   Activate the button by specifying a URL and button label below.
+  #   Deactivate by commenting out parameters, prefixing lines with `#`.
+  cta_label = "Project Page"
+  cta_url = "https://jhonykaesemodel.com/publication/nsfp-neurips2021/"
+  cta_icon_pack = "fas"
+  cta_icon = "code"
+
+[[item]]
   title = "CVPR 2021"
   content = "PointNetLK Revisited"
   align = "center"  # Choose `center`, `left`, or `right`.
@@ -36,7 +55,7 @@ height = "300px"
 
 [[item]]
   title = "3DV 2020"
-  content = "Scene flow from point clouds with or without learning"
+  content = "Scene Flow from Point Clouds with or without Learning"
   align = "center"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
@@ -53,7 +72,9 @@ height = "300px"
   cta_icon_pack = "fas"
   cta_icon = "code"
 
-[[item]]
++++ 
+
+<!-- [[item]]
   title = "ICCV 2019"
   content = "Implicit surface representations as layers in neural networks"
   align = "center"  # Choose `center`, `left`, or `right`.
@@ -70,9 +91,9 @@ height = "300px"
   cta_label = "Project Page"
   cta_url = "https://jhonykaesemodel.com/publication/deep-levesets-iccv/"
   cta_icon_pack = "fas"
-  cta_icon = "code"
+  cta_icon = "code" -->
 
-[[item]]
+<!-- [[item]]
   title = "ACCV 2018"
   content = "Image2Mesh: a learning framework for single image 3D reconstruction"
   align = "center"  # Choose `center`, `left`, or `right`.
@@ -89,9 +110,9 @@ height = "300px"
   cta_label = "Project Page"
   cta_url = "https://jhonykaesemodel.com/publication/image2mesh-accv/"
   cta_icon_pack = "fas"
-  cta_icon = "code"
+  cta_icon = "code" -->
 
-+++
+<!-- +++ -->
 
 <!-- [[item]]
   title = "3DV 2017"
