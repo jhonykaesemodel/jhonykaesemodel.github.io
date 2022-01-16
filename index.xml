@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>Argoverse 2: next generation datasets for self-driving perception and forecasting</title>
+      <link>https://jhonykaesemodel.com/publication/argoverse2-neurips2021/</link>
+      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/argoverse2-neurips2021/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Neural scene flow prior</title>
       <link>https://jhonykaesemodel.com/publication/nsfp-neurips2021/</link>
       <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
@@ -35,12 +44,11 @@ Example of a scene flow integration to densify an Argoverse lidar point cloud. T
 
 &lt;h3 id=&#34;video-presentation&#34;&gt;Video presentation&lt;/h3&gt;
 
-&lt;p&gt;coming soon
-&lt;!-- &lt;video width=&#34;100%&#34; height=&#34;100%&#34; controls&gt;
-  &lt;source src=&#34;https://jhonykaesemodel.com/media/029-short.m4v&#34;
-  type=&#34;video/mp4&#34; /&gt;
-  Your browser does not support the video tag.
-&lt;/video&gt; --&gt;&lt;/p&gt;
+
+&lt;div style=&#34;position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;&#34;&gt;
+  &lt;iframe src=&#34;//www.youtube.com/embed/WMcoLINtDYY&#34; style=&#34;position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;&#34; allowfullscreen title=&#34;YouTube Video&#34;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+
 
 &lt;p&gt;&lt;br/&gt;&lt;/p&gt;
 </description>
