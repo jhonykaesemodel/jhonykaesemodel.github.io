@@ -16,7 +16,7 @@ height = "300px"
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
-  title = "NeurIPS Track Datasets and Benchmarks 2021"
+  title = "NeurIPS 2021"
   content = "Argoverse 2: Next Generation Datasets for Self-Driving Perception and Forecasting"
   align = "center"  # Choose `center`, `left`, or `right`.
 
