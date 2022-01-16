@@ -24,6 +24,7 @@ interests:
 - Artificial Intelligence
 - Computer Vision
 - Machine Learning
+- Deep Learning
 - 3D Vision
 - 3D Reconstruction
 

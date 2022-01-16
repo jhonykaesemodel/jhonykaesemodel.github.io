@@ -36,7 +36,7 @@ url_code: https://github.com/Lilac-Lee/Neural_Scene_Flow_Prior
 #url_project: ''
 #url_slides: ''
 #url_source: '#'
-# url_video: media/029-short.m4v
+url_video: https://www.youtube.com/watch?v=WMcoLINtDYY&t=1s
 
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder.
@@ -74,11 +74,6 @@ Example of a scene flow integration to densify an Argoverse lidar point cloud. T
 <br/><br/>
 
 ### Video presentation
-coming soon
-<!-- <video width="100%" height="100%" controls>
-  <source src="/media/029-short.m4v"
-  type="video/mp4" />
-  Your browser does not support the video tag.
-</video> -->
+{{< youtube WMcoLINtDYY >}}
 
 <br/>

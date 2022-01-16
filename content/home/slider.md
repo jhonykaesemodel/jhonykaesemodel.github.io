@@ -16,6 +16,25 @@ height = "300px"
 # Slides.
 # Duplicate an `[[item]]` block to add more slides.
 [[item]]
+  title = "NeurIPS Track Datasets and Benchmarks 2021"
+  content = "Argoverse 2: Next Generation Datasets for Self-Driving Perception and Forecasting"
+  align = "center"  # Choose `center`, `left`, or `right`.
+
+  # Overlay a color or image (optional).
+  #   Deactivate an option by commenting out the line, prefixing it with `#`.
+  overlay_color = "#666"  # An HTML color value.
+  overlay_img = "headers/teaser-av2.png"  # Image path relative to your `static/img/` folder.
+  overlay_filter = 0.5  # Darken the image. Value in range 0-1.
+
+  # Call to action button (optional).
+  #   Activate the button by specifying a URL and button label below.
+  #   Deactivate by commenting out parameters, prefixing lines with `#`.
+  cta_label = "Project Page"
+  cta_url = "https://jhonykaesemodel.com/publication/argoverse2-neurips2021/"
+  cta_icon_pack = "fas"
+  cta_icon = "code"
+
+[[item]]
   title = "NeurIPS 2021"
   content = "Neural Scene Flow Prior"
   align = "center"  # Choose `center`, `left`, or `right`.
