@@ -7,10 +7,46 @@
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
-    <lastBuildDate>Tue, 23 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate>
     
 	    <atom:link href="https://jhonykaesemodel.com/authors/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[**Jhony K. Pontes**](https://www.jhonykaesemodel.com)</title>
+      <link>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Chaoyang Wang](https://mightychaos.github.io)</title>
+      <link>https://jhonykaesemodel.com/authors/chaoyang-wanghttps/mightychaos.github.io/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/chaoyang-wanghttps/mightychaos.github.io/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Simon Lucey](http://www.cs.cmu.edu/~slucey/)</title>
+      <link>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>[Xueqian Li](https://lilac-lee.github.io)</title>
+      <link>https://jhonykaesemodel.com/authors/xueqian-lihttps/lilac-lee.github.io/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/authors/xueqian-lihttps/lilac-lee.github.io/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Andrew Hartnett</title>
@@ -76,15 +112,6 @@
     </item>
     
     <item>
-      <title>[**Jhony K. Pontes**](https://www.jhonykaesemodel.com)</title>
-      <link>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</link>
-      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://jhonykaesemodel.com/authors/jhony-k.-ponteshttps/www.jhonykaesemodel.com/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>[Benjamin Wilson](https://bwilson.dev/)</title>
       <link>https://jhonykaesemodel.com/authors/benjamin-wilsonhttps/bwilson.dev/</link>
       <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
@@ -126,24 +153,6 @@
       <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
       
       <guid>https://jhonykaesemodel.com/authors/john-lamberthttps/johnwlambert.github.io/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>[Simon Lucey](http://www.cs.cmu.edu/~slucey/)</title>
-      <link>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</link>
-      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://jhonykaesemodel.com/authors/simon-luceyhttp/www.cs.cmu.edu/~slucey/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>[Xueqian Li](https://lilac-lee.github.io)</title>
-      <link>https://jhonykaesemodel.com/authors/xueqian-lihttps/lilac-lee.github.io/</link>
-      <pubDate>Tue, 23 Nov 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://jhonykaesemodel.com/authors/xueqian-lihttps/lilac-lee.github.io/</guid>
       <description></description>
     </item>
     
@@ -270,7 +279,7 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://jhonykaesemodel.com/authors/admin/</guid>
-      <description>&lt;p&gt;I’m a research scientist at &lt;a href=&#34;https://www.argo.ai&#34; target=&#34;_blank&#34;&gt;Argo AI&lt;/a&gt; working on challenging vision problems to help build safe and efficient autonomous vehicles.&lt;/p&gt;
+      <description>&lt;p&gt;I’m a research scientist at &lt;a href=&#34;https://www.argo.ai&#34; target=&#34;_blank&#34;&gt;Argo AI&lt;/a&gt; working on computer vision and machine learning problems for autonomous vehicles.&lt;/p&gt;
 </description>
     </item>
     

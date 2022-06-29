@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>[Chaoyang Wang](https://mightychaos.github.io) on Jhony Kaesemodel Pontes</title>
+    <link>https://jhonykaesemodel.com/authors/chaoyang-wanghttps/mightychaos.github.io/</link>
+    <description>Recent content in [Chaoyang Wang](https://mightychaos.github.io) on Jhony Kaesemodel Pontes</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2019 Jhony Kaesemodel Pontes</copyright>
+    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate>
+    
+	    <atom:link href="https://jhonykaesemodel.com/authors/chaoyang-wanghttps/mightychaos.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Neural Prior for Trajectory Estimation</title>
+      <link>https://jhonykaesemodel.com/publication/neural-traject-cvpr2022/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonykaesemodel.com/publication/neural-traject-cvpr2022/</guid>
+      <description>&lt;!-- Check https://mightychaos.github.io/projects/cvpr22/supplementary/supp.html --&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
