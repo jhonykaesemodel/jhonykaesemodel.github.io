@@ -76,4 +76,4 @@ user_groups:
 - Visitors
 ---
 
-I’m a research scientist at [Argo AI](https://www.argo.ai) working on challenging vision problems to help build safe and efficient autonomous vehicles.
+I’m a research scientist at [Argo AI](https://www.argo.ai) working on computer vision and machine learning problems for autonomous vehicles.
