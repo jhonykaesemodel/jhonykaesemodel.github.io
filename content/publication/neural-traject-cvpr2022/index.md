@@ -1,5 +1,5 @@
 ---
-title: "Neural Prior for Trajectory Estimation"
+title: "Neural prior for trajectory estimation"
 authors: ["[Chaoyang Wang](https://mightychaos.github.io)", "[Xueqian Li](https://lilac-lee.github.io)", "[**Jhony K. Pontes**](https://www.jhonykaesemodel.com)", "[Simon Lucey](http://www.cs.cmu.edu/~slucey/)"]
 date: "2022-06-28T00:00:00Z"
 doi: ""
