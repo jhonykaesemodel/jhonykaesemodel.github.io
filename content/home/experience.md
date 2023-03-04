@@ -18,11 +18,20 @@ date_format = "Jan 2006"
 #   Leave `date_end` empty if it's your current employer.
 #   Begin/end multi-line descriptions with 3 quotes `"""`.
 [[experience]]
+  title = "Senior Scientist"
+  company = "Latitude AI"
+  company_url = "https://www.latitude.ai/"
+  location = "USA"
+  date_start = "2023-03-02"
+  description = """Working on 3D perception for automated driving technology."""
+
+[[experience]]
   title = "Research Scientist"
   company = "Argo AI"
   company_url = "https://www.argo.ai/"
   location = "USA"
   date_start = "2021-03-30"
+  date_end = "2023-03-02"
   description = """Working on 3D perception for autonomous vehicles."""
 
 [[experience]]

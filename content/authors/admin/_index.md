@@ -10,12 +10,12 @@ authors:
 superuser: true
 
 # Role/position
-role: Research Scientist
+role: Senior Scientist
 
 # Organizations/Affiliations
 organizations:
-- name: Argo AI
-  url: https://www.argo.ai/
+- name: Latitude AI
+  url: https://www.latitude.ai/
 
 # Short bio (displayed in user profile at end of posts)
 bio:
@@ -51,9 +51,9 @@ social:
 - icon: linkedin
   icon_pack: fab
   link: https://www.linkedin.com/in/jhonykaesemodel/
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/jhonykaesemodel
+# - icon: twitter
+#   icon_pack: fab
+#   link: https://twitter.com/jhonykaesemodel
 - icon: google-scholar
   icon_pack: ai
   link: https://scholar.google.com/citations?user=gOfBGxsAAAAJ&hl=en
@@ -76,4 +76,4 @@ user_groups:
 - Visitors
 ---
 
-I’m a research scientist at [Argo AI](https://www.argo.ai) working on computer vision and machine learning problems for autonomous vehicles.
+I’m a senior scientist at [Latitude AI](https://www.latitude.ai) -- a Ford subsidiary -- working on computer vision and machine learning problems for automated driving technology.
