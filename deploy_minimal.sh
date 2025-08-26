@@ -20,6 +20,10 @@ cp -R "$MIN_DIR"/* "$PUB_DIR"/
 echo "Writing CNAME..."
 echo "www.jhonykaesemodel.com" > "$PUB_DIR/CNAME"
 
+echo "Writing .nojekyll..."
+: > "$PUB_DIR/.nojekyll"
+
+
 echo "Stamping last updated date..."
 STAMP_DATE="$(date +%Y-%m)"
 # Update the "Last updated: YYYY-MM" in public/index.html (BSD sed compatible)
