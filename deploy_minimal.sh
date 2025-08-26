@@ -17,6 +17,9 @@ mkdir -p "$PUB_DIR"
 echo "Copying minimal site..."
 cp -R "$MIN_DIR"/* "$PUB_DIR"/
 
+echo "Writing CNAME..."
+echo "www.jhonykaesemodel.com" > "$PUB_DIR/CNAME"
+
 echo "Stamping last updated date..."
 STAMP_DATE="$(date +%Y-%m)"
 # Update the "Last updated: YYYY-MM" in public/index.html (BSD sed compatible)
