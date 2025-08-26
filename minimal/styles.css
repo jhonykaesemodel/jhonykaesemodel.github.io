@@ -1,0 +1,36 @@
+/* Minimal, readable defaults */
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #555555;
+  --link: #0b66c3;
+  --maxw: 760px;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0c0c0c; --fg: #eaeaea; --muted: #9a9a9a; --link: #78a9ff; }
+}
+html { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: inherit; }
+body {
+  margin: 0;
+  font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--fg);
+}
+.container { max-width: var(--maxw); padding: 0 16px; margin: 0 auto; }
+.site-header { padding: 32px 16px; border-bottom: 1px solid rgba(0,0,0,.06); }
+.site-header h1 { margin: 0; font-size: 28px; }
+.tagline { margin: 4px 0 12px; color: var(--muted); font-size: 14px; }
+.site-nav a { margin-right: 12px; color: var(--link); text-decoration: none; }
+.site-nav a:hover { text-decoration: underline; }
+.section { padding: 24px 0; }
+h2 { margin: 0 0 12px; font-size: 20px; }
+p { margin: 0 0 12px; }
+ul { padding-left: 18px; }
+.pubs { list-style: disc; }
+.pubs li { margin: 12px 0; }
+.pub-title { font-weight: 600; }
+.pub-venue, .pub-authors { color: var(--muted); }
+.site-footer { padding: 24px 16px 40px; border-top: 1px solid rgba(0,0,0,.06); text-align: center; color: var(--muted); }
+
+
