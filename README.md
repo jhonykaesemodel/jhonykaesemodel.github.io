@@ -1,17 +1,17 @@
-# Minimal site
+# My minimal site
 
 Edit `index.html` directly. To add a paper, add a new `<li>` under the Publications list.
 
-Links can point to arXiv, DOI, or a local PDF placed anywhere under `public/` (the deploy script simply copies this folder as-is).
+Links can point to arXiv, DOI, or local files placed in the root directory.
 
 ## Deploy
 
-From the repo root:
+Simply commit and push your changes:
 
 ```bash
-./deploy_minimal.sh
+git add .
+git commit -m "Update site"
+git push
 ```
 
-This clears `public/` and copies `minimal/` into it. Commit and push the `public/` directory to the hosting branch or serve locally.
-
-
+Your site will be served directly from the root files.

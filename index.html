@@ -5,55 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jhony Kaesemodel Pontes</title>
   
-  <meta name="description" content="Jhony Kaesemodel Pontes — minimal academic homepage.">
+  <meta name="description" content="Jhony Kaesemodel Pontes — minimal homepage.">
   <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
   <style>
-    @media print {
-      body { font-family: Georgia, 'Times New Roman', Times, serif !important; }
-    }
+    a:hover { opacity: 0.7; }
+    section:not(#contact) { border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+    @keyframes type { from { width: 0; } to { width: 100%; } }
+    h1 { overflow: hidden; white-space: nowrap; animation: type 2s steps(20); }
   </style>
 </head>
-<body style="font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, \"Apple Color Emoji\", \"Segoe UI Emoji\"; max-width: 720px; margin: 24px;">
+<body style="font-family: monospace; max-width: 1000px; margin: 24px;">
   <header>
     <h1>Jhony Kaesemodel Pontes</h1>
-    <p>Perception Engineer, <a href="https://lat.ai/">Latitude AI</a></p>
+    <section id="about">
+      <p>Building 3D vision for autonomous vehicles at <a href="https://lat.ai/">Latitude AI</a> (a subsidiary of Ford).</p>
     <p>
       <a href="https://scholar.google.com/citations?user=gOfBGxsAAAAJ&hl=en">Google Scholar</a>
-      ·
+      •
       <a href="https://www.linkedin.com/in/jhonykaesemodel/">LinkedIn</a>
-      ·
+      •
       <a href="mailto:jhonykaesemodel@gmail.com">jhonykaesemodel@gmail.com</a>
     </p>
+    </section>
   </header>
-
-  <section id="about">
-    <p>Working on the Unified Model within the Intelligent Systems org, focusing on 3D object detection for autonomous vehicles.</p>
-  </section>
 
   <section id="publications">
     <p>Publications</p>
     <ul>
-      <li>2024 — What Matters in Range View 3D Object Detection — CoRL — <a href="https://arxiv.org/pdf/2407.16789">pdf</a> · <a href="https://doi.org/10.48550/arXiv.2407.16789">doi</a> · <a href="https://arxiv.org/abs/2407.16789">arXiv</a></li>
-      <li>2022 — Neural prior for trajectory estimation — CVPR — <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Wang_Neural_Prior_for_Trajectory_Estimation_CVPR_2022_paper.pdf">pdf</a> · <a href="https://mightychaos.github.io/projects/cvpr22/supplementary/supp.html">supp</a></li>
-      <li>2021 — Neural scene flow prior — NeurIPS (spotlight) — <a href="https://arxiv.org/pdf/2111.01253.pdf">pdf</a> · <a href="https://github.com/Lilac-Lee/Neural_Scene_Flow_Prior">code</a> · <a href="https://www.youtube.com/watch?v=WMcoLINtDYY&t=1s">video</a></li>
-      <li>2021 — Argoverse 2: next generation datasets for self-driving perception and forecasting — NeurIPS Datasets and Benchmarks — <a href="https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/4734ba6f3de83d861c3176a6273cac6d-Paper-round2.pdf">pdf</a> · <a href="https://github.com/argoai/argoverse-api">code</a> · <a href="https://www.argoverse.org/">project</a></li>
-      <li>2021 — PointNetLK revisited — CVPR (oral) — <a href="https://arxiv.org/pdf/2008.09527.pdf">pdf</a> · <a href="https://github.com/Lilac-Lee/PointNetLK_Revisited">code</a> · <a href="https://www.youtube.com/watch?v=L8dWTFryhLI">video</a></li>
-      <li>2020 — Scene flow from point clouds with or without learning — 3DV (oral) — <a href="https://arxiv.org/pdf/2011.00320.pdf">pdf</a> · <a href="media/029-short.m4v">video</a> · <a href="files/3DV2020-poster.pdf">poster</a></li>
-      <li>2019 — Implicit surface representations as layers in neural networks — ICCV — <a href="http://openaccess.thecvf.com/content_ICCV_2019/papers/Michalkiewicz_Implicit_Surface_Representations_As_Layers_in_Neural_Networks_ICCV_2019_paper.pdf">pdf</a> · <a href="https://github.com/JeremyFisher/deep_level_sets">code</a></li>
-      <li>2018 — Image2Mesh: a learning framework for single image 3D reconstruction — ACCV — <a href="https://eprints.qut.edu.au/125850/1/image2mesh-accv2018-camera_ready.pdf">pdf</a> · <a href="https://github.com/jhonykaesemodel/image2mesh">code</a> · <a href="/files/ACCV2018-poster.pdf">poster</a> · <a href="/files/Supplementary_Material_image2mesh_accv2018.pdf">supp</a></li>
-      <li>2018 — Learning free-form deformations for 3D object reconstruction — ACCV — <a href="https://eprints.qut.edu.au/123318/1/learning_ffd_for_object_reconstruction.PDF">pdf</a> · <a href="https://github.com/jackd/template_ffd">code</a></li>
-      <li>2017 — Compact model representation for 3D reconstruction — 3DV — <a href="https://eprints.qut.edu.au/112624/1/3DV2017_CameraReady.pdf">pdf</a> · <a href="https://github.com/jhonykaesemodel/compact_3D_reconstruction">code</a> · <a href="files/3DV2017-poster.pdf">poster</a> · <a href="files/Supplementary_Material_3DV_2017.pptx">supp</a></li>
-      <li>2017 — Two-stage facial age prediction using group-specific features — ICASSP — <a href="https://eprints.qut.edu.au/104819/1/icassp2017-age-estimation.pdf">pdf</a> · <a href="/files/icassp-poster.pdf">poster</a> · <a href="https://doi.org/10.1109/ICASSP.2017.7952622">doi</a></li>
-      <li>2016 — A flexible hierarchical approach for facial age estimation based on multiple features — Pattern Recognition — <a href="https://eprints.qut.edu.au/92300/1/manuscript_Jhony.pdf">pdf</a> · <a href="https://doi.org/10.1016/j.patcog.2015.12.003">doi</a></li>
+      <li>What Matters in Range View 3D Object Detection • CoRL 2024 • <a href="https://arxiv.org/pdf/2407.16789">pdf</a></li>
+      <li>Fast Neural Scene Flow • ICCV 2023 • <a href="https://openaccess.thecvf.com/content/ICCV2023/papers/Li_Fast_Neural_Scene_Flow_ICCV_2023_paper.pdf">pdf</a> • <a href="https://github.com/Lilac-Lee/FastNSF">code</a> • <a href="https://www.youtube.com/watch?v=pkYb2AefpIg">video</a></li>
+      <li>Neural Prior for Trajectory Estimation • CVPR 2022 • <a href="https://openaccess.thecvf.com/content/CVPR2022/papers/Wang_Neural_Prior_for_Trajectory_Estimation_CVPR_2022_paper.pdf">pdf</a> • <a href="https://mightychaos.github.io/projects/cvpr22/supplementary/supp.html">supp</a></li>
+      <li>Neural Scene Flow Prior • NeurIPS 2021 (Spotlight) • <a href="https://arxiv.org/pdf/2111.01253.pdf">pdf</a> • <a href="https://github.com/Lilac-Lee/Neural_Scene_Flow_Prior">code</a> • <a href="https://www.youtube.com/watch?v=WMcoLINtDYY&t=1s">video</a></li>
+      <li>Argoverse 2: Next Generation Datasets for Self-Driving Perception and Forecasting • NeurIPS 2021 • <a href="https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/4734ba6f3de83d861c3176a6273cac6d-Paper-round2.pdf">pdf</a> • <a href="https://github.com/argoverse/av2-api">code</a> • <a href="https://www.argoverse.org/">project</a></li>
+      <li>PointNetLK Revisited • CVPR 2021 (Oral) • <a href="https://arxiv.org/pdf/2008.09527.pdf">pdf</a> • <a href="https://github.com/Lilac-Lee/PointNetLK_Revisited">code</a> • <a href="https://www.youtube.com/watch?v=L8dWTFryhLI">video</a></li>
+      <li>Scene Flow from Point Clouds with or without Learning • 3DV 2020 (Oral) • <a href="https://arxiv.org/pdf/2011.00320.pdf">pdf</a></li>
+      <li>Representation and Reconstruction of 3D Shapes in Computer Vision - PhD Thesis 2020 • <a href="https://eprints.qut.edu.au/174357/1/Jhony_Kaesemodel%20Pontes_Thesis.pdf">pdf</a></li>
+      <li>Implicit Surface Representations as Layers in Neural Networks • ICCV 2019 • <a href="http://openaccess.thecvf.com/content_ICCV_2019/papers/Michalkiewicz_Implicit_Surface_Representations_As_Layers_in_Neural_Networks_ICCV_2019_paper.pdf">pdf</a> • <a href="https://github.com/JeremyFisher/deep_level_sets">code</a></li>
+      <li>Image2Mesh: A Learning Framework for Single Image 3D Reconstruction • ACCV 2018 • <a href="https://arxiv.org/pdf/1711.10669">pdf</a> • <a href="https://github.com/jhonykaesemodel/image2mesh">code</a></li>
+      <li>Learning Free-Form Deformations for 3D Object Reconstruction • ACCV 2018 • <a href="https://arxiv.org/pdf/1803.10932">pdf</a> • <a href="https://github.com/jackd/template_ffd">code</a></li>
+      <li>Compact Model Representation for 3D Reconstruction • 3DV 2017 • <a href="https://arxiv.org/pdf/1707.07360">pdf</a> • <a href="https://github.com/jhonykaesemodel/compact_3D_reconstruction">code</a></li>
+      <li>Two-Stage Facial Age Prediction Using Group-Specific Features • ICASSP 2017 • <a href="https://eprints.qut.edu.au/104819/15/icassp2017-age-estimation.pdf">pdf</a></li>
+      <li>A Flexible Hierarchical Approach for Facial Age Estimation Based on Multiple Features • Pattern Recognition 2016 • <a href="https://eprints.qut.edu.au/92300/1/manuscript_Jhony.pdf">pdf</a></li>
     </ul>
   </section>
 
   <footer>
-    <small>© 2025 Jhony K. Pontes</small>
-    <br>
-    <small>Last updated: 2025-08</small>
+    <small>© 2025 Jhony Kaesemodel Pontes</small>
   </footer>
+
 </body>
 </html>
-
-
