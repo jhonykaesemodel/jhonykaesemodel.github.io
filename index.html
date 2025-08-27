@@ -12,7 +12,10 @@
     a:hover { opacity: 0.7; }
     section:not(#contact) { border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
     @keyframes type { from { width: 0; } to { width: 100%; } }
-    h1 { overflow: hidden; white-space: nowrap; animation: type 2s steps(20); }
+    h1 { overflow: hidden; white-space: nowrap; animation: type 2s steps(20); max-width: calc(100vw - 48px); }
+    @media (max-width: 600px) {
+      h1 { max-width: calc(100vw - 48px); }
+    }
   </style>
 </head>
 <body style="font-family: monospace; max-width: 1000px; margin: 24px;">
