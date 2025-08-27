@@ -11,10 +11,10 @@
   <style>
     a:hover { opacity: 0.7; }
     section:not(#contact) { border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
-    @keyframes type { from { width: 0; } to { width: 100%; } }
-    h1 { overflow: hidden; white-space: nowrap; animation: type 2s steps(20); max-width: calc(100vw - 48px); }
+    @keyframes type { from { width: 0; } to { width: 22ch; } }
+    h1 { overflow: hidden; white-space: nowrap; animation: type 2s steps(20); }
     @media (max-width: 600px) {
-      h1 { max-width: calc(100vw - 48px); }
+      h1 { animation: type 2s steps(20); }
     }
   </style>
 </head>
