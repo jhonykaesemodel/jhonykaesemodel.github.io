@@ -1,0 +1,783 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500&display=swap");
+:root {
+  font-family: Manrope, system-ui, sans-serif;
+  color: #e8e5dc;
+  background: #06080d;
+  --blue: #7eb7ed;
+  --red: #ed837c;
+  --violet: #aaa0ef;
+  --line: rgba(211, 220, 239, 0.14);
+  --muted: #7b8496;
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+#root {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  background: #06080d;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+button:focus-visible {
+  outline: 1px solid var(--blue);
+  outline-offset: 4px;
+}
+.eyebrow {
+  color: var(--blue);
+  font: 9px/1.5 "DM Mono";
+  letter-spacing: 0.17em;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  font: 10px "DM Mono";
+  letter-spacing: 0.14em;
+}
+.brand > i {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--violet);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--violet);
+}
+.brand b {
+  font-weight: 400;
+  color: #4c5363;
+  margin-left: 5px;
+}
+.brand em {
+  font-style: normal;
+  color: var(--blue);
+  border-left: 1px solid var(--line);
+  padding-left: 10px;
+}
+.primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 38px;
+  padding: 15px 18px;
+  background: rgba(77, 99, 145, 0.15);
+  border: 1px solid rgba(126, 183, 237, 0.4);
+  font-size: 12px;
+  cursor: pointer;
+}
+.secondary {
+  padding: 12px 3px;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #454d61;
+  color: #858da0;
+  font-size: 11px;
+  cursor: pointer;
+}
+.landing {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 34px 5vw;
+  background:
+    radial-gradient(
+      circle at 77% 48%,
+      rgba(89, 91, 164, 0.13),
+      transparent 31%
+    ),
+    #06080d;
+}
+.landing header {
+  position: relative;
+  z-index: 3;
+}
+.hero {
+  position: relative;
+  z-index: 3;
+  width: min(800px, 66vw);
+  margin: clamp(100px, 16vh, 170px) 0 0 7vw;
+}
+.hero h1 {
+  font-weight: 300;
+  font-size: clamp(55px, 6.3vw, 98px);
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+  margin: 25px 0;
+}
+.hero h1 em {
+  font-style: normal;
+  color: #7e8495;
+}
+.hero > p:not(.eyebrow) {
+  max-width: 520px;
+  color: #979dac;
+  font-size: clamp(14px, 1.2vw, 18px);
+  line-height: 1.7;
+}
+.hero .primary {
+  margin: 20px 20px 0 0;
+}
+.hero small {
+  display: block;
+  color: #545b6d;
+  font: 8px "DM Mono";
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+.landing footer {
+  position: absolute;
+  left: 5vw;
+  bottom: 32px;
+  color: #535a6b;
+  font: 8px "DM Mono";
+  letter-spacing: 0.08em;
+}
+.hero-pair {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55vw;
+  height: 100vh;
+}
+.hero-pair:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  bottom: 15%;
+  border-left: 1px solid rgba(170, 160, 239, 0.08);
+}
+.hero-pair i {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  left: 24%;
+  top: 47%;
+  box-shadow: 0 0 45px var(--blue);
+}
+.hero-pair i:nth-child(2) {
+  left: auto;
+  right: 22%;
+  border-color: var(--red);
+  box-shadow: 0 0 45px var(--red);
+}
+.hero-pair b {
+  position: absolute;
+  left: 26%;
+  right: 24%;
+  top: 48%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--blue),
+    transparent 48%,
+    transparent 52%,
+    var(--red)
+  );
+  opacity: 0.3;
+}
+.experience {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #06080d;
+}
+.top {
+  position: absolute;
+  z-index: 9;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 72px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3.2vw;
+}
+.top button {
+  border: 0;
+  background: none;
+  color: #727b90;
+  font: 8px "DM Mono";
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.grain {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+  inset: -80%;
+  opacity: 0.023;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 150 150' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.pair-field {
+  position: absolute;
+  inset: 72px 0 0;
+  background:
+    radial-gradient(
+      circle at 50% 48%,
+      rgba(112, 104, 202, 0.09),
+      transparent 27%
+    ),
+    linear-gradient(115deg, #070a10, #080913);
+  overflow: hidden;
+}
+.pair-field:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 9%;
+  bottom: 9%;
+  border-left: 1px dashed rgba(203, 211, 234, 0.07);
+}
+.source {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 47%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.source i {
+  display: block;
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--violet);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 18px rgba(170, 160, 239, 0.15),
+    0 0 35px rgba(170, 160, 239, 0.13);
+}
+.source span {
+  display: block;
+  margin: 10px 0 0 -18px;
+  width: 80px;
+  color: #5f667a;
+  font: 7px "DM Mono";
+  letter-spacing: 0.12em;
+}
+.relation {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 47%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    var(--blue),
+    transparent 43%,
+    transparent 57%,
+    var(--red)
+  );
+  opacity: 0.18;
+}
+.instructions .relation {
+  background: repeating-linear-gradient(
+    90deg,
+    #657083 0 4px,
+    transparent 4px 12px
+  );
+  opacity: 0.25;
+}
+.flight {
+  position: absolute;
+  z-index: 3;
+  left: 49%;
+  top: 47%;
+  animation: left-flight 1s ease-out both;
+}
+.flight.right {
+  animation-name: right-flight;
+}
+.flight i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--blue);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--blue);
+}
+.flight.right i {
+  border-color: var(--red);
+  box-shadow: 0 0 20px var(--red);
+}
+@keyframes left-flight {
+  to {
+    transform: translateX(-30vw);
+  }
+}
+@keyframes right-flight {
+  to {
+    transform: translateX(30vw);
+  }
+}
+.station {
+  position: absolute;
+  z-index: 2;
+  left: 15%;
+  top: 47%;
+  transform: translateY(-50%);
+  width: 100px;
+  height: 150px;
+  border: 1px solid rgba(126, 183, 237, 0.23);
+  display: grid;
+  place-items: center;
+  background: rgba(34, 52, 77, 0.08);
+}
+.station.bob {
+  left: auto;
+  right: 15%;
+  border-color: rgba(237, 131, 124, 0.23);
+}
+.station span {
+  position: absolute;
+  top: -20px;
+  color: var(--blue);
+  font: 8px "DM Mono";
+  letter-spacing: 0.15em;
+}
+.station.bob span {
+  color: var(--red);
+}
+.station b {
+  font: 300 50px "DM Mono";
+  color: #c7d6e5;
+}
+.station i {
+  position: absolute;
+  width: 85%;
+  height: 1px;
+  background: rgba(126, 183, 237, 0.28);
+  transform: rotate(-22.5deg);
+}
+.station.bob i {
+  background: rgba(237, 131, 124, 0.28);
+  transform: rotate(22.5deg);
+}
+.pair-field > p {
+  position: absolute;
+  right: 3vw;
+  bottom: 3vh;
+  color: #50586b;
+  font: 7px "DM Mono";
+  letter-spacing: 0.12em;
+}
+.story {
+  position: absolute;
+  z-index: 5;
+  left: 6.5vw;
+  bottom: 13vh;
+  width: min(590px, 47vw);
+  animation: in 0.6s ease both;
+}
+.story > span {
+  color: var(--violet);
+  font: 9px "DM Mono";
+  letter-spacing: 0.14em;
+}
+.story h2 {
+  font-size: clamp(38px, 4.5vw, 68px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 300;
+  margin: 18px 0 13px;
+}
+.story p {
+  color: #959cab;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.story small {
+  display: block;
+  color: #626a7c;
+  font: 9px/1.6 "DM Mono";
+  letter-spacing: 0.04em;
+}
+.story > button {
+  margin-top: 17px;
+  padding: 0 0 6px;
+  border: 0;
+  border-bottom: 1px solid rgba(126, 183, 237, 0.45);
+  background: none;
+  color: var(--blue);
+  font: 9px "DM Mono";
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.story-nav {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  bottom: 5.5vh;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.story-nav button {
+  width: 30px;
+  height: 30px;
+  background: rgba(6, 8, 13, 0.85);
+  border: 1px solid var(--line);
+  cursor: pointer;
+}
+.story-nav button:disabled {
+  opacity: 0.2;
+}
+.story-nav i {
+  color: #565e70;
+  font: 8px "DM Mono";
+  font-style: normal;
+}
+.progress {
+  position: absolute;
+  z-index: 6;
+  left: 6.5vw;
+  right: 6.5vw;
+  bottom: 5.5vh;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    var(--blue) var(--p),
+    rgba(255, 255, 255, 0.12) var(--p)
+  );
+}
+@keyframes in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+.model-tabs {
+  position: absolute;
+  z-index: 5;
+  left: 3vw;
+  top: 102px;
+  display: flex;
+  flex-direction: column;
+}
+.model-tabs button {
+  width: 180px;
+  padding: 13px;
+  text-align: left;
+  border: 1px solid var(--line);
+  background: rgba(5, 7, 12, 0.76);
+  color: #687084;
+  font: 8px "DM Mono";
+  cursor: pointer;
+}
+.model-tabs button + button {
+  border-top: 0;
+}
+.model-tabs span {
+  color: #454d60;
+  margin-right: 10px;
+}
+.model-tabs button.active {
+  color: #e4e3df;
+  background: rgba(126, 183, 237, 0.09);
+  box-shadow: inset 2px 0 var(--blue);
+}
+.lab-panel {
+  position: absolute;
+  z-index: 5;
+  left: 3vw;
+  bottom: 4vh;
+  width: min(540px, 46vw);
+}
+.lab-panel h2 {
+  font-size: clamp(27px, 3.4vw, 49px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 300;
+  margin: 8px 0 16px;
+}
+.run {
+  display: flex;
+}
+.run button {
+  padding: 11px 15px;
+  border: 1px solid var(--line);
+  background: rgba(8, 13, 22, 0.8);
+  font: 8px "DM Mono";
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.run button + button {
+  border-left: 0;
+}
+.prediction {
+  color: #5f687b;
+  font: 8px "DM Mono";
+  letter-spacing: 0.1em;
+}
+.prediction b {
+  color: var(--violet);
+  font-weight: 400;
+  margin-left: 8px;
+}
+.meter {
+  position: absolute;
+  z-index: 5;
+  right: 3vw;
+  top: 103px;
+  width: min(390px, 34vw);
+  padding: 17px;
+  border: 1px solid var(--line);
+  background: rgba(5, 7, 12, 0.72);
+}
+.meter-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  color: #656d81;
+  font: 7px "DM Mono";
+  letter-spacing: 0.12em;
+}
+.meter-top b {
+  font: 300 31px "DM Mono";
+  color: #d6d8df;
+}
+.track {
+  position: relative;
+  height: 2px;
+  background: #252b3a;
+  margin: 36px 0 13px;
+}
+.track i {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--blue);
+  transition: 0.4s;
+}
+.track em {
+  position: absolute;
+  bottom: -4px;
+  height: 10px;
+  border-left: 1px solid var(--red);
+  padding: 15px 0 0 5px;
+  color: #a56d6b;
+  white-space: nowrap;
+  font: 6px "DM Mono";
+  font-style: normal;
+}
+.meter small {
+  color: #555e70;
+  font: 7px "DM Mono";
+}
+.scrim {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  background: rgba(1, 3, 8, 0.76);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: flex-end;
+}
+.info {
+  position: relative;
+  width: min(580px, 100%);
+  height: 100%;
+  overflow: auto;
+  padding: 7vh 7%;
+  background: #090b13;
+  border-left: 1px solid var(--line);
+}
+.close {
+  position: absolute;
+  right: 28px;
+  top: 20px;
+  border: 0;
+  background: none;
+  font-size: 27px;
+  color: #747d91;
+  cursor: pointer;
+}
+.info h2 {
+  font-size: clamp(38px, 4vw, 58px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+.info > p:not(.eyebrow) {
+  color: #9299a8;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.info dl div {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+}
+.info dt {
+  color: var(--blue);
+  font: 8px "DM Mono";
+  text-transform: uppercase;
+}
+.info dd {
+  margin: 0;
+  color: #7f8798;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.info h3 {
+  font: 9px "DM Mono";
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.info > a {
+  display: block;
+  color: #838b9d;
+  border-top: 1px solid var(--line);
+  padding: 10px 0;
+  font-size: 10px;
+  text-decoration: none;
+}
+.info .primary {
+  margin-top: 18px;
+}
+@media (max-width: 760px) {
+  .landing {
+    padding: 24px 22px 90px;
+    overflow-y: auto;
+  }
+  .hero {
+    width: auto;
+    margin: 14vh 0 0;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 13.5vw, 66px);
+  }
+  .hero .primary {
+    display: flex;
+    margin-right: 0;
+  }
+  .hero .secondary {
+    display: block;
+    margin-top: 8px;
+  }
+  .landing footer {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: 100px;
+  }
+  .hero-pair {
+    width: 115vw;
+    right: -62vw;
+    opacity: 0.38;
+  }
+  .top {
+    height: 62px;
+    padding: 0 18px;
+  }
+  .top button {
+    font-size: 0;
+  }
+  .top button::after {
+    content: "?";
+    font-size: 14px;
+  }
+  .pair-field {
+    inset: 62px 0 0;
+  }
+  .station {
+    left: 5%;
+    width: 65px;
+    height: 105px;
+    top: 40%;
+  }
+  .station.bob {
+    right: 5%;
+  }
+  .source {
+    top: 40%;
+  }
+  .relation {
+    left: 13%;
+    right: 13%;
+    top: 40%;
+  }
+  .flight {
+    top: 40%;
+  }
+  .story {
+    left: 22px;
+    bottom: 14vh;
+    width: calc(100% - 44px);
+  }
+  .story h2 {
+    font-size: 36px;
+    max-width: 96%;
+  }
+  .story p {
+    font-size: 11px;
+  }
+  .story small {
+    font-size: 8px;
+  }
+  .progress {
+    left: 22px;
+    right: 22px;
+  }
+  .model-tabs {
+    left: 14px;
+    right: 14px;
+    top: 77px;
+    flex-direction: row;
+  }
+  .model-tabs button {
+    width: 50%;
+    white-space: nowrap;
+  }
+  .model-tabs button + button {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+  .lab-panel {
+    left: 18px;
+    bottom: 3vh;
+    width: calc(100% - 36px);
+  }
+  .lab-panel h2 {
+    font-size: 28px;
+    max-width: 92%;
+  }
+  .meter {
+    right: 14px;
+    top: 139px;
+    width: calc(100% - 28px);
+  }
+  .experience.lab .station,
+  .experience.lab .source,
+  .experience.lab .relation,
+  .experience.lab .flight {
+    top: 53%;
+  }
+  .pair-field > p {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .grain {
+    display: none;
+  }
+}
