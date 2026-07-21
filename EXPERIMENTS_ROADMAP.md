@@ -72,6 +72,66 @@ consequence. A family mode uses clear retellings without flattening violence or
 presenting disputed geography as certain; a source mode maps moments to book
 and line references in public-domain translations.
 
+### 009 — Gravity Garden
+
+**Question:** Why does an orbiting body keep falling without falling down?
+
+The visitor throws a small world sideways and watches one velocity vector become
+a collision, a bound orbit, or an escape. The laboratory integrates an ideal
+Newtonian two-body system rather than drawing decorative ellipses. Distance,
+mass, and speed are normalized; atmosphere, additional bodies, relativity, and
+real-world scale are disclosed as omissions.
+
+### 010 — How a Thought Moves
+
+**Question:** How do many tiny signals become one decisive neural pulse?
+
+The visitor sends excitatory and inhibitory inputs into a neuron, watches a
+leaky membrane potential integrate them, and crosses an all-or-none threshold.
+The resulting spike travels down an axon and influences another cell. The
+laboratory is explicitly a leaky integrate-and-fire teaching model, not a claim
+that one neuron contains a thought or that neurons are simple electrical wires.
+
+### 011 — The Breath Between Worlds
+
+**Question:** How can the same carbon become air, leaf, body, ocean, and rock?
+
+The visitor follows one marked carbon atom through linked reservoirs while the
+larger system continues to breathe around it. Fast biological exchanges sit
+beside deep-ocean and geological timescales; combustion exposes the unusually
+fast human path from slow storage into the active cycle. Routes are illustrative,
+not a deterministic itinerary or a climate forecast.
+
+### 012 — A Clock That Disagrees
+
+**Question:** How can two honest clocks disagree and both be right?
+
+A manipulable light clock makes special-relativistic time dilation emerge from
+geometry and the invariant speed of light. The visitor then encounters mutual
+time dilation, relativity of simultaneity, and the clock corrections needed by
+satellite navigation. Calculations use exact special-relativity formulas;
+diagrams, speeds, and distances are heavily compressed for comprehension.
+
+### 013 — The Probability Machine
+
+**Question:** How can single events stay uncertain while crowds become stable?
+
+The visitor predicts before sampling, then runs one, one hundred, and ten
+thousand trials. Local streaks coexist with long-run structure. Additional
+lenses reveal collision probability and the effect of base rates on evidence.
+Every result is generated locally from the stated model; probability describes
+the model, not a hidden promise about the next event.
+
+### 014 — How a Machine Sees
+
+**Question:** What does an autonomous machine know about the world before it acts?
+
+A synthetic street scene can be peeled from camera pixels and lidar returns into
+detections, tracks, forecasts, and uncertainty. Rain, occlusion, and sensor loss
+show why perception is evidence rather than ground truth. It uses a deliberately
+small illustrative model and no claim that a deployed autonomous system works in
+exactly this way.
+
 ## Release policy
 
 Each experiment ships in its own pull request. It is merged only after unit

@@ -1,0 +1,2 @@
+import{describe,expect,it}from'vitest';import{acceleration,classify,energy,trace}from'./model';
+describe('two-body model',()=>{it('pulls toward the origin with inverse-square magnitude',()=>{expect(acceleration({x:2,y:0,vx:0,vy:0}).x).toBeCloseTo(-.25)});it('circular speed is bound',()=>{expect(energy({x:1,y:0,vx:0,vy:1})).toBeCloseTo(-.5);expect(classify({x:1,y:0,vx:0,vy:1})).toBe('bound')});it('escape speed escapes',()=>expect(classify({x:1,y:0,vx:0,vy:1.5})).toBe('escape'));it('produces a curved trajectory',()=>expect(trace(1)[100].x).toBeLessThan(1))})
