@@ -9,15 +9,15 @@ Links can point to arXiv, DOI, or local files placed in the root directory.
 The experiment index is in `ai/index.html`. Each compiled experience is served from
 its own directory under `ai/`, while editable source lives under `projects/`.
 
-Before Music can be rebuilt with:
+An experiment can be rebuilt with:
 
 ```bash
-cd projects/before-music
+cd projects/<experiment>
 npm ci
 npm run build
 ```
 
-Copy the generated `dist/` contents into `ai/before-music/` before publishing.
+Copy the generated `dist/` contents into its matching `ai/<experiment>/` directory before publishing.
 
 ## Deploy
 
