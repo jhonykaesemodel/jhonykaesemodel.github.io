@@ -1,1 +1,3 @@
 .DS_Store
+projects/*/node_modules/
+projects/*/dist/
