@@ -2,7 +2,7 @@ export const C=299792458
 export function gamma(beta:number){if(Math.abs(beta)>=1)return Infinity;return 1/Math.sqrt(1-beta*beta)}
 export function properTime(coordinateTime:number,beta:number){return coordinateTime/gamma(beta)}
 export function lorentzTime(t:number,xLightSeconds:number,beta:number){return gamma(beta)*(t-beta*xLightSeconds)}
-export function simultaneityOffset(distanceLightSeconds:number,beta:number){return-beta*distanceLightSeconds}
+export function simultaneityOffset(distanceLightSeconds:number,beta:number){return-gamma(beta)*beta*distanceLightSeconds}
 export const story=[
  {title:'Build a clock from light.',body:'A pulse bounces between two mirrors. One round trip is one tick. Light crosses the same distance each time.',note:'In vacuum, every inertial observer measures the same speed of light.'},
  {title:'Let the clock pass you.',body:'From your frame, the mirrors move sideways while the light travels. The pulse follows a longer diagonal path.',note:'The vertical mirror spacing is unchanged in this setup.'},

@@ -1,7 +1,7 @@
 export type Layer='world'|'camera'|'lidar'|'detect'|'track'|'forecast'
 export const layers:Layer[]=['world','camera','lidar','detect','track','forecast']
 export type Evidence={base:number;occlusion:number;rain:number;sensor:number}
-export function confidence(e:Evidence){return Math.max(0,Math.min(1,e.base*(1-.55*e.occlusion)*(1-.35*e.rain)*(e.sensor?.8:1)))}
+export function confidence(e:Evidence){const availability=Math.max(0,Math.min(1,e.sensor)),sensorFactor=.8+.2*availability;return Math.max(0,Math.min(1,e.base*(1-.55*e.occlusion)*(1-.35*e.rain)*sensorFactor))}
 export function visible(score:number,threshold:number){return score>=threshold}
 export function forecast(x:number,v:number,seconds:number){return x+v*seconds}
 export const story=[

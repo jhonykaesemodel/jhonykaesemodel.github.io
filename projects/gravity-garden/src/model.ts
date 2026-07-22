@@ -11,3 +11,4 @@ export function stepBody(b:Body,dt=.004,mu=1):Body{const a=acceleration(b,mu);co
 export function energy(b:Body,mu=1){return .5*(b.vx*b.vx+b.vy*b.vy)-mu/Math.hypot(b.x,b.y)}
 export function classify(b:Body,planetRadius=.22,mu=1){if(Math.hypot(b.x,b.y)<=planetRadius)return'collision';return energy(b,mu)>=0?'escape':'bound'}
 export function trace(speed:number,mu=1,count=2200){let b:Body={x:1,y:0,vx:0,vy:speed};const points:Body[]=[b];for(let i=0;i<count;i++){b=stepBody(b,.004,mu);points.push(b);if(Math.hypot(b.x,b.y)<.22||Math.hypot(b.x,b.y)>3.2)break}return points}
+export function trajectoryOutcome(speed:number,mu=1){const end=trace(speed,mu).at(-1)!;return classify(end,.22,mu)}
