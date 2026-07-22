@@ -1,13 +1,32 @@
 export const C=299792458
-export function gamma(beta:number){if(Math.abs(beta)>=1)return Infinity;return 1/Math.sqrt(1-beta*beta)}
+
+export function gamma(beta:number){
+ const speed=Math.abs(beta)
+ if(speed>=1)return Infinity
+ return 1/Math.sqrt(1-speed*speed)
+}
+
 export function properTime(coordinateTime:number,beta:number){return coordinateTime/gamma(beta)}
+export function movingClockRate(beta:number){return 1/gamma(beta)}
+export function lightPathFactor(beta:number){return gamma(beta)}
+export function reunionDifference(coordinateTime:number,beta:number){return coordinateTime-properTime(coordinateTime,beta)}
 export function lorentzTime(t:number,xLightSeconds:number,beta:number){return gamma(beta)*(t-beta*xLightSeconds)}
 export function simultaneityOffset(distanceLightSeconds:number,beta:number){return-gamma(beta)*beta*distanceLightSeconds}
-export const story=[
- {title:'Build a clock from light.',body:'A pulse bounces between two mirrors. One round trip is one tick. Light crosses the same distance each time.',note:'In vacuum, every inertial observer measures the same speed of light.'},
- {title:'Let the clock pass you.',body:'From your frame, the mirrors move sideways while the light travels. The pulse follows a longer diagonal path.',note:'The vertical mirror spacing is unchanged in this setup.'},
- {title:'Light does not hurry.',body:'The path is longer, but light still has the same speed. More of your time must pass between ticks of the moving clock.',note:'The factor is γ = 1 / √(1 − v²/c²).'},
- {title:'The disagreement is mutual.',body:'A traveler gliding past says your clock is moving—and judges your ticks slower by the same factor.',note:'There is no absolute rest frame. Comparing separated events also requires a rule for simultaneity.'},
- {title:'A journey can break the symmetry.',body:'If one traveler turns around to reunite, the paths through spacetime differ. Their clocks can show different elapsed times when compared side by side.',note:'The laboratory models constant-speed legs, not the turnaround itself.'},
- {title:'This is not only a thought experiment.',body:'Atomic clocks at different speeds and heights accumulate measurable differences. Satellite navigation corrects for relativity.',note:'Gravity changes clock rates too; that requires general relativity.'},
+
+export type StoryScene={
+ title:string
+ body:string
+ note:string
+ beta:number
+ perspective:'ship'|'earth'
+ compare:boolean
+}
+
+export const story:StoryScene[]=[
+ {title:'Begin together.',body:'Earth and the ship carry identical light clocks. At departure they are side by side, and both read zero.',note:'A light clock is a thought experiment: one tick is a pulse traveling to a mirror and back.',beta:0,perspective:'earth',compare:true},
+ {title:'Ride beside the clock.',body:'Inside the ship, the pulse goes straight up and down. Your heartbeat, thoughts, and clock all feel completely normal.',note:'Every observer at rest beside a good clock measures one ordinary local second per second.',beta:.72,perspective:'ship',compare:false},
+ {title:'Now watch from Earth.',body:'While the light rises, the ship moves sideways. From Earth, that same pulse must follow a longer diagonal path to catch the mirror.',note:'Changing viewpoint changes the measured distance between the pulse’s departure and arrival.',beta:.72,perspective:'earth',compare:true},
+ {title:'Light cannot make up the distance.',body:'Both observers measure light at the same speed. A longer path at the same speed must take more Earth time, so Earth counts fewer ticks on the moving clock.',note:'At 0.80 c, the diagonal light path—and each moving tick—takes 1.667 times as much Earth time.',beta:.8,perspective:'earth',compare:true},
+ {title:'The ship is not broken.',body:'Beside the ship clock, its pulse still travels the short vertical path. The disagreement is about how separated events are timed—not a slow mechanism or visual delay.',note:'For uniform relative motion, each inertial observer judges the other’s moving clock to tick slowly.',beta:.8,perspective:'ship',compare:false},
+ {title:'Reunite and compare.',body:'Send the ship out and bring it back. At the same final place and moment, the clocks can be compared directly: the traveling path contains less elapsed time.',note:'The laboratory idealizes the journey as equal constant-speed legs with an instantaneous turnaround.',beta:.8,perspective:'earth',compare:true},
 ]
