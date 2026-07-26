@@ -1,13 +1,76 @@
 import type { AnalysisData, AudioSourceData } from '../types'
 
+export function prefersNativeIOSPlayback(
+  userAgent = typeof navigator === 'undefined' ? '' : navigator.userAgent,
+  platform = typeof navigator === 'undefined' ? '' : navigator.platform,
+  maxTouchPoints = typeof navigator === 'undefined' ? 0 : navigator.maxTouchPoints,
+) {
+  return /iPad|iPhone|iPod/i.test(userAgent)
+    || (/Mac/i.test(platform) && maxTouchPoints > 1)
+}
+
+function writeText(view: DataView, offset: number, text: string) {
+  for (let index = 0; index < text.length; index += 1) view.setUint8(offset + index, text.charCodeAt(index))
+}
+
+export function audioBufferToWave(buffer: AudioBuffer) {
+  const channelCount = Math.min(2, Math.max(1, buffer.numberOfChannels))
+  const bytesPerSample = 2
+  const dataLength = buffer.length * channelCount * bytesPerSample
+  const output = new ArrayBuffer(44 + dataLength)
+  const view = new DataView(output)
+  writeText(view, 0, 'RIFF')
+  view.setUint32(4, 36 + dataLength, true)
+  writeText(view, 8, 'WAVE')
+  writeText(view, 12, 'fmt ')
+  view.setUint32(16, 16, true)
+  view.setUint16(20, 1, true)
+  view.setUint16(22, channelCount, true)
+  view.setUint32(24, buffer.sampleRate, true)
+  view.setUint32(28, buffer.sampleRate * channelCount * bytesPerSample, true)
+  view.setUint16(32, channelCount * bytesPerSample, true)
+  view.setUint16(34, 16, true)
+  writeText(view, 36, 'data')
+  view.setUint32(40, dataLength, true)
+  const channels = Array.from({ length: channelCount }, (_, channel) => buffer.getChannelData(channel))
+  let offset = 44
+  for (let sample = 0; sample < buffer.length; sample += 1) {
+    for (let channel = 0; channel < channelCount; channel += 1) {
+      const value = Math.max(-1, Math.min(1, channels[channel][sample] ?? 0))
+      view.setInt16(offset, value < 0 ? value * 0x8000 : value * 0x7fff, true)
+      offset += bytesPerSample
+    }
+  }
+  return new Blob([output], { type: 'audio/wav' })
+}
+
+export function readBlobAsArrayBuffer(blob: Blob): Promise<ArrayBuffer> {
+  if (typeof blob.arrayBuffer === 'function') return blob.arrayBuffer()
+
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as ArrayBuffer)
+    reader.onerror = () => reject(reader.error ?? new Error('Could not read this audio file.'))
+    reader.readAsArrayBuffer(blob)
+  })
+}
+
 export class AudioEngine {
   private context: AudioContext | null = null
   private sourceNode: AudioBufferSourceNode | null = null
   private gainNode: GainNode | null = null
+  private mediaElement: HTMLAudioElement | null = null
+  private mediaUrl: string | null = null
   private source: AudioSourceData | null = null
   private startedAt = 0
   private offset = 0
   private playing = false
+  private volume = 0.75
+  private readonly nativeIOSPlayback: boolean
+
+  constructor(forceNativeIOSPlayback = prefersNativeIOSPlayback()) {
+    this.nativeIOSPlayback = forceNativeIOSPlayback
+  }
 
   private getContext() {
     if (!this.context) this.context = new AudioContext()
@@ -15,10 +78,8 @@ export class AudioEngine {
   }
 
   async unlock() {
+    if (this.nativeIOSPlayback) return true
     const context = this.getContext()
-    // iOS Safari needs audio output to be initiated inside the user gesture.
-    // Starting a silent one-sample source primes the native audio session without
-    // adding a sound or changing the experience's playback position.
     const silent = context.createBufferSource()
     const silence = context.createGain()
     silent.buffer = context.createBuffer(1, 1, context.sampleRate)
@@ -75,17 +136,19 @@ export class AudioEngine {
       }
     }
     const buffer = await offline.startRendering()
-    return this.setBuffer(buffer, 'A field of pressure', 'Procedural study', 'demo')
+    const playback = this.nativeIOSPlayback ? audioBufferToWave(buffer) : undefined
+    return this.setBuffer(buffer, 'A field of pressure', 'Procedural study', 'demo', playback)
   }
 
   async loadFile(file: File): Promise<AudioSourceData> {
     const context = this.getContext()
-    const buffer = await context.decodeAudioData(await file.arrayBuffer())
-    return this.setBuffer(buffer, file.name.replace(/\.[^.]+$/, ''), 'Local audio · never uploaded', 'file')
+    const buffer = await context.decodeAudioData(await readBlobAsArrayBuffer(file))
+    return this.setBuffer(buffer, file.name.replace(/\.[^.]+$/, ''), 'Local audio · never uploaded', 'file', file)
   }
 
-  private setBuffer(buffer: AudioBuffer, name: string, artist: string, kind: 'demo' | 'file') {
-    this.stopSource()
+  private setBuffer(buffer: AudioBuffer, name: string, artist: string, kind: 'demo' | 'file', playback?: Blob) {
+    this.stopPlayback()
+    this.releaseMedia()
     const channels = Array.from({ length: buffer.numberOfChannels }, (_, channel) =>
       new Float32Array(buffer.getChannelData(channel)),
     )
@@ -100,19 +163,59 @@ export class AudioEngine {
       buffer,
     }
     this.offset = 0
+    if (this.nativeIOSPlayback && playback) this.configureMedia(playback)
     return this.source
+  }
+
+  private configureMedia(playback: Blob) {
+    const media = document.createElement('audio')
+    this.mediaUrl = URL.createObjectURL(playback)
+    media.src = this.mediaUrl
+    media.preload = 'auto'
+    media.setAttribute('playsinline', '')
+    media.setAttribute('aria-hidden', 'true')
+    media.style.display = 'none'
+    media.volume = this.volume
+    media.onplay = () => { this.playing = true }
+    media.onpause = () => { this.playing = false }
+    media.onended = () => {
+      this.offset = this.source?.duration ?? media.duration
+      this.playing = false
+    }
+    document.body.append(media)
+    this.mediaElement = media
   }
 
   async play() {
     if (this.playing) return true
     if (!this.source) return false
+    if (this.mediaElement) {
+      if (this.offset >= this.source.duration) this.offset = 0
+      if (this.offset > 0) {
+        try {
+          this.mediaElement.currentTime = this.offset
+        } catch {
+          // Metadata may not be ready on the first iOS tap. Playback can still start.
+        }
+      }
+      try {
+        this.mediaElement.volume = this.volume
+        const started = this.mediaElement.play()
+        await started
+        this.playing = !this.mediaElement.paused
+        return this.playing
+      } catch {
+        this.playing = false
+        return false
+      }
+    }
     const context = this.getContext()
     if (!await this.unlock()) return false
     if (this.offset >= this.source.duration) this.offset = 0
     const node = context.createBufferSource()
     const gain = context.createGain()
     node.buffer = this.source.buffer
-    gain.gain.value = this.gainNode?.gain.value ?? 0.75
+    gain.gain.value = this.volume
     node.connect(gain).connect(context.destination)
     node.onended = () => {
       if (this.sourceNode === node && this.currentTime >= (this.source?.duration ?? 0) - 0.04) {
@@ -137,13 +240,16 @@ export class AudioEngine {
   pause() {
     if (!this.playing) return
     this.offset = this.currentTime
-    this.stopSource(false)
+    this.stopPlayback(false)
   }
 
   seek(time: number) {
     const wasPlaying = this.playing
-    this.stopSource(false)
+    this.stopPlayback(false)
     this.offset = Math.max(0, Math.min(time, this.source?.duration ?? 0))
+    if (this.mediaElement) {
+      try { this.mediaElement.currentTime = this.offset } catch { /* metadata may still be loading */ }
+    }
     if (wasPlaying) void this.play()
   }
 
@@ -152,11 +258,18 @@ export class AudioEngine {
   }
 
   setVolume(value: number) {
+    this.volume = value
     if (this.gainNode) this.gainNode.gain.value = value
+    if (this.mediaElement) this.mediaElement.volume = value
   }
 
   get currentTime() {
-    if (!this.playing || !this.context || !this.source) return this.offset
+    if (!this.source) return 0
+    if (this.mediaElement) {
+      const time = Number.isFinite(this.mediaElement.currentTime) ? this.mediaElement.currentTime : this.offset
+      return Math.min(this.source.duration, Math.max(0, time))
+    }
+    if (!this.playing || !this.context) return this.offset
     return Math.min(this.source.duration, Math.max(0, this.context.currentTime - this.startedAt))
   }
 
@@ -165,10 +278,12 @@ export class AudioEngine {
   }
 
   get audioState() {
+    if (this.mediaElement) return this.mediaElement.paused ? 'suspended' : 'running'
     return this.context?.state ?? 'uninitialized'
   }
 
-  private stopSource(clear = true) {
+  private stopPlayback(clear = true) {
+    if (this.mediaElement) this.mediaElement.pause()
     if (this.sourceNode) {
       this.sourceNode.onended = null
       try { this.sourceNode.stop() } catch { /* already stopped */ }
@@ -176,11 +291,31 @@ export class AudioEngine {
     }
     this.sourceNode = null
     this.playing = false
-    if (clear) this.offset = 0
+    if (clear) {
+      this.offset = 0
+      if (this.mediaElement) {
+        try { this.mediaElement.currentTime = 0 } catch { /* metadata may still be loading */ }
+      }
+    }
+  }
+
+  private releaseMedia() {
+    if (this.mediaElement) {
+      this.mediaElement.onplay = null
+      this.mediaElement.onpause = null
+      this.mediaElement.onended = null
+      this.mediaElement.removeAttribute('src')
+      this.mediaElement.load()
+      this.mediaElement.remove()
+    }
+    if (this.mediaUrl) URL.revokeObjectURL(this.mediaUrl)
+    this.mediaElement = null
+    this.mediaUrl = null
   }
 
   dispose() {
-    this.stopSource()
+    this.stopPlayback()
+    this.releaseMedia()
     this.source = null
     void this.context?.close()
     this.context = null

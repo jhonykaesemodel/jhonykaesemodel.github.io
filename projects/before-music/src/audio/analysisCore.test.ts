@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { analyzeChannels, buildEnvelope, sumStereo } from './analysisCore'
+import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, sumStereo } from './analysisCore'
 
 describe('audio analysis', () => {
   it('builds min/max envelope blocks without losing extrema', () => {
@@ -22,5 +22,17 @@ describe('audio analysis', () => {
     expect(result.frequencyFrames.length).toBe(result.frequencyBands * result.frequencyFrameCount)
     expect(result.peak).toBeCloseTo(0.5, 2)
     expect(result.rms).toBeGreaterThan(0.3)
+  })
+
+  it('calculates perception bands around the current instant instead of the whole-track ratio', () => {
+    const sampleRate = 8000
+    const signal = Float32Array.from({ length: sampleRate * 4 }, (_, index) =>
+      index < sampleRate * 2 ? 0 : Math.sin((2 * Math.PI * 440 * index) / sampleRate) * 0.8,
+    )
+    const kernels = createFrequencyKernels(sampleRate, 24, 384)
+    const quiet = analyzeFrequencyWindow([signal], sampleRate, kernels)
+    const tone = analyzeFrequencyWindow([signal], sampleRate * 3, kernels)
+    expect(Math.max(...quiet)).toBeLessThan(0.01)
+    expect(Math.max(...tone)).toBeGreaterThan(0.5)
   })
 })

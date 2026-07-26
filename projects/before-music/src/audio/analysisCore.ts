@@ -1,5 +1,52 @@
 import type { AnalysisData, EnvelopeLevel } from '../types'
 
+export interface FrequencyKernel {
+  cosine: Float32Array
+  sine: Float32Array
+}
+
+export function createFrequencyKernels(sampleRate: number, bandCount = 48, windowSize = 384) {
+  const highestFrequency = Math.min(18000, sampleRate * 0.45)
+  return Array.from({ length: bandCount }, (_, band): FrequencyKernel => {
+    const frequency = 45 * Math.pow(highestFrequency / 45, band / Math.max(1, bandCount - 1))
+    const cosine = new Float32Array(windowSize)
+    const sine = new Float32Array(windowSize)
+    for (let index = 0; index < windowSize; index += 1) {
+      const phase = (2 * Math.PI * frequency * index) / sampleRate
+      const window = 0.5 - 0.5 * Math.cos((2 * Math.PI * index) / Math.max(1, windowSize - 1))
+      cosine[index] = Math.cos(phase) * window
+      sine[index] = Math.sin(phase) * window
+    }
+    return { cosine, sine }
+  })
+}
+
+export function analyzeFrequencyWindow(
+  channels: Float32Array[],
+  centerSample: number,
+  kernels: FrequencyKernel[],
+  output = new Float32Array(kernels.length),
+) {
+  const left = channels[0]
+  const right = channels[Math.min(1, channels.length - 1)] ?? left
+  if (!left?.length) return output.fill(0)
+  const windowSize = kernels[0]?.cosine.length ?? 0
+  const start = centerSample - Math.floor(windowSize / 2)
+  for (let band = 0; band < kernels.length; band += 1) {
+    let real = 0
+    let imaginary = 0
+    const kernel = kernels[band]
+    for (let index = 0; index < windowSize; index += 1) {
+      const sampleIndex = Math.max(0, Math.min(left.length - 1, start + index))
+      const value = ((left[sampleIndex] ?? 0) + (right[sampleIndex] ?? 0)) * 0.5
+      real += value * kernel.cosine[index]
+      imaginary -= value * kernel.sine[index]
+    }
+    output[band] = Math.min(1, Math.sqrt(real * real + imaginary * imaginary) / Math.max(1, windowSize * 0.18))
+  }
+  return output
+}
+
 export function buildEnvelope(channel: Float32Array, blockSize: number): EnvelopeLevel {
   const length = Math.ceil(channel.length / blockSize)
   const mins = new Float32Array(length)
