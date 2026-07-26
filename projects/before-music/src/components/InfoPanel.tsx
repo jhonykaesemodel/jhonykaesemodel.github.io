@@ -12,6 +12,7 @@ export default function InfoPanel({ onClose }: { onClose: () => void }) {
           <div><dt>Air</dt><dd>Two digital channels become idealized plane waves. Their visible displacement is greatly magnified.</dd></div>
           <div><dt>Signal</dt><dd>The exact average of the left and right PCM samples surrounding this instant.</dd></div>
           <div><dt>Perception</dt><dd>Frequency energy separated into logarithmic bands—an analogy for the inner ear, not a model of the brain.</dd></div>
+          <div><dt>Viewing</dt><dd>Night and daylight use different contrast and blending. They display the same samples and analysis.</dd></div>
         </dl>
         <p className="caveat">This is not a reconstruction of your room, speakers, or literal molecular positions. Color, distance, density, and time are expressive scales used to make pressure visible.</p>
         <button className="primary-button" onClick={onClose}>Return to the field</button>

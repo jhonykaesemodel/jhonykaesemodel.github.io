@@ -14,9 +14,24 @@ export class AudioEngine {
     return this.context
   }
 
-  unlock() {
+  async unlock() {
     const context = this.getContext()
-    return context.resume()
+    // iOS Safari needs audio output to be initiated inside the user gesture.
+    // Starting a silent one-sample source primes the native audio session without
+    // adding a sound or changing the experience's playback position.
+    const silent = context.createBufferSource()
+    const silence = context.createGain()
+    silent.buffer = context.createBuffer(1, 1, context.sampleRate)
+    silence.gain.value = 0
+    silent.connect(silence).connect(context.destination)
+    try { silent.start(0) } catch { /* the context may already be closing */ }
+    try {
+      await Promise.race([
+        context.resume(),
+        new Promise<void>((resolve) => window.setTimeout(resolve, 1000)),
+      ])
+    } catch { return false }
+    return context.state === 'running'
   }
 
   async createDemo(): Promise<AudioSourceData> {
@@ -89,9 +104,10 @@ export class AudioEngine {
   }
 
   async play() {
-    if (!this.source || this.playing) return
+    if (this.playing) return true
+    if (!this.source) return false
     const context = this.getContext()
-    await context.resume()
+    if (!await this.unlock()) return false
     if (this.offset >= this.source.duration) this.offset = 0
     const node = context.createBufferSource()
     const gain = context.createGain()
@@ -107,8 +123,15 @@ export class AudioEngine {
     this.sourceNode = node
     this.gainNode = gain
     this.startedAt = context.currentTime - this.offset
-    node.start(0, this.offset)
-    this.playing = true
+    try {
+      node.start(0, this.offset)
+      this.playing = true
+    } catch {
+      node.disconnect()
+      this.sourceNode = null
+      return false
+    }
+    return true
   }
 
   pause() {
@@ -139,6 +162,10 @@ export class AudioEngine {
 
   get isPlaying() {
     return this.playing
+  }
+
+  get audioState() {
+    return this.context?.state ?? 'uninitialized'
   }
 
   private stopSource(clear = true) {

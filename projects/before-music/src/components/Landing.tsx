@@ -1,13 +1,17 @@
 import { useRef, useState } from 'react'
 import { ArrowRight, Headphones, Music2, ShieldCheck, Upload } from 'lucide-react'
 import { validateAudioFile } from '../audio/validation'
+import type { ViewingMode } from '../types'
+import ViewingModeToggle from './ViewingModeToggle'
 
 interface Props {
   onDemo: () => void
   onFile: (file: File) => void
+  viewingMode: ViewingMode
+  onViewingMode: (mode: ViewingMode) => void
 }
 
-export default function Landing({ onDemo, onFile }: Props) {
+export default function Landing({ onDemo, onFile, viewingMode, onViewingMode }: Props) {
   const input = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
   const [error, setError] = useState('')
@@ -19,8 +23,8 @@ export default function Landing({ onDemo, onFile }: Props) {
     onFile(file)
   }
   return (
-    <main className="landing">
-      <header className="site-mark"><span className="mark-dot" />Before Music <span>01</span></header>
+    <main className={`landing ${viewingMode}`}>
+      <header className="landing-header"><span className="site-mark"><span className="mark-dot" />Before Music <span>01</span></span><ViewingModeToggle mode={viewingMode} onChange={onViewingMode} /></header>
       <section className="hero-copy">
         <p className="eyebrow">AN INSTRUMENT FOR SEEING SOUND</p>
         <h1>Music isn’t<br />in the air.</h1>

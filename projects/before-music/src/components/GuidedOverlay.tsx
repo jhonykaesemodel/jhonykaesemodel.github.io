@@ -1,5 +1,7 @@
 import { ArrowLeft, ArrowRight, Pause, Play } from 'lucide-react'
 import type { GuidedMoment } from '../types'
+import type { ViewingMode } from '../types'
+import ViewingModeToggle from './ViewingModeToggle'
 
 interface Props {
   moment: GuidedMoment
@@ -10,13 +12,15 @@ interface Props {
   onNext: () => void
   onPrevious: () => void
   onSkip: () => void
+  viewingMode: ViewingMode
+  onViewingMode: (mode: ViewingMode) => void
 }
 
-export default function GuidedOverlay({ moment, step, total, isPlaying, onToggle, onNext, onPrevious, onSkip }: Props) {
+export default function GuidedOverlay({ moment, step, total, isPlaying, viewingMode, onViewingMode, onToggle, onNext, onPrevious, onSkip }: Props) {
   return (
     <div className="guided-overlay">
       <button className="advance-surface" aria-label="Continue to the next moment" onClick={onNext} />
-      <header className="experience-header"><span className="site-mark"><span className="mark-dot" />Before Music</span><button onClick={onSkip}>Skip journey <ArrowRight size={14} /></button></header>
+      <header className="experience-header"><span className="site-mark"><span className="mark-dot" />Before Music</span><div><ViewingModeToggle mode={viewingMode} onChange={onViewingMode} /><button onClick={onSkip}>Skip journey <ArrowRight size={14} /></button></div></header>
       <div className="scale-label">VISUAL SCALE · {moment.temporalZoom.toFixed(1)}× TIME MAGNIFICATION</div>
       <section className="guided-caption" key={moment.at} aria-live="polite">
         <span>{String(step + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
