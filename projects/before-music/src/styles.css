@@ -16,6 +16,9 @@ html, body, #root { margin: 0; min-width: 320px; min-height: 100%; background: #
 button, input { font: inherit; }
 button { color: inherit; }
 button:focus-visible, input:focus-visible { outline: 1px solid var(--mint); outline-offset: 4px; }
+.landing-header { position: relative; z-index: 4; display: flex; align-items: center; justify-content: space-between; }
+.viewing-toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; padding: 7px 10px; border: 1px solid var(--line); background: rgba(8,13,11,.42); color: #9ca7a1; cursor: pointer; font: 400 8px 'DM Mono'; letter-spacing: .1em; text-transform: uppercase; }
+.viewing-toggle svg { color: var(--amber); }
 
 .landing {
   position: relative; min-height: 100vh; overflow: hidden; padding: 34px 5vw;
@@ -111,18 +114,80 @@ input[type='range']::-webkit-slider-thumb { appearance: none; width: 7px; height
 .info-panel h2 { font-size: clamp(37px, 4vw, 57px); font-weight: 300; letter-spacing: -.055em; line-height: 1; margin: 24px 0 35px; }.info-panel > p:not(.eyebrow,.caveat) { color: #9aa49e; line-height: 1.75; font-size: 14px; }
 .info-panel dl { margin: 40px 0; }.info-panel dl div { display: grid; grid-template-columns: 100px 1fr; padding: 19px 0; border-top: 1px solid var(--line); }.info-panel dt { color: var(--mint); font: 10px 'DM Mono'; text-transform: uppercase; }.info-panel dd { color: #8c9791; line-height: 1.6; font-size: 12px; margin: 0; }
 .caveat { border-left: 1px solid var(--amber); color: #777f7a; padding-left: 18px; font: 9px/1.7 'DM Mono'; text-transform: uppercase; letter-spacing: .06em; }
+.audio-gate { position: absolute; z-index: 12; left: 50%; bottom: 112px; transform: translateX(-50%); width: min(470px, calc(100% - 36px)); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 13px; padding: 14px 16px; border: 1px solid rgba(216,168,92,.42); background: rgba(8,13,11,.94); box-shadow: 0 16px 60px rgba(0,0,0,.28); backdrop-filter: blur(16px); }
+.audio-gate > svg { color: var(--amber); }.audio-gate strong,.audio-gate span { display: block; }.audio-gate strong { font-size: 11px; font-weight: 500; }.audio-gate span { margin-top: 3px; color: #7f8a84; font-size: 9px; }.audio-gate button { border: 1px solid rgba(113,199,184,.4); background: rgba(74,128,115,.14); padding: 9px 11px; color: var(--mint); cursor: pointer; font: 8px 'DM Mono'; text-transform: uppercase; letter-spacing: .08em; }
+
+/* Daylight is a separate contrast system. The renderer also switches away from
+   additive blending so pressure remains legible against this bright field. */
+.daylight {
+  color: #17211e;
+  --mint: #075f57;
+  --amber: #8a4c05;
+  --line: rgba(25, 49, 41, .22);
+  --muted: #53635d;
+}
+.landing.daylight {
+  background:
+    radial-gradient(circle at 82% 45%, rgba(52, 123, 105, .14), transparent 31%),
+    radial-gradient(circle at 30% 85%, rgba(157, 106, 31, .1), transparent 35%), #edf0e9;
+}
+.daylight.landing::after { opacity: .38; background-image: linear-gradient(rgba(24,52,43,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(24,52,43,.05) 1px, transparent 1px); }
+.daylight .site-mark > span:last-child { color: #64716c; }
+.daylight .hero-intro { color: #53615c; }
+.daylight .headphone-note, .daylight .privacy { color: #596862; }
+.daylight .primary-button { border-color: rgba(7,95,87,.46); background: rgba(35,115,100,.1); }
+.daylight .primary-button:hover { background: rgba(35,115,100,.17); }
+.daylight .drop-card { background: rgba(244,246,240,.82); box-shadow: 0 18px 60px rgba(49,68,60,.1); }
+.daylight .drop-card span, .daylight .text-button, .daylight .experience-header button { color: #465a53; }
+.daylight .drop-card.dragging { background: rgba(204,229,218,.86); }
+.daylight .ambient-orbit, .daylight .ambient-orbit i { border-color: rgba(24,93,78,.13); }
+.daylight .ambient-orbit i:nth-child(3) { background: rgba(37,124,103,.06); box-shadow: 0 0 100px rgba(37,124,103,.12); }
+.loading-screen.daylight, .error-screen.daylight { background: radial-gradient(circle, #dce7df, #edf0e9 58%); }
+.daylight.loading-screen span, .daylight.error-screen > p:not(.eyebrow) { color: #586761; }
+.daylight .viewing-toggle { background: rgba(247,248,243,.74); color: #30433c; }
+.experience.daylight { background: #e9ede6; }
+.experience.daylight::after { box-shadow: inset 0 0 150px rgba(80,100,90,.12); }
+.daylight .canvas-fallback { background: radial-gradient(circle, #d8e4dc, #e9ede6 62%); }
+.daylight .grain { opacity: .055; mix-blend-mode: multiply; }
+.daylight .experience-header { background: rgba(233,237,230,.56); }
+.daylight .experience-header button:hover { color: #15231e; }
+.daylight .scale-label, .daylight .guided-navigation span { color: #53665e; }
+.daylight .guided-caption p { color: #4d5d57; }
+.daylight .guided-progress { background: rgba(23,49,41,.2); }
+.daylight .guided-navigation button, .daylight .round-control { background: rgba(246,248,242,.84); border-color: rgba(25,49,41,.3); }
+.daylight .mode-description p { color: #53635d; }
+.daylight .view-tabs button { background: rgba(239,242,235,.74); color: #52635c; }
+.daylight .view-tabs button.active { color: #14241e; background: rgba(133,185,169,.2); }
+.daylight .view-tabs span { color: #657a71; }
+.daylight .parameter-panel { background: rgba(244,246,240,.88); box-shadow: 0 14px 50px rgba(42,63,54,.09); }
+.daylight .parameter-panel > p span { color: #64746e; }
+.daylight .parameter-panel label { color: #41534c; }
+.daylight .parameter-panel output { color: #17251f; }
+.daylight input[type='range'] { background: rgba(25,49,41,.3); }
+.daylight .transport { background: rgba(239,242,235,.92); }
+.daylight .track-meta i { background: radial-gradient(circle, rgba(7,95,87,.44), transparent 65%), repeating-radial-gradient(circle, #76958a 0 1px, #d5dfd8 2px 4px); }
+.daylight .track-meta span, .daylight .icon-button, .daylight .transport time, .daylight .volume { color: #52645d; }
+.daylight .info-scrim { background: rgba(207,214,207,.76); }
+.daylight .info-panel { background: #f0f3ed; }
+.daylight .info-panel > p:not(.eyebrow,.caveat), .daylight .info-panel dd { color: #4f6059; }
+.daylight .info-close { color: #40534b; }
+.daylight .caveat { color: #53615c; }
+.daylight .audio-gate { background: rgba(247,248,243,.96); box-shadow: 0 16px 60px rgba(47,65,57,.16); }.daylight .audio-gate span { color: #586761; }.daylight .audio-gate button { background: rgba(35,115,100,.1); }
+.error-viewing { position: absolute; top: 28px; right: 3.2vw; }
 
 @media (max-width: 780px) {
   .landing { padding: 25px 22px 110px; overflow-y: auto; }
   .hero-copy { width: auto; margin: 16vh 0 0; }.hero-copy h1 { font-size: clamp(54px, 17vw, 82px); }.hero-intro { max-width: 95%; }
   .drop-card { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 70px; }.privacy { position: relative; left: auto; bottom: auto; margin-top: 23px; }
   .ambient-orbit { width: 100vw; right: -50%; top: 7%; }.landing-error { position: static; }
-  .experience-header { height: 63px; padding: 0 18px; }.experience-header > div button:first-child { display: none; }
+  .experience-header { height: 63px; padding: 0 18px; }.experience-header .desktop-help { display: none; }
   .guided-caption { left: 23px; bottom: 17vh; width: calc(100% - 46px); }.guided-caption h2 { font-size: 37px; }.guided-caption p { font-size: 11px; max-width: 88%; }
   .guided-progress { left: 23px; right: 23px; }.guided-play { right: 23px; }
   .mode-description { left: 19px; top: 82px; }.parameter-panel { top: auto; bottom: 143px; right: 16px; width: 210px; max-height: 196px; overflow: auto; }.parameter-panel label { margin-top: 12px; }
   .view-tabs { left: 16px; right: 16px; bottom: 98px; }.view-tabs button { flex: 1; min-width: 0; text-align: center; padding: 12px 4px; }.view-tabs span { display: none; }
   .transport { height: 82px; padding: 0 17px; gap: 10px; flex-wrap: wrap; align-content: center; }.track-meta { width: calc(100% - 95px); }.transport .icon-button { display: none; }.transport .seek { order: 8; flex-basis: calc(100% - 72px); }.transport time { order: 7; }.transport time + .seek + time { order: 9; }.volume { display: none; }
+  .viewing-toggle span { display: none; }.viewing-toggle { min-width: 32px; justify-content: center; padding: 7px; }
+  .audio-gate { bottom: 96px; grid-template-columns: auto 1fr; }.audio-gate button { grid-column: 1 / -1; width: 100%; min-height: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

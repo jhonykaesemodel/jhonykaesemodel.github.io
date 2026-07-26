@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import type { AnalysisData, AudioSourceData, VisualSettings } from '../types'
+import type { AnalysisData, AudioSourceData, ViewingMode, VisualSettings } from '../types'
 
 interface Props {
   source: AudioSourceData
@@ -9,6 +9,7 @@ interface Props {
   settings: VisualSettings
   getTime: () => number
   guided?: boolean
+  viewingMode: ViewingMode
 }
 
 const vertexShader = /* glsl */`
@@ -41,13 +42,15 @@ const vertexShader = /* glsl */`
 const fragmentShader = /* glsl */`
   varying float vPressure;
   varying float vGlow;
+  uniform float uDaylight;
   void main() {
     vec2 point = gl_PointCoord - 0.5;
     float alpha = smoothstep(0.5, 0.06, length(point));
-    vec3 cool = vec3(0.22, 0.68, 0.63);
-    vec3 warm = vec3(0.93, 0.66, 0.32);
+    vec3 cool = mix(vec3(0.22, 0.68, 0.63), vec3(0.025, 0.30, 0.27), uDaylight);
+    vec3 warm = mix(vec3(0.93, 0.66, 0.32), vec3(0.52, 0.27, 0.025), uDaylight);
     vec3 color = mix(cool, warm, smoothstep(-0.35, 0.45, vPressure));
-    gl_FragColor = vec4(color, alpha * (0.16 + abs(vPressure) * 0.62) * vGlow);
+    float pressureAlpha = mix(0.16 + abs(vPressure) * 0.62, 0.30 + abs(vPressure) * 0.68, uDaylight);
+    gl_FragColor = vec4(color, alpha * pressureAlpha * vGlow);
   }
 `
 
@@ -79,7 +82,7 @@ function useWaveTexture(source: AudioSourceData, settings: VisualSettings, getTi
   return texture
 }
 
-function AirField({ source, settings, getTime }: Omit<Props, 'analysis'>) {
+function AirField({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis'>) {
   const material = useRef<THREE.ShaderMaterial>(null)
   const mobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 720px)').matches
   const count = Math.round((mobile ? 3200 : 7600) * settings.density)
@@ -103,6 +106,7 @@ function AirField({ source, settings, getTime }: Omit<Props, 'analysis'>) {
     material.current.uniforms.uTime.value = state.clock.elapsedTime
     material.current.uniforms.uAmplitude.value = settings.amplitude
     material.current.uniforms.uListener.value = settings.listenerPosition
+    material.current.uniforms.uDaylight.value = viewingMode === 'daylight' ? 1 : 0
   })
   useEffect(() => () => geometry.dispose(), [geometry])
   return (
@@ -114,25 +118,25 @@ function AirField({ source, settings, getTime }: Omit<Props, 'analysis'>) {
           fragmentShader={fragmentShader}
           transparent
           depthWrite={false}
-          blending={THREE.AdditiveBlending}
+          blending={viewingMode === 'daylight' ? THREE.NormalBlending : THREE.AdditiveBlending}
           uniforms={{
             uWave: { value: texture }, uAmplitude: { value: settings.amplitude },
-            uTime: { value: 0 }, uListener: { value: settings.listenerPosition },
+            uTime: { value: 0 }, uListener: { value: settings.listenerPosition }, uDaylight: { value: viewingMode === 'daylight' ? 1 : 0 },
           }}
         />
       </points>
-      <mesh position={[-4.9, 1.75, 0]}><ringGeometry args={[0.28, 0.3, 48]} /><meshBasicMaterial color="#5cc9bd" transparent opacity={0.45} /></mesh>
-      <mesh position={[-4.9, -1.75, 0]}><ringGeometry args={[0.28, 0.3, 48]} /><meshBasicMaterial color="#e4a852" transparent opacity={0.45} /></mesh>
-      <mesh position={[3.3, settings.listenerPosition * 1.7, 0]}><sphereGeometry args={[0.08, 20, 20]} /><meshBasicMaterial color="#f4e8cf" /></mesh>
+      <mesh position={[-4.9, 1.75, 0]}><ringGeometry args={[0.28, 0.3, 48]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#075f57' : '#5cc9bd'} transparent opacity={viewingMode === 'daylight' ? 0.82 : 0.45} /></mesh>
+      <mesh position={[-4.9, -1.75, 0]}><ringGeometry args={[0.28, 0.3, 48]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#8a4c05' : '#e4a852'} transparent opacity={viewingMode === 'daylight' ? 0.82 : 0.45} /></mesh>
+      <mesh position={[3.3, settings.listenerPosition * 1.7, 0]}><sphereGeometry args={[0.08, 20, 20]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#17231f' : '#f4e8cf'} /></mesh>
     </>
   )
 }
 
-function SignalView({ source, settings, getTime }: Omit<Props, 'analysis'>) {
+function SignalView({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis'>) {
   const lineRef = useRef<THREE.Line>(null)
   const base = useMemo(() => new Float32Array(700 * 3), [])
   const geometry = useMemo(() => new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(base, 3)), [base])
-  const line = useMemo(() => new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: '#ddc38b', transparent: true, opacity: 0.94 })), [geometry])
+  const line = useMemo(() => new THREE.Line(geometry, new THREE.LineBasicMaterial({ color: viewingMode === 'daylight' ? '#754708' : '#ddc38b', transparent: true, opacity: 0.94 })), [geometry, viewingMode])
   useFrame(() => {
     const left = source.channels[0]
     const right = source.channels[Math.min(1, source.channels.length - 1)]
@@ -153,12 +157,12 @@ function SignalView({ source, settings, getTime }: Omit<Props, 'analysis'>) {
   return (
     <>
       <primitive ref={lineRef} object={line} />
-      <gridHelper args={[12, 24, '#263d38', '#15231f']} rotation={[Math.PI / 2, 0, 0]} />
+      <gridHelper args={[12, 24, viewingMode === 'daylight' ? '#78918a' : '#263d38', viewingMode === 'daylight' ? '#c1cbc5' : '#15231f']} rotation={[Math.PI / 2, 0, 0]} />
     </>
   )
 }
 
-function PerceptionView({ analysis, source, getTime }: Pick<Props, 'analysis' | 'source' | 'getTime'>) {
+function PerceptionView({ analysis, source, getTime, viewingMode }: Pick<Props, 'analysis' | 'source' | 'getTime' | 'viewingMode'>) {
   const bars = useRef<THREE.InstancedMesh>(null)
   const dummy = useMemo(() => new THREE.Object3D(), [])
   useFrame(() => {
@@ -178,7 +182,7 @@ function PerceptionView({ analysis, source, getTime }: Pick<Props, 'analysis' | 
   return (
     <instancedMesh ref={bars} args={[undefined, undefined, analysis.frequencyBands]}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshBasicMaterial color="#79c7b8" transparent opacity={0.82} />
+      <meshBasicMaterial color={viewingMode === 'daylight' ? '#08685f' : '#79c7b8'} transparent opacity={viewingMode === 'daylight' ? 0.92 : 0.82} />
     </instancedMesh>
   )
 }
@@ -202,7 +206,8 @@ export default function ExperienceCanvas(props: Props) {
       dpr={[1, 1.7]}
       gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
     >
-      <fog attach="fog" args={['#050807', 8, 18]} />
+      <color attach="background" args={[props.viewingMode === 'daylight' ? '#e9ede6' : '#050807']} />
+      <fog attach="fog" args={[props.viewingMode === 'daylight' ? '#e9ede6' : '#050807', 8, 18]} />
       <Scene {...props} />
     </Canvas>
   )

@@ -1,5 +1,6 @@
 export type ExperienceState = 'landing' | 'loading' | 'guided' | 'lab' | 'error'
 export type ViewMode = 'air' | 'signal' | 'perception'
+export type ViewingMode = 'night' | 'daylight'
 
 export interface AudioSourceData {
   id: string

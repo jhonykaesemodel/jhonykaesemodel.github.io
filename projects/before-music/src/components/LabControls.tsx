@@ -1,5 +1,6 @@
 import { HelpCircle, Pause, Play, RotateCcw, Upload } from 'lucide-react'
-import type { AudioSourceData, ViewMode, VisualSettings } from '../types'
+import type { AudioSourceData, ViewingMode, ViewMode, VisualSettings } from '../types'
+import ViewingModeToggle from './ViewingModeToggle'
 
 interface Props {
   source: AudioSourceData
@@ -14,6 +15,8 @@ interface Props {
   onRestart: () => void
   onReplace: () => void
   onInfo: () => void
+  viewingMode: ViewingMode
+  onViewingMode: (mode: ViewingMode) => void
 }
 
 const format = (seconds: number) => `${Math.floor(seconds / 60)}:${Math.floor(seconds % 60).toString().padStart(2, '0')}`
@@ -28,7 +31,7 @@ export default function LabControls(props: Props) {
     <div className="lab-ui">
       <header className="experience-header">
         <span className="site-mark"><span className="mark-dot" />Before Music <em>LAB</em></span>
-        <div><button onClick={props.onInfo}><HelpCircle size={15} /> How to read this</button><button onClick={props.onReplace}><Upload size={14} /> Replace audio</button></div>
+        <div><ViewingModeToggle mode={props.viewingMode} onChange={props.onViewingMode} /><button className="desktop-help" onClick={props.onInfo}><HelpCircle size={15} /> How to read this</button><button onClick={props.onReplace}><Upload size={14} /> Replace audio</button></div>
       </header>
       <section className="mode-description">
         <span>{modeCopy[props.settings.mode][0]}</span>
