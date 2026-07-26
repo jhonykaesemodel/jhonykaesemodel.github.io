@@ -1,6 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
+import { analyzeFrequencyWindow, createFrequencyKernels } from '../audio/analysisCore'
 import type { AnalysisData, AudioSourceData, ViewingMode, VisualSettings } from '../types'
 
 interface Props {
@@ -165,12 +166,22 @@ function SignalView({ source, settings, getTime, viewingMode }: Omit<Props, 'ana
 function PerceptionView({ analysis, source, getTime, viewingMode }: Pick<Props, 'analysis' | 'source' | 'getTime' | 'viewingMode'>) {
   const bars = useRef<THREE.InstancedMesh>(null)
   const dummy = useMemo(() => new THREE.Object3D(), [])
+  const kernels = useMemo(() => createFrequencyKernels(source.sampleRate, analysis.frequencyBands), [analysis.frequencyBands, source.sampleRate])
+  const targets = useMemo(() => new Float32Array(analysis.frequencyBands), [analysis.frequencyBands])
+  const displayed = useMemo(() => new Float32Array(analysis.frequencyBands), [analysis.frequencyBands])
+  const lastAnalysisTime = useRef(-1)
   useFrame(() => {
     if (!bars.current) return
-    const ratio = source.duration ? getTime() / source.duration : 0
-    const frame = Math.min(analysis.frequencyFrameCount - 1, Math.floor(ratio * analysis.frequencyFrameCount))
+    const time = getTime()
+    const mobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 720px)').matches
+    const interval = mobile ? 1 / 12 : 1 / 20
+    if (lastAnalysisTime.current < 0 || Math.abs(time - lastAnalysisTime.current) >= interval) {
+      analyzeFrequencyWindow(source.channels, Math.floor(time * source.sampleRate), kernels, targets)
+      lastAnalysisTime.current = time
+    }
     for (let band = 0; band < analysis.frequencyBands; band += 1) {
-      const raw = analysis.frequencyFrames[frame * analysis.frequencyBands + band] ?? 0
+      displayed[band] += (targets[band] - displayed[band]) * 0.38
+      const raw = displayed[band]
       const height = 0.08 + Math.pow(raw, 0.58) * 4.6
       dummy.position.set((band / (analysis.frequencyBands - 1) - 0.5) * 10.5, height * 0.5 - 2.1, 0)
       dummy.scale.set(0.12, height, 0.12)

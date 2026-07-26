@@ -90,10 +90,15 @@ export default function App() {
   }, [])
 
   const enableAudio = useCallback(async () => {
+    // Keep the native media play call in the original click stack on iOS.
+    // Awaiting an AudioContext unlock first can cause Safari to reject playback.
+    if (source) {
+      await requestPlay()
+      return
+    }
+
     const unlocked = await engine.current.unlock()
-    if (!unlocked) { setAudioBlocked(true); return }
-    if (source) await requestPlay()
-    else setAudioBlocked(false)
+    setAudioBlocked(!unlocked)
   }, [requestPlay, source])
 
   const toggle = () => engine.current.isPlaying ? engine.current.pause() : void requestPlay()
