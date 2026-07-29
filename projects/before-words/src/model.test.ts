@@ -24,4 +24,14 @@ describe('etymology model', () => {
     expect(present?.x).toBeGreaterThan(ancient?.x ?? Infinity)
     expect(present?.depth).toBe(0)
   })
+
+  it('gives reused historical nodes a unique visual identity on each branch', () => {
+    const shared = fatherEntry.lineages[0].ancestors[0]
+    const branched = {
+      ...fatherEntry.lineages[0],
+      ancestors: [shared, shared],
+    }
+    const nodes = layoutLineage(branched)
+    expect(new Set(nodes.map((item) => item.instanceId)).size).toBe(nodes.length)
+  })
 })

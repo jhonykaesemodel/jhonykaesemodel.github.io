@@ -78,7 +78,7 @@ export default function AncestryMap({
   const oldestDepth = maxLineageDepth(root)
   const visibleDepth = Math.min(revealDepth ?? oldestDepth, oldestDepth)
   const nodes = useMemo(() => layoutLineage(root, oldestDepth), [root, oldestDepth])
-  const byId = new Map(nodes.map((item) => [item.node.id, item]))
+  const byId = new Map(nodes.map((item) => [item.instanceId, item]))
   const depthX = (depth: number) => 1080 - 960 * (depth / Math.max(1, oldestDepth))
 
   return (
@@ -115,12 +115,12 @@ export default function AncestryMap({
       )}
       <g className="branches">
         {nodes.map((item) => {
-          const parent = item.parentId ? byId.get(item.parentId) : undefined
+          const parent = item.parentInstanceId ? byId.get(item.parentInstanceId) : undefined
           if (!parent) return null
           return (
             <path
               className={item.depth > visibleDepth ? 'unrevealed' : ''}
-              key={`${parent.node.id}-${item.node.id}`}
+              key={`${parent.instanceId}-${item.instanceId}`}
               d={edgePath(parent, item)}
             />
           )
@@ -129,7 +129,7 @@ export default function AncestryMap({
       <g>
         {nodes.map((item) => (
           <NodeMark
-            key={item.node.id}
+            key={item.instanceId}
             item={item}
             selected={selectedId === item.node.id}
             active={item.depth === activeDepth}

@@ -12,12 +12,21 @@ export interface EtymologyNode {
 
 export interface EtymologyEntry {
   word: string
+  language: string
   definition: string
   etymologyText: string
   revision?: number
   sourceUrl: string
   lineages: EtymologyNode[]
   notice?: string
+  continuationTerm?: string
+  continuationSourceUrl?: string
+}
+
+export interface EtymologyLookup {
+  requested: string
+  entries: EtymologyEntry[]
+  suggestions: string[]
 }
 
 export interface StoryMoment {
@@ -104,9 +113,10 @@ export function primaryNodeAtDepth(root: EtymologyNode, depth: number) {
 }
 
 export interface PositionedNode extends NodeAtDepth {
+  instanceId: string
   x: number
   y: number
-  parentId?: string
+  parentInstanceId?: string
 }
 
 function leafCount(node: EtymologyNode, depth: number, maxDepth: number): number {
@@ -126,21 +136,22 @@ export function layoutLineage(
   let cursor = 0
   const nodes: PositionedNode[] = []
   const deepest = Math.max(1, Math.min(maxDepth, maxLineageDepth(root)))
-  const visit = (node: EtymologyNode, depth: number, parentId?: string): number => {
+  const visit = (node: EtymologyNode, depth: number, path: string, parentInstanceId?: string): number => {
+    const instanceId = `${node.id}:${path}`
     const visibleChildren = depth < maxDepth ? node.ancestors : []
     let y: number
     if (visibleChildren.length === 0) {
       y = top + (bottom - top) * ((cursor + 0.5) / leaves)
       cursor += 1
     } else {
-      const positions = visibleChildren.map((child) => visit(child, depth + 1, node.id))
+      const positions = visibleChildren.map((child, index) => visit(child, depth + 1, `${path}.${index}`, instanceId))
       y = positions.reduce((sum, value) => sum + value, 0) / positions.length
     }
     const x = right - (right - left) * (depth / deepest)
-    nodes.push({ node, depth, x, y, parentId })
+    nodes.push({ node, depth, instanceId, x, y, parentInstanceId })
     return y
   }
-  visit(root, 0)
+  visit(root, 0, '0')
   return nodes
 }
 

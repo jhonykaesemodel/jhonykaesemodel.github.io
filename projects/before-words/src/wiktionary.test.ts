@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseWiktionaryResponse } from './wiktionary'
+import { mergeContinuation, parseWiktionaryLookup, parseWiktionaryResponse } from './wiktionary'
 
 function page(content: string) {
   return {
@@ -58,9 +58,68 @@ describe('Wiktionary parsing', () => {
     expect(result.lineages[0].ancestors[0].ancestors[0].term).toBe('*aimurją')
   })
 
-  it('reports entries without an English section', () => {
-    expect(() => parseWiktionaryResponse({
-      parse: { title: 'x', text: '<h2 id="Latin">Latin</h2>' },
-    })).toThrow(/no English entry/)
+  it('reads non-English language sections instead of discarding them', () => {
+    const result = parseWiktionaryResponse({
+      parse: {
+        title: 'Thiago',
+        text: `
+          <div class="mw-heading mw-heading2"><h2 id="Portuguese">Portuguese</h2></div>
+          <div class="mw-heading mw-heading3"><h3 id="Etymology">Etymology</h3></div>
+          <p>Variant spelling of Tiago.</p>
+          <div class="mw-heading mw-heading3"><h3 id="Proper_noun">Proper noun</h3></div>
+          <ol><li><span class="form-of-definition">alternative spelling of
+            <span class="form-of-definition-link"><a title="Tiago">Tiago</a></span>
+          </span>; a male given name.</li></ol>
+        `,
+      },
+    })
+    expect(result.language).toBe('Portuguese')
+    expect(result.definition).toContain('male given name')
+    expect(result.lineages[0].ancestors[0].term).toBe('Tiago')
+    expect(result.continuationTerm).toBe('Tiago')
+  })
+
+  it('returns every documented language and keeps English first', () => {
+    const lookup = parseWiktionaryLookup({
+      parse: {
+        title: 'amor',
+        text: `
+          <div class="mw-heading mw-heading2"><h2 id="Portuguese">Portuguese</h2></div>
+          <div class="mw-heading mw-heading3"><h3 id="Noun">Noun</h3></div><ol><li>love</li></ol>
+          <div class="mw-heading mw-heading2"><h2 id="English">English</h2></div>
+          <div class="mw-heading mw-heading3"><h3 id="Noun">Noun</h3></div><ol><li>A god of love.</li></ol>
+        `,
+      },
+    })
+    expect(lookup.entries.map((entry) => entry.language)).toEqual(['English', 'Portuguese'])
+  })
+
+  it('joins a documented spelling variant to the ancestry on its main entry', () => {
+    const variant = parseWiktionaryResponse({
+      parse: {
+        title: 'Thiago',
+        text: `
+          <div class="mw-heading mw-heading2"><h2 id="Portuguese">Portuguese</h2></div>
+          <div class="mw-heading mw-heading3"><h3 id="Proper_noun">Proper noun</h3></div>
+          <ol><li><span class="form-of-definition">alternative spelling of
+            <span class="form-of-definition-link"><a title="Tiago">Tiago</a></span>
+          </span></li></ol>
+        `,
+      },
+    })
+    const main = parseWiktionaryResponse({
+      parse: {
+        title: 'Tiago',
+        text: `
+          <div class="mw-heading mw-heading2"><h2 id="Portuguese">Portuguese</h2></div>
+          <div class="mw-heading mw-heading3"><h3 id="Etymology">Etymology</h3></div>
+          <p>From <span class="etyl">Portuguese</span> <i class="mention">Santiago</i>.</p>
+        `,
+      },
+    })
+    const merged = mergeContinuation(variant, main)
+    expect(merged.lineages[0].ancestors[0].term).toBe('Tiago')
+    expect(merged.lineages[0].ancestors[0].ancestors[0].term).toBe('Santiago')
+    expect(merged.continuationSourceUrl).toBe(main.sourceUrl)
   })
 })

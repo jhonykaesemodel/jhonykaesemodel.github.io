@@ -28,6 +28,7 @@ const pieFather = node(
 
 export const fatherEntry: EtymologyEntry = {
   word: 'father',
+  language: 'English',
   definition: 'A male parent.',
   etymologyText: 'Inherited through Middle English and Old English from Germanic ancestors, ultimately reconstructed to Proto-Indo-European *ph₂tḗr.',
   revision: 91413694,
