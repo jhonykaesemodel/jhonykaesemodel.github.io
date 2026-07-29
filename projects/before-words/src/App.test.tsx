@@ -8,14 +8,17 @@ describe('Before Words experience', () => {
     fireEvent.click(screen.getByRole('button', { name: /begin with one word/i }))
     expect(screen.getByText('A word looks complete.')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: /continue/i }))
-    expect(screen.getByText('But another word is underneath.')).toBeInTheDocument()
+    expect(screen.getByText('Move one voice backward.')).toBeInTheDocument()
   })
 
-  it('opens the laboratory directly with the comparison instrument', () => {
+  it('opens a single-word time trace and advances one step backward', () => {
     render(<App />)
-    fireEvent.click(screen.getByRole('button', { name: /open the ancestry map/i }))
+    fireEvent.click(screen.getByRole('button', { name: /trace a word now/i }))
     expect(screen.getByLabelText('TRACE A WORD OR NAME')).toHaveValue('father')
-    expect(screen.getByLabelText('COMPARE WITH')).toHaveValue('paternal')
-    expect(screen.getByText('NEAREST SHARED FORM')).toBeInTheDocument()
+    expect(screen.queryByText(/compare with/i)).not.toBeInTheDocument()
+    expect(screen.getByLabelText(/travel backward through the word/i)).toHaveValue('0')
+    fireEvent.click(screen.getByRole('button', { name: /one step older/i }))
+    expect(screen.getByLabelText(/travel backward through the word/i)).toHaveValue('1')
+    expect(screen.getByRole('heading', { name: 'fader' })).toBeInTheDocument()
   })
 })

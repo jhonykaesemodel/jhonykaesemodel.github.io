@@ -44,22 +44,3 @@ export const fatherEntry: EtymologyEntry = {
     ], 'en', 'present form'),
   ],
 }
-
-export const paternalEntry: EtymologyEntry = {
-  word: 'paternal',
-  definition: 'Of or pertaining to one’s father.',
-  etymologyText: 'English borrowed the word through Old French, from Vulgar Latin and Latin formations built on pater, “father.”',
-  revision: 91140994,
-  sourceUrl: 'https://en.wiktionary.org/w/index.php?title=paternal&oldid=91140994',
-  lineages: [
-    node('paternal', 'English', 'documented', [
-      node('paternal', 'Old French', 'documented', [
-        node('paternālis', 'Vulgar Latin', 'reconstructed', [
-          node('paternus', 'Latin', 'documented', [
-            node('pater', 'Latin', 'documented', [pieFather], 'la', 'from'),
-          ], 'la', 'formed from'),
-        ], 'la-vul', 'from'),
-      ], 'fro', 'borrowed from'),
-    ], 'en', 'present form'),
-  ],
-}

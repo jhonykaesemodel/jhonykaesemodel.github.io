@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { fatherEntry, paternalEntry } from './demoData'
-import { findCommonAncestor, layoutLineage, nextStep, normalizeTerm, story } from './model'
+import { fatherEntry } from './demoData'
+import { layoutLineage, maxLineageDepth, nextStep, primaryNodeAtDepth, story } from './model'
 
 describe('etymology model', () => {
   it('advances and stops at the final guided moment', () => {
@@ -8,21 +8,20 @@ describe('etymology model', () => {
     expect(nextStep(story.length - 1)).toBe(story.length - 1)
   })
 
-  it('normalizes typographic variants without treating language as irrelevant', () => {
-    expect(normalizeTerm('*ph₂tḗr')).toBe('ph2ter')
+  it('finds the oldest mapped depth', () => {
+    expect(maxLineageDepth(fatherEntry.lineages[0])).toBe(6)
   })
 
-  it('finds the nearest form shared by two paths', () => {
-    const common = findCommonAncestor(fatherEntry.lineages[0], paternalEntry.lineages[0])
-    expect(common?.left.node.term).toBe('*ph₂tḗr')
-    expect(common?.left.node.language).toBe('Proto-Indo-European')
+  it('walks the primary path one historical step at a time', () => {
+    expect(primaryNodeAtDepth(fatherEntry.lineages[0], 0).term).toBe('father')
+    expect(primaryNodeAtDepth(fatherEntry.lineages[0], 2).term).toBe('fæder')
   })
 
-  it('preserves ancestry order in the vertical layout', () => {
-    const nodes = layoutLineage(fatherEntry.lineages[0], 0, 500)
+  it('places the present to the right of its oldest ancestor', () => {
+    const nodes = layoutLineage(fatherEntry.lineages[0])
     const present = nodes.find((item) => item.node.term === 'father')
     const ancient = nodes.find((item) => item.node.term === '*ph₂tḗr')
-    expect(present?.y).toBeGreaterThan(ancient?.y ?? Infinity)
+    expect(present?.x).toBeGreaterThan(ancient?.x ?? Infinity)
     expect(present?.depth).toBe(0)
   })
 })
