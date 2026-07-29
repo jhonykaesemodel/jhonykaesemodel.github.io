@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import AncestryMap from './AncestryMap'
-import { fatherEntry, paternalEntry } from './demoData'
+import { fatherEntry } from './demoData'
 import {
   countByConfidence,
-  findCommonAncestor,
+  maxLineageDepth,
+  primaryNodeAtDepth,
   story,
   type EtymologyEntry,
   type EtymologyNode,
@@ -11,10 +12,13 @@ import {
 import { fetchEtymology } from './wiktionary'
 
 type AppState = 'landing' | 'guided' | 'lab'
-type SearchSide = 'left' | 'right'
 
 function Brand() {
   return <span className="brand"><i />BEFORE WORDS <b>015</b></span>
+}
+
+function cleanRelation(value: string) {
+  return value.replace(/\[\[.*?\|(.*?)\]\]/g, '$1').replace(/\[\[|\]\]/g, '')
 }
 
 function EvidencePanel({ close }: { close: () => void }) {
@@ -32,7 +36,7 @@ function EvidencePanel({ close }: { close: () => void }) {
           <div><dt>Solid</dt><dd>A written form or borrowing described by the source.</dd></div>
           <div><dt>Asterisk</dt><dd>A form reconstructed by historical linguists from related evidence.</dd></div>
           <div><dt>Question</dt><dd>An origin or relationship explicitly marked uncertain.</dd></div>
-          <div><dt>Distance</dt><dd>Vertical position preserves ancestry order. It is not a calendar scale.</dd></div>
+          <div><dt>Distance</dt><dd>Leftward position preserves ancestry order. It is not a calendar scale.</dd></div>
           <div><dt>Meaning</dt><dd>Current definitions do not reveal a word’s original or “true” meaning. Meanings change.</dd></div>
           <div><dt>Names</dt><dd>Names may have several independent origins. A missing path is reported, never invented.</dd></div>
         </dl>
@@ -43,51 +47,46 @@ function EvidencePanel({ close }: { close: () => void }) {
         </p>
         <a href="https://en.wiktionary.org/wiki/Wiktionary:Copyrights" target="_blank" rel="noreferrer">Wiktionary · CC BY-SA / GFDL ↗</a>
         <a href="https://aclanthology.org/2022.lrec-1.140/" target="_blank" rel="noreferrer">Wiktextract · machine-readable structure ↗</a>
-        <button className="primary-button" onClick={close}>Return to the map</button>
+        <button className="primary-button" onClick={close}>Return to the trace</button>
       </aside>
     </div>
   )
 }
 
 function SearchBox({
-  side,
   entry,
   loading,
   error,
   onSearch,
-  onRemove,
 }: {
-  side: SearchSide
-  entry?: EtymologyEntry | null
+  entry: EtymologyEntry
   loading: boolean
   error?: string
-  onSearch: (side: SearchSide, word: string) => void
-  onRemove?: () => void
+  onSearch: (word: string) => void
 }) {
-  const [value, setValue] = useState(entry?.word ?? '')
-  useEffect(() => setValue(entry?.word ?? ''), [entry?.word])
+  const [value, setValue] = useState(entry.word)
+  useEffect(() => setValue(entry.word), [entry.word])
   const submit = (event: FormEvent) => {
     event.preventDefault()
-    onSearch(side, value)
+    onSearch(value)
   }
   return (
-    <form className={`search-box ${side}`} onSubmit={submit}>
-      <label htmlFor={`word-${side}`}>{side === 'left' ? 'TRACE A WORD OR NAME' : 'COMPARE WITH'}</label>
+    <form className="search-box" onSubmit={submit}>
+      <label htmlFor="word">TRACE A WORD OR NAME</label>
       <div>
         <input
-          id={`word-${side}`}
+          id="word"
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder={side === 'left' ? 'window, robot, John…' : 'another word'}
+          placeholder="window, robot, John…"
           autoCapitalize="none"
           autoComplete="off"
           spellCheck={false}
-          aria-describedby={error ? `error-${side}` : undefined}
+          aria-describedby={error ? 'word-error' : undefined}
         />
         <button type="submit" disabled={loading}>{loading ? 'READING…' : 'TRACE →'}</button>
-        {onRemove && <button className="remove-word" type="button" aria-label="Remove comparison word" onClick={onRemove}>×</button>}
       </div>
-      {error && <span id={`error-${side}`} className="search-error" role="alert">{error}</span>}
+      {error && <span id="word-error" className="search-error" role="alert">{error}</span>}
     </form>
   )
 }
@@ -104,7 +103,7 @@ function LineageChooser({
   if (entry.lineages.length < 2) return null
   return (
     <div className="lineage-chooser">
-      <span>{entry.word} has {entry.lineages.length} mapped origins</span>
+      <span>{entry.word} has {entry.lineages.length} possible mapped origins</span>
       {entry.lineages.map((lineage, index) => (
         <button key={lineage.id} className={index === value ? 'active' : ''} onClick={() => onChange(index)}>
           {index + 1}
@@ -115,77 +114,85 @@ function LineageChooser({
 }
 
 function Laboratory({ onInfo }: { onInfo: () => void }) {
-  const [left, setLeft] = useState<EtymologyEntry>(fatherEntry)
-  const [right, setRight] = useState<EtymologyEntry | null>(paternalEntry)
-  const [leftLineage, setLeftLineage] = useState(0)
-  const [rightLineage, setRightLineage] = useState(0)
+  const [entry, setEntry] = useState<EtymologyEntry>(fatherEntry)
+  const [lineage, setLineage] = useState(0)
+  const [traceDepth, setTraceDepth] = useState(0)
   const [selected, setSelected] = useState<EtymologyNode>(fatherEntry.lineages[0])
-  const [loading, setLoading] = useState<SearchSide | null>(null)
-  const [errors, setErrors] = useState<Partial<Record<SearchSide, string>>>({})
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string>()
 
-  const leftRoot = left.lineages[leftLineage] ?? left.lineages[0]
-  const rightRoot = right?.lineages[rightLineage] ?? right?.lineages[0]
-  const common = findCommonAncestor(leftRoot, rightRoot)
-  const counts = useMemo(() => countByConfidence(leftRoot), [leftRoot])
+  const root = entry.lineages[lineage] ?? entry.lineages[0]
+  const oldestDepth = maxLineageDepth(root)
+  const counts = useMemo(() => countByConfidence(root), [root])
 
-  const search = async (side: SearchSide, word: string) => {
-    setLoading(side)
-    setErrors((previous) => ({ ...previous, [side]: undefined }))
+  useEffect(() => {
+    setSelected(primaryNodeAtDepth(root, traceDepth))
+  }, [root, traceDepth])
+
+  const search = async (word: string) => {
+    setLoading(true)
+    setError(undefined)
     try {
       const result = await fetchEtymology(word)
-      if (side === 'left') {
-        setLeft(result)
-        setLeftLineage(0)
-      } else {
-        setRight(result)
-        setRightLineage(0)
-      }
+      setEntry(result)
+      setLineage(0)
+      setTraceDepth(0)
       setSelected(result.lineages[0])
     } catch (reason) {
-      setErrors((previous) => ({
-        ...previous,
-        [side]: reason instanceof Error ? reason.message : 'That path could not be read.',
-      }))
+      setError(reason instanceof Error ? reason.message : 'That path could not be read.')
     } finally {
-      setLoading(null)
+      setLoading(false)
     }
+  }
+
+  const changeLineage = (index: number) => {
+    setLineage(index)
+    setTraceDepth(0)
+    setSelected(entry.lineages[index])
   }
 
   return (
     <section className="laboratory">
       <div className="lab-searches">
-        <SearchBox side="left" entry={left} loading={loading === 'left'} error={errors.left} onSearch={search} />
-        {right
-          ? <SearchBox side="right" entry={right} loading={loading === 'right'} error={errors.right} onSearch={search} onRemove={() => setRight(null)} />
-          : <button className="add-comparison" onClick={() => setRight(paternalEntry)}>+ COMPARE ANOTHER WORD</button>}
+        <SearchBox entry={entry} loading={loading} error={error} onSearch={search} />
       </div>
       <div className="preset-row" aria-label="Example words">
         <span>TRY</span>
         {['window', 'robot', 'John', 'salary'].map((word) => (
-          <button key={word} onClick={() => void search('left', word)}>{word}</button>
+          <button key={word} onClick={() => void search(word)}>{word}</button>
         ))}
       </div>
       <AncestryMap
-        left={left}
-        right={right}
-        leftLineage={leftLineage}
-        rightLineage={rightLineage}
+        entry={entry}
+        lineage={lineage}
+        revealDepth={traceDepth}
+        activeDepth={traceDepth}
         selectedId={selected.id}
         onSelect={setSelected}
       />
-      <LineageChooser entry={left} value={leftLineage} onChange={(index) => {
-        setLeftLineage(index)
-        setSelected(left.lineages[index])
-      }} />
-      {right && <LineageChooser entry={right} value={rightLineage} onChange={(index) => {
-        setRightLineage(index)
-        setSelected(right.lineages[index])
-      }} />}
+      <LineageChooser entry={entry} value={lineage} onChange={changeLineage} />
+      <section className="time-control" aria-label="Travel through the word's ancestry">
+        <div className="time-labels"><span>OLDEST MAPPED</span><span>NOW</span></div>
+        <input
+          aria-label="Travel backward through the word"
+          type="range"
+          min="0"
+          max={oldestDepth}
+          value={traceDepth}
+          dir="rtl"
+          onChange={(event) => setTraceDepth(Number(event.target.value))}
+        />
+        <div className="time-actions">
+          <button disabled={traceDepth === oldestDepth} onClick={() => setTraceDepth((depth) => Math.min(oldestDepth, depth + 1))}>← ONE STEP OLDER</button>
+          <span>{traceDepth === oldestDepth ? 'EVIDENCE ENDS HERE' : `${traceDepth} OF ${oldestDepth} STEPS BACK`}</span>
+          <button disabled={traceDepth === 0} onClick={() => setTraceDepth((depth) => Math.max(0, depth - 1))}>TOWARD NOW →</button>
+        </div>
+      </section>
       <aside className="word-readout" aria-live="polite">
         <p className="eyebrow">{selected.confidence.toUpperCase()} FORM</p>
         <h2>{selected.term}</h2>
         <p className="readout-language">{selected.language}</p>
-        {selected.relation && <span>{selected.relation.replace(/\[\[.*?\|(.*?)\]\]/g, '$1').replace(/\[\[|\]\]/g, '')}</span>}
+        {selected.relation && <span>{cleanRelation(selected.relation)}</span>}
         <div className="evidence-counts">
           <span><b>{counts.documented}</b> documented</span>
           <span><b>{counts.reconstructed}</b> reconstructed</span>
@@ -193,19 +200,11 @@ function Laboratory({ onInfo }: { onInfo: () => void }) {
         </div>
       </aside>
       <aside className="meaning-readout">
-        <p><strong>{left.word}</strong> · {left.definition}</p>
-        <p>{left.etymologyText}</p>
-        {left.notice && <small>{left.notice}</small>}
-        <a href={left.sourceUrl} target="_blank" rel="noreferrer">SOURCE · WIKTIONARY REVISION {left.revision ?? 'CURRENT'} ↗</a>
-        {right && <a href={right.sourceUrl} target="_blank" rel="noreferrer">COMPARE SOURCE · {right.word.toUpperCase()} ↗</a>}
+        <p><strong>{entry.word}</strong> · {entry.definition}</p>
+        <p>{entry.etymologyText}</p>
+        {entry.notice && <small>{entry.notice}</small>}
+        <a href={entry.sourceUrl} target="_blank" rel="noreferrer">SOURCE · WIKTIONARY REVISION {entry.revision ?? 'CURRENT'} ↗</a>
       </aside>
-      <div className={`connection-readout ${common ? 'found' : ''}`}>
-        {right
-          ? common
-            ? <><span>NEAREST SHARED FORM</span><strong>{common.left.node.term}</strong><small>{common.left.node.language}</small></>
-            : <><span>NO SHARED FORM IN THESE MAPPED PATHS</span><small>Absence here is not proof of unrelated origin.</small></>
-          : <><span>ONE PATH OPEN</span><small>Add a second word to search for shared ancestry.</small></>}
-      </div>
       <button className="floating-info" onClick={onInfo}>Evidence & limits ?</button>
     </section>
   )
@@ -242,14 +241,14 @@ export default function App() {
       <main className="landing">
         <header><Brand /><a href="../../ai/">ALL EXPERIMENTS ↗</a></header>
         <div className="landing-map" aria-hidden="true">
-          <AncestryMap left={fatherEntry} maxDepth={6} compact />
+          <AncestryMap entry={fatherEntry} revealDepth={6} compact />
         </div>
         <section className="hero-copy">
           <p className="eyebrow">AN ARCHAEOLOGY OF LANGUAGE</p>
           <h1>Every word<br /><em>remembers.</em></h1>
-          <p>Enter a word or name. Follow it through older voices, borrowed forms, and reconstructed ancestors.</p>
+          <p>Choose one word or name. Travel backward through older voices until the evidence can take us no farther.</p>
           <button className="primary-button" onClick={() => setState('guided')}>Begin with one word →</button>
-          <button className="quiet-button" onClick={() => setState('lab')}>Open the ancestry map</button>
+          <button className="quiet-button" onClick={() => setState('lab')}>Trace a word now</button>
           <small>Live English Wiktionary evidence · uncertainties remain visible</small>
         </section>
       </main>
@@ -261,16 +260,16 @@ export default function App() {
       <header className="topbar">
         <Brand />
         <div>
-          {state === 'guided' && <button onClick={() => setState('lab')}>SKIP TO MAP →</button>}
+          {state === 'guided' && <button onClick={() => setState('lab')}>SKIP TO TRACE →</button>}
           <button onClick={() => setInfo(true)}>EVIDENCE & LIMITS ?</button>
         </div>
       </header>
       {state === 'guided' ? (
         <section className={`guided-stage lens-${moment.lens}`}>
           <AncestryMap
-            left={fatherEntry}
-            right={moment.compare ? paternalEntry : null}
-            maxDepth={moment.depth}
+            entry={fatherEntry}
+            revealDepth={moment.depth}
+            activeDepth={moment.depth}
             lens={moment.lens}
           />
           <article className="story-card" key={step}>
@@ -278,7 +277,7 @@ export default function App() {
             <h2>{moment.title}</h2>
             <p>{moment.body}</p>
             <small>{moment.note}</small>
-            <button onClick={next}>{step === story.length - 1 ? 'Open the map' : 'Continue'} →</button>
+            <button onClick={next}>{step === story.length - 1 ? 'Trace your own word' : 'Continue'} →</button>
           </article>
           <nav className="guided-pager" aria-label="Guided journey">
             <button aria-label="Previous moment" disabled={step === 0} onClick={previous}>←</button>
