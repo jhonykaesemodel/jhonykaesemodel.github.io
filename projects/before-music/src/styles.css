@@ -98,9 +98,6 @@ button:focus-visible, input:focus-visible { outline: 1px solid var(--mint); outl
 .process-labels { position: absolute; inset: 0; pointer-events: none; color: #65716b; font: 7px 'DM Mono'; letter-spacing: .13em; }
 .process-labels span { position: absolute; top: 50%; padding-top: 11px; border-top: 1px solid rgba(113,199,184,.24); white-space: nowrap; }
 .process-labels i { color: #947b53; font-style: normal; font-size: 6px; }
-.air-process span:nth-child(1) { left: 3.2vw; }
-.air-process span:nth-child(2) { left: 50%; transform: translateX(-50%); }
-.air-process span:nth-child(3) { right: 13vw; }
 .perception-process span:nth-child(1) { left: 8.2vw; }
 .perception-process span:nth-child(2) { left: 41%; transform: translateX(-50%); }
 .perception-process span:nth-child(3) { right: 8vw; }

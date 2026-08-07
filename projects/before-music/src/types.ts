@@ -33,7 +33,6 @@ export interface VisualSettings {
   temporalZoom: number
   amplitude: number
   density: number
-  listenerPosition: number
 }
 
 export interface GuidedMoment {

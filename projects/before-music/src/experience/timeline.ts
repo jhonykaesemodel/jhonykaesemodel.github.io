@@ -27,8 +27,8 @@ export const guidedTimeline: GuidedMoment[] = [
   },
   {
     at: 27, until: 35, mode: 'air', temporalZoom: 3.8, amplitude: 1.2,
-    caption: 'Two waves meet at one listener.',
-    detail: 'Virtual left and right sources combine at the observation point.',
+    caption: 'A whole song lives in tiny shifts.',
+    detail: 'Every coherent displacement follows the decoded stereo signal around this instant.',
     action: 'resume',
   },
   {

@@ -13,62 +13,21 @@ interface Props {
   viewingMode: ViewingMode
 }
 
-const pressureVertexShader = /* glsl */`
-  uniform sampler2D uWave;
-  uniform float uAmplitude;
-  uniform float uListener;
-  varying float vPressure;
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv;
-    float leftPressure = texture2D(uWave, vec2(uv.x, 0.25)).r * 2.0 - 1.0;
-    float rightPressure = texture2D(uWave, vec2(uv.x, 0.75)).r * 2.0 - 1.0;
-    float stereoBlend = smoothstep(0.12, 0.88, uv.y + uListener * 0.16);
-    float pressure = mix(leftPressure, rightPressure, stereoBlend);
-    vec3 p = position;
-    p.x += pressure * uAmplitude * 0.28;
-    p.z += pressure * uAmplitude * 0.22;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
-    vPressure = pressure;
-  }
-`
-
-const pressureFragmentShader = /* glsl */`
-  uniform float uDaylight;
-  varying float vPressure;
-  varying vec2 vUv;
-
-  void main() {
-    vec3 neutral = mix(vec3(0.025, 0.055, 0.047), vec3(0.82, 0.86, 0.82), uDaylight);
-    vec3 rarefaction = mix(vec3(0.08, 0.63, 0.59), vec3(0.02, 0.34, 0.31), uDaylight);
-    vec3 compression = mix(vec3(0.96, 0.55, 0.17), vec3(0.58, 0.25, 0.015), uDaylight);
-    float magnitude = smoothstep(0.012, 0.44, abs(vPressure));
-    vec3 signedColor = mix(rarefaction, compression, smoothstep(-0.045, 0.045, vPressure));
-    float edgeFade = smoothstep(0.0, 0.1, vUv.x) * (1.0 - smoothstep(0.9, 1.0, vUv.x));
-    float verticalFade = smoothstep(0.0, 0.14, vUv.y) * (1.0 - smoothstep(0.86, 1.0, vUv.y));
-    float alpha = mix(0.015, mix(0.22, 0.32, uDaylight), magnitude) * edgeFade * verticalFade;
-    gl_FragColor = vec4(mix(neutral, signedColor, 0.32 + magnitude * 0.68), alpha);
-  }
-`
-
 const particleVertexShader = /* glsl */`
   uniform sampler2D uWave;
   uniform float uTime;
   uniform float uAmplitude;
   uniform float uDensity;
-  uniform float uListener;
   uniform float uMotion;
   attribute vec3 aSeed;
-  varying float vPressure;
-  varying float vMagnitude;
   varying float vVisible;
   varying float vDepth;
+  varying float vTint;
 
   void main() {
     vec3 p = position;
     float fieldX = clamp(p.x / 12.0 + 0.5, 0.0, 1.0);
-    float fieldY = clamp(p.y / 6.2 + 0.5 + uListener * 0.08, 0.0, 1.0);
+    float fieldY = clamp(p.y / 6.2 + 0.5, 0.0, 1.0);
     float leftPressure = texture2D(uWave, vec2(fieldX, 0.25)).r * 2.0 - 1.0;
     float rightPressure = texture2D(uWave, vec2(fieldX, 0.75)).r * 2.0 - 1.0;
     float pressure = mix(leftPressure, rightPressure, smoothstep(0.12, 0.88, fieldY));
@@ -76,31 +35,29 @@ const particleVertexShader = /* glsl */`
     // The restless motion remains local. The decoded pressure moves every parcel
     // coherently, so a musical wave appears as collective order inside the noise.
     float restless = uTime * (1.5 + aSeed.z * 1.8);
-    p.x += sin(restless + aSeed.y * 31.0) * (0.035 + aSeed.x * 0.055) * uMotion;
-    p.y += cos(restless * 1.13 + aSeed.x * 27.0) * (0.045 + aSeed.z * 0.075) * uMotion;
-    p.z += sin(restless * 0.83 + aSeed.y * 19.0) * 0.11 * uMotion;
+    float agitation = 0.12 + smoothstep(0.0, 0.72, abs(pressure)) * 0.88;
+    p.x += sin(restless + aSeed.y * 31.0) * (0.035 + aSeed.x * 0.055) * agitation * uMotion;
+    p.y += cos(restless * 1.13 + aSeed.x * 27.0) * (0.045 + aSeed.z * 0.075) * agitation * uMotion;
+    p.z += sin(restless * 0.83 + aSeed.y * 19.0) * 0.11 * agitation * uMotion;
     p.x += pressure * uAmplitude * 1.12;
     p.z += pressure * uAmplitude * 0.28;
 
     vec4 viewPosition = modelViewMatrix * vec4(p, 1.0);
-    float magnitude = smoothstep(0.015, 0.72, abs(pressure));
     vVisible = step(aSeed.x, uDensity);
-    vPressure = pressure;
-    vMagnitude = magnitude;
     vDepth = clamp((p.z + 1.25) / 2.5, 0.0, 1.0);
+    vTint = aSeed.y;
     float depthScale = mix(0.72, 1.75, vDepth);
     float brightParcel = 1.0 + step(0.94, aSeed.y) * 0.85;
-    gl_PointSize = vVisible * (2.1 + magnitude * 7.8 + aSeed.z * 2.4) * depthScale * brightParcel * clamp(8.5 / -viewPosition.z, 0.68, 1.55);
+    gl_PointSize = vVisible * (2.1 + aSeed.z * 3.2) * depthScale * brightParcel * clamp(8.5 / -viewPosition.z, 0.68, 1.55);
     gl_Position = projectionMatrix * viewPosition;
   }
 `
 
 const particleFragmentShader = /* glsl */`
   uniform float uDaylight;
-  varying float vPressure;
-  varying float vMagnitude;
   varying float vVisible;
   varying float vDepth;
+  varying float vTint;
 
   void main() {
     vec2 point = gl_PointCoord - 0.5;
@@ -108,12 +65,10 @@ const particleFragmentShader = /* glsl */`
     if (distanceFromCenter > 0.5 || vVisible < 0.5) discard;
     float core = 1.0 - smoothstep(0.04, 0.34, distanceFromCenter);
     float halo = (1.0 - smoothstep(0.12, 0.5, distanceFromCenter)) * 0.42;
-    vec3 quiet = mix(vec3(0.28, 0.42, 0.38), vec3(0.25, 0.34, 0.31), uDaylight);
-    vec3 rarefaction = mix(vec3(0.18, 0.88, 0.82), vec3(0.01, 0.39, 0.35), uDaylight);
-    vec3 compression = mix(vec3(1.0, 0.62, 0.22), vec3(0.66, 0.28, 0.015), uDaylight);
-    vec3 pressureColor = mix(rarefaction, compression, smoothstep(-0.06, 0.06, vPressure));
-    vec3 color = mix(quiet, pressureColor, 0.52 + vMagnitude * 0.48);
-    float alpha = (0.18 + vMagnitude * 0.82) * (core + halo) * mix(0.62, 1.0, vDepth);
+    vec3 cool = mix(vec3(0.20, 0.72, 0.67), vec3(0.02, 0.34, 0.31), uDaylight);
+    vec3 warm = mix(vec3(0.80, 0.58, 0.29), vec3(0.46, 0.31, 0.13), uDaylight);
+    vec3 color = mix(cool, warm, smoothstep(0.72, 1.0, vTint));
+    float alpha = (0.34 + vTint * 0.18) * (core + halo) * mix(0.62, 1.0, vDepth);
     gl_FragColor = vec4(color, alpha);
   }
 `
@@ -209,7 +164,6 @@ function ParticleAtmosphere({ settings, viewingMode, texture }: Pick<Props, 'set
       material.current.uniforms.uTime.value = state.clock.elapsedTime
       material.current.uniforms.uAmplitude.value = settings.amplitude
       material.current.uniforms.uDensity.value = settings.density
-      material.current.uniforms.uListener.value = settings.listenerPosition
       material.current.uniforms.uDaylight.value = viewingMode === 'daylight' ? 1 : 0
     }
   })
@@ -230,7 +184,6 @@ function ParticleAtmosphere({ settings, viewingMode, texture }: Pick<Props, 'set
           uTime: { value: 0 },
           uAmplitude: { value: settings.amplitude },
           uDensity: { value: settings.density },
-          uListener: { value: settings.listenerPosition },
           uMotion: { value: reducedMotion ? 0 : 1 },
           uDaylight: { value: viewingMode === 'daylight' ? 1 : 0 },
         }}
@@ -240,50 +193,8 @@ function ParticleAtmosphere({ settings, viewingMode, texture }: Pick<Props, 'set
 }
 
 function AirField({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis'>) {
-  const material = useRef<THREE.ShaderMaterial>(null)
-  const membrane = useRef<THREE.Mesh>(null)
   const texture = useWaveTexture(source, settings, getTime)
-  useFrame((state) => {
-    if (material.current) {
-      material.current.uniforms.uAmplitude.value = settings.amplitude
-      material.current.uniforms.uListener.value = settings.listenerPosition
-      material.current.uniforms.uDaylight.value = viewingMode === 'daylight' ? 1 : 0
-    }
-    if (membrane.current) membrane.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.12) * 0.018
-  })
-  return (
-    <>
-      <mesh ref={membrane}>
-        <planeGeometry args={[12, 7, 256, 8]} />
-        <shaderMaterial
-          ref={material}
-          vertexShader={pressureVertexShader}
-          fragmentShader={pressureFragmentShader}
-          transparent
-          depthWrite={false}
-          side={THREE.DoubleSide}
-          blending={viewingMode === 'daylight' ? THREE.NormalBlending : THREE.AdditiveBlending}
-          uniforms={{
-            uWave: { value: texture },
-            uAmplitude: { value: settings.amplitude },
-            uListener: { value: settings.listenerPosition },
-            uDaylight: { value: viewingMode === 'daylight' ? 1 : 0 },
-          }}
-        />
-      </mesh>
-      <ParticleAtmosphere settings={settings} viewingMode={viewingMode} texture={texture} />
-      <mesh position={[-5.35, 1.65, 0.35]}><ringGeometry args={[0.34, 0.37, 64]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#075f57' : '#5cc9bd'} transparent opacity={0.8} /></mesh>
-      <mesh position={[-5.35, -1.65, 0.35]}><ringGeometry args={[0.34, 0.37, 64]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#8a4c05' : '#e4a852'} transparent opacity={0.8} /></mesh>
-      <mesh position={[4.65, settings.listenerPosition * 1.7, 0.45]}>
-        <ringGeometry args={[0.13, 0.19, 64]} />
-        <meshBasicMaterial color={viewingMode === 'daylight' ? '#17231f' : '#fff0d2'} transparent opacity={0.96} />
-      </mesh>
-      <mesh position={[4.65, settings.listenerPosition * 1.7, 0.25]}>
-        <ringGeometry args={[0.34, 0.36, 64]} />
-        <meshBasicMaterial color={viewingMode === 'daylight' ? '#315148' : '#8eaa9f'} transparent opacity={0.42} />
-      </mesh>
-    </>
-  )
+  return <ParticleAtmosphere settings={settings} viewingMode={viewingMode} texture={texture} />
 }
 
 function SignalView({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis'>) {

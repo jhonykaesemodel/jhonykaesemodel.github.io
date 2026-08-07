@@ -98,11 +98,6 @@ export function buildEnvelope(channel: Float32Array, blockSize: number): Envelop
   return { blockSize, mins, maxes }
 }
 
-export function sumStereo(left: number, right: number, listenerPosition: number) {
-  const pan = Math.max(-1, Math.min(1, listenerPosition))
-  return left * (0.5 - pan * 0.25) + right * (0.5 + pan * 0.25)
-}
-
 export function analyzeChannels(channels: Float32Array[], sampleRate: number): AnalysisData {
   const mono = channels.length === 1
     ? channels[0]
