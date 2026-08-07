@@ -6,7 +6,7 @@ export interface ExperimentSettings {
   slitWidth: number
   slitSeparation: number
   distinguishability: number
-  slitMode: 'both' | 'upper' | 'lower'
+  slitMode: 'single' | 'double'
   rate: number
 }
 
@@ -24,6 +24,7 @@ export interface StoryMoment {
   settings: Partial<ExperimentSettings>
   targetDetections: number
   showAmplitude: boolean
+  sceneMode: 'quantum' | 'wave'
   ask?: string
 }
 

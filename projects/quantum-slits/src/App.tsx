@@ -4,6 +4,7 @@ import GuidedOverlay from './components/GuidedOverlay'
 import LabControls from './components/LabControls'
 import InterpretationPanel from './components/InterpretationPanel'
 import SciencePanel from './components/SciencePanel'
+import LightPrimer from './components/LightPrimer'
 import QuantumCanvas from './visuals/QuantumCanvas'
 import { defaultSettings, sampleDetection } from './physics/model'
 import { story } from './experience/story'
@@ -19,6 +20,7 @@ export default function App() {
   const [labMode, setLabMode] = useState<'experiment' | 'interpretations'>('experiment')
   const [interpretation, setInterpretation] = useState<InterpretationId>('copenhagen')
   const [showScience, setShowScience] = useState(false)
+  const [showLight, setShowLight] = useState(false)
   const id = useRef(0)
   const accumulator = useRef(0)
 
@@ -64,9 +66,10 @@ export default function App() {
     if (!ready) return
     if (step === story.length - 1) {
       setState('lab')
-      setLabMode('interpretations')
+      setLabMode('experiment')
       setRunning(false)
       setSettings(defaultSettings)
+      setDetections([])
       return
     }
     setStep((current) => current + 1)
@@ -75,6 +78,7 @@ export default function App() {
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (showScience) { if (event.key === 'Escape') setShowScience(false); return }
+      if (showLight) { if (event.key === 'Escape') setShowLight(false); return }
       if (state === 'guided' && event.key === 'ArrowRight') next()
       if (state === 'guided' && event.key === 'ArrowLeft') setStep((current) => Math.max(0, current - 1))
       if ((state === 'guided' || state === 'lab') && event.code === 'Space' && !(event.target instanceof HTMLInputElement)) {
@@ -83,7 +87,7 @@ export default function App() {
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [emit, next, showScience, state])
+  }, [emit, next, showLight, showScience, state])
 
   const openLab = () => {
     setState('lab'); setLabMode('experiment'); setSettings(defaultSettings); setDetections([]); setRunning(false); setShowAmplitude(true)
@@ -97,13 +101,19 @@ export default function App() {
 
   return (
     <main className={`experience ${state} ${labMode}`}>
-      <QuantumCanvas settings={settings} detections={detections} showAmplitude={showAmplitude} interpretation={labMode === 'interpretations' ? interpretation : undefined} />
+      <QuantumCanvas settings={settings} detections={detections} showAmplitude={showAmplitude} sceneMode={state === 'guided' ? story[step].sceneMode : 'quantum'} interpretation={labMode === 'interpretations' ? interpretation : undefined} />
       <div className="grain" aria-hidden="true" />
-      {state === 'guided' && <GuidedOverlay moment={story[step]} step={step} total={story.length} detections={detections.length} onNext={next} onPrevious={() => setStep((current) => Math.max(0, current - 1))} onEmit={() => emit()} onSkip={openLab} />}
-      {state === 'lab' && labMode === 'experiment' && <LabControls settings={settings} detections={detections.length} running={running} showAmplitude={showAmplitude} onSettings={updateSettings} onRunning={setRunning} onAmplitude={setShowAmplitude} onEmit={() => emit()} onClear={() => setDetections([])} onInfo={() => setShowScience(true)} />}
+      {labMode === 'experiment' && <div className="apparatus-key" aria-hidden="true">
+        <span>light source</span>
+        <span>{settings.slitMode === 'single' ? 'one opening' : 'two openings'}</span>
+        <span>detector</span>
+      </div>}
+      {state === 'guided' && <GuidedOverlay moment={story[step]} step={step} total={story.length} detections={detections.length} onNext={next} onPrevious={() => setStep((current) => Math.max(0, current - 1))} onEmit={() => emit()} onSkip={openLab} onLight={() => setShowLight(true)} />}
+      {state === 'lab' && labMode === 'experiment' && <LabControls settings={settings} detections={detections.length} running={running} showAmplitude={showAmplitude} onSettings={updateSettings} onRunning={setRunning} onAmplitude={setShowAmplitude} onEmit={() => emit()} onClear={() => setDetections([])} onInfo={() => setShowScience(true)} onLight={() => setShowLight(true)} />}
       {state === 'lab' && labMode === 'interpretations' && <InterpretationPanel selected={interpretation} onSelect={setInterpretation} onClose={() => setLabMode('experiment')} />}
       {state === 'lab' && labMode === 'experiment' && <button className="open-lenses" onClick={() => { setLabMode('interpretations'); setRunning(false) }}>Compare reality lenses →</button>}
       {showScience && <SciencePanel onClose={() => setShowScience(false)} />}
+      {showLight && <LightPrimer onClose={() => setShowLight(false)} />}
     </main>
   )
 }
