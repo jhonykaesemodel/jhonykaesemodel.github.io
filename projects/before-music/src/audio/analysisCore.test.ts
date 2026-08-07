@@ -1,17 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, magnifyPressureForDisplay, sumStereo, summarizeAuditoryActivity } from './analysisCore'
+import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, magnifyPressureForDisplay, summarizeAuditoryActivity } from './analysisCore'
 
 describe('audio analysis', () => {
   it('builds min/max envelope blocks without losing extrema', () => {
     const level = buildEnvelope(Float32Array.from([0.2, -0.8, 0.7, 0.1, -0.1]), 2)
     expect(Array.from(level.mins).map((value) => +value.toFixed(2))).toEqual([-0.8, 0.1, -0.1])
     expect(Array.from(level.maxes).map((value) => +value.toFixed(2))).toEqual([0.2, 0.7, -0.1])
-  })
-
-  it('moves the virtual listener between stereo sources', () => {
-    expect(sumStereo(1, 0, -1)).toBeGreaterThan(sumStereo(1, 0, 1))
-    expect(sumStereo(0, 1, 1)).toBeGreaterThan(sumStereo(0, 1, -1))
-    expect(sumStereo(1, 1, 0)).toBe(1)
   })
 
   it('magnifies quiet pressure without changing its sign or zero crossing', () => {

@@ -11,7 +11,7 @@ import ViewingModeToggle from './components/ViewingModeToggle'
 import { guidedTimeline } from './experience/timeline'
 import type { AnalysisData, AudioSourceData, ExperienceState, ViewingMode, VisualSettings } from './types'
 
-const initialSettings: VisualSettings = { mode: 'air', temporalZoom: 1, amplitude: 1, density: 0.8, listenerPosition: 0 }
+const initialSettings: VisualSettings = { mode: 'air', temporalZoom: 1, amplitude: 1, density: 0.8 }
 const ExperienceCanvas = lazy(() => import('./visuals/ExperienceCanvas'))
 const initialViewingMode = (): ViewingMode => {
   const hour = new Date().getHours()

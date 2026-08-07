@@ -9,7 +9,7 @@ export default function InfoPanel({ onClose }: { onClose: () => void }) {
         <h2 id="info-title">A truthful signal.<br />An imagined space.</h2>
         <p>The movement begins with the decoded samples in your audio file. Every view follows the playback clock and selects the sample window around that instant.</p>
         <dl>
-          <div><dt>Air</dt><dd>Thousands of imagined air parcels jitter locally while the decoded stereo signal moves them coherently. Warm crowding means compression; cool opening means rarefaction. The particles are not literal molecules, and every displacement is greatly magnified.</dd></div>
+          <div><dt>Air</dt><dd>Thousands of imagined air parcels move with the decoded stereo signal. Where they crowd, pressure is higher; where they open, pressure is lower. Their stable color adds depth but carries no frequency or pressure value. The particles are not literal molecules, and every displacement is greatly magnified.</dd></div>
           <div><dt>Signal</dt><dd>The exact average of the left and right PCM samples surrounding this instant.</dd></div>
           <div><dt>Perception</dt><dd>The spiral is an expressive basilar-membrane map: high frequencies excite its outer base and low frequencies its inner apex. The outgoing fibers encode calculated frequency activity, level, and onset—not literal neurons or measured brain activity.</dd></div>
           <div><dt>Playback</dt><dd>On iPhone and iPad, Safari’s native media player carries the sound while the same local file supplies the decoded visual signal.</dd></div>

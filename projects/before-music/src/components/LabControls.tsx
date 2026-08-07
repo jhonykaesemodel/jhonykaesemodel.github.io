@@ -23,7 +23,7 @@ const format = (seconds: number) => `${Math.floor(seconds / 60)}:${Math.floor(se
 
 export default function LabControls(props: Props) {
   const modeCopy: Record<ViewMode, [string, string]> = {
-    air: ['AIR', 'A restless atmosphere becomes collective order.'],
+    air: ['AIR', 'The song moves the particles. Their crowding reveals pressure.'],
     signal: ['SIGNAL', 'Raw PCM samples around the listening instant'],
     perception: ['PERCEPTION', 'One waveform unfolds into place, intensity, and timing'],
   }
@@ -44,13 +44,6 @@ export default function LabControls(props: Props) {
           </button>
         ))}
       </nav>
-      {props.settings.mode === 'air' && (
-        <div className="process-labels air-process" aria-hidden="true">
-          <span>TWO VIRTUAL SOURCES</span>
-          <span>COHERENT PRESSURE FRONTS</span>
-          <span>LISTENING POINT</span>
-        </div>
-      )}
       {props.settings.mode === 'perception' && (
         <div className="process-labels perception-process" aria-hidden="true">
           <span>ARRIVING PRESSURE</span>
@@ -63,7 +56,6 @@ export default function LabControls(props: Props) {
         <label>Temporal zoom <output>{props.settings.temporalZoom.toFixed(1)}×</output><input type="range" min="0.5" max="8" step="0.1" value={props.settings.temporalZoom} onChange={(e) => props.onSettings({ temporalZoom: +e.target.value })} /></label>
         <label>Amplitude <output>{props.settings.amplitude.toFixed(1)}×</output><input type="range" min="0.1" max="2.5" step="0.1" value={props.settings.amplitude} onChange={(e) => props.onSettings({ amplitude: +e.target.value })} /></label>
         <label>Field density <output>{Math.round(props.settings.density * 100)}%</output><input type="range" min="0.3" max="1" step="0.05" value={props.settings.density} onChange={(e) => props.onSettings({ density: +e.target.value })} /></label>
-        <label>Listening point <output>{props.settings.listenerPosition > 0.05 ? 'RIGHT' : props.settings.listenerPosition < -0.05 ? 'LEFT' : 'CENTER'}</output><input type="range" min="-1" max="1" step="0.05" value={props.settings.listenerPosition} onChange={(e) => props.onSettings({ listenerPosition: +e.target.value })} /></label>
       </aside>
       <section className="transport">
         <div className="track-meta"><i /><div><strong>{props.source.name}</strong><span>{props.source.artist}</span></div></div>
