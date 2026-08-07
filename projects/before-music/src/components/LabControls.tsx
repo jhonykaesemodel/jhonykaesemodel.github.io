@@ -23,7 +23,7 @@ const format = (seconds: number) => `${Math.floor(seconds / 60)}:${Math.floor(se
 
 export default function LabControls(props: Props) {
   const modeCopy: Record<ViewMode, [string, string]> = {
-    air: ['AIR', 'Warm fronts crowd the air. Cool fronts release it.'],
+    air: ['AIR', 'A restless atmosphere becomes collective order.'],
     signal: ['SIGNAL', 'Raw PCM samples around the listening instant'],
     perception: ['PERCEPTION', 'One waveform unfolds into place, intensity, and timing'],
   }
@@ -47,7 +47,7 @@ export default function LabControls(props: Props) {
       {props.settings.mode === 'air' && (
         <div className="process-labels air-process" aria-hidden="true">
           <span>TWO VIRTUAL SOURCES</span>
-          <span>PRESSURE HISTORY ACROSS SPACE</span>
+          <span>COHERENT PRESSURE FRONTS</span>
           <span>LISTENING POINT</span>
         </div>
       )}

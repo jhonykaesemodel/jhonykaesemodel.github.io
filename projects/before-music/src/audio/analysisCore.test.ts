@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, sumStereo, summarizeAuditoryActivity } from './analysisCore'
+import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, magnifyPressureForDisplay, sumStereo, summarizeAuditoryActivity } from './analysisCore'
 
 describe('audio analysis', () => {
   it('builds min/max envelope blocks without losing extrema', () => {
@@ -12,6 +12,13 @@ describe('audio analysis', () => {
     expect(sumStereo(1, 0, -1)).toBeGreaterThan(sumStereo(1, 0, 1))
     expect(sumStereo(0, 1, 1)).toBeGreaterThan(sumStereo(0, 1, -1))
     expect(sumStereo(1, 1, 0)).toBe(1)
+  })
+
+  it('magnifies quiet pressure without changing its sign or zero crossing', () => {
+    expect(magnifyPressureForDisplay(0)).toBe(0)
+    expect(magnifyPressureForDisplay(0.01)).toBeGreaterThan(0.01)
+    expect(magnifyPressureForDisplay(-0.01)).toBeLessThan(-0.01)
+    expect(magnifyPressureForDisplay(2)).toBe(1)
   })
 
   it('returns normalized waveform and frequency metadata', () => {

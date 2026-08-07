@@ -5,6 +5,11 @@ export interface FrequencyKernel {
   sine: Float32Array
 }
 
+export function magnifyPressureForDisplay(value: number) {
+  const bounded = Math.max(-1, Math.min(1, value))
+  return Math.sign(bounded) * Math.pow(Math.abs(bounded), 0.46)
+}
+
 export function createFrequencyKernels(sampleRate: number, bandCount = 48, windowSize = 384) {
   const highestFrequency = Math.min(18000, sampleRate * 0.45)
   return Array.from({ length: bandCount }, (_, band): FrequencyKernel => {

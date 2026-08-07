@@ -1,7 +1,7 @@
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import * as THREE from 'three'
-import { analyzeFrequencyWindow, createFrequencyKernels, summarizeAuditoryActivity } from '../audio/analysisCore'
+import { analyzeFrequencyWindow, createFrequencyKernels, magnifyPressureForDisplay, summarizeAuditoryActivity } from '../audio/analysisCore'
 import type { AnalysisData, AudioSourceData, ViewingMode, VisualSettings } from '../types'
 
 interface Props {
@@ -47,8 +47,74 @@ const pressureFragmentShader = /* glsl */`
     vec3 signedColor = mix(rarefaction, compression, smoothstep(-0.045, 0.045, vPressure));
     float edgeFade = smoothstep(0.0, 0.1, vUv.x) * (1.0 - smoothstep(0.9, 1.0, vUv.x));
     float verticalFade = smoothstep(0.0, 0.14, vUv.y) * (1.0 - smoothstep(0.86, 1.0, vUv.y));
-    float alpha = mix(0.025, mix(0.67, 0.78, uDaylight), magnitude) * edgeFade * verticalFade;
+    float alpha = mix(0.015, mix(0.22, 0.32, uDaylight), magnitude) * edgeFade * verticalFade;
     gl_FragColor = vec4(mix(neutral, signedColor, 0.32 + magnitude * 0.68), alpha);
+  }
+`
+
+const particleVertexShader = /* glsl */`
+  uniform sampler2D uWave;
+  uniform float uTime;
+  uniform float uAmplitude;
+  uniform float uDensity;
+  uniform float uListener;
+  uniform float uMotion;
+  attribute vec3 aSeed;
+  varying float vPressure;
+  varying float vMagnitude;
+  varying float vVisible;
+  varying float vDepth;
+
+  void main() {
+    vec3 p = position;
+    float fieldX = clamp(p.x / 12.0 + 0.5, 0.0, 1.0);
+    float fieldY = clamp(p.y / 6.2 + 0.5 + uListener * 0.08, 0.0, 1.0);
+    float leftPressure = texture2D(uWave, vec2(fieldX, 0.25)).r * 2.0 - 1.0;
+    float rightPressure = texture2D(uWave, vec2(fieldX, 0.75)).r * 2.0 - 1.0;
+    float pressure = mix(leftPressure, rightPressure, smoothstep(0.12, 0.88, fieldY));
+
+    // The restless motion remains local. The decoded pressure moves every parcel
+    // coherently, so a musical wave appears as collective order inside the noise.
+    float restless = uTime * (1.5 + aSeed.z * 1.8);
+    p.x += sin(restless + aSeed.y * 31.0) * (0.035 + aSeed.x * 0.055) * uMotion;
+    p.y += cos(restless * 1.13 + aSeed.x * 27.0) * (0.045 + aSeed.z * 0.075) * uMotion;
+    p.z += sin(restless * 0.83 + aSeed.y * 19.0) * 0.11 * uMotion;
+    p.x += pressure * uAmplitude * 1.12;
+    p.z += pressure * uAmplitude * 0.28;
+
+    vec4 viewPosition = modelViewMatrix * vec4(p, 1.0);
+    float magnitude = smoothstep(0.015, 0.72, abs(pressure));
+    vVisible = step(aSeed.x, uDensity);
+    vPressure = pressure;
+    vMagnitude = magnitude;
+    vDepth = clamp((p.z + 1.25) / 2.5, 0.0, 1.0);
+    float depthScale = mix(0.72, 1.75, vDepth);
+    float brightParcel = 1.0 + step(0.94, aSeed.y) * 0.85;
+    gl_PointSize = vVisible * (2.1 + magnitude * 7.8 + aSeed.z * 2.4) * depthScale * brightParcel * clamp(8.5 / -viewPosition.z, 0.68, 1.55);
+    gl_Position = projectionMatrix * viewPosition;
+  }
+`
+
+const particleFragmentShader = /* glsl */`
+  uniform float uDaylight;
+  varying float vPressure;
+  varying float vMagnitude;
+  varying float vVisible;
+  varying float vDepth;
+
+  void main() {
+    vec2 point = gl_PointCoord - 0.5;
+    float distanceFromCenter = length(point);
+    if (distanceFromCenter > 0.5 || vVisible < 0.5) discard;
+    float core = 1.0 - smoothstep(0.04, 0.34, distanceFromCenter);
+    float halo = (1.0 - smoothstep(0.12, 0.5, distanceFromCenter)) * 0.42;
+    vec3 quiet = mix(vec3(0.28, 0.42, 0.38), vec3(0.25, 0.34, 0.31), uDaylight);
+    vec3 rarefaction = mix(vec3(0.18, 0.88, 0.82), vec3(0.01, 0.39, 0.35), uDaylight);
+    vec3 compression = mix(vec3(1.0, 0.62, 0.22), vec3(0.66, 0.28, 0.015), uDaylight);
+    vec3 pressureColor = mix(rarefaction, compression, smoothstep(-0.06, 0.06, vPressure));
+    vec3 color = mix(quiet, pressureColor, 0.52 + vMagnitude * 0.48);
+    float alpha = (0.18 + vMagnitude * 0.82) * (core + halo) * mix(0.62, 1.0, vDepth);
+    gl_FragColor = vec4(color, alpha);
   }
 `
 
@@ -84,10 +150,6 @@ const cochleaFragmentShader = /* glsl */`
   }
 `
 
-// Acoustic pressure is microscopic at human listening levels. This signed curve
-// preserves zero crossings and relative motion while making quiet oscillations legible.
-const magnifyPressure = (value: number) => Math.sign(value) * Math.pow(Math.abs(value), 0.46)
-
 function useWaveTexture(source: AudioSourceData, settings: VisualSettings, getTime: () => number) {
   const data = useMemo(() => new Uint8Array(512 * 2), [])
   const texture = useMemo(() => {
@@ -106,7 +168,7 @@ function useWaveTexture(source: AudioSourceData, settings: VisualSettings, getTi
       for (let x = 0; x < 512; x += 1) {
         const offset = Math.floor((x / 511 - 0.5) * windowSamples)
         const index = Math.max(0, Math.min(samples.length - 1, center + offset))
-        data[channel * 512 + x] = Math.round((magnifyPressure(samples[index]) * 0.5 + 0.5) * 255)
+        data[channel * 512 + x] = Math.round((magnifyPressureForDisplay(samples[index]) * 0.5 + 0.5) * 255)
       }
     }
     texture.needsUpdate = true
@@ -115,51 +177,66 @@ function useWaveTexture(source: AudioSourceData, settings: VisualSettings, getTi
   return texture
 }
 
-function AirRibs({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis' | 'viewingMode'> & { viewingMode: ViewingMode }) {
-  const count = Math.round(30 + settings.density * 44)
-  const positions = useMemo(() => new Float32Array(count * 2 * 3), [count])
-  const colors = useMemo(() => new Float32Array(count * 2 * 3), [count])
+function ParticleAtmosphere({ settings, viewingMode, texture }: Pick<Props, 'settings' | 'viewingMode'> & { texture: THREE.DataTexture }) {
+  const maxCount = useMemo(() => typeof window !== 'undefined' && window.matchMedia('(max-width: 720px)').matches ? 3400 : 9000, [])
   const geometry = useMemo(() => {
+    const positions = new Float32Array(maxCount * 3)
+    const seeds = new Float32Array(maxCount * 3)
+    // A stable equilibrium cloud makes collective compression legible. Randomness
+    // changes parcel placement and local motion, never the decoded pressure pattern.
+    for (let index = 0; index < maxCount; index += 1) {
+      const offset = index * 3
+      const xSeed = Math.random()
+      const ySeed = Math.random()
+      const zSeed = Math.random()
+      positions[offset] = (xSeed - 0.5) * 11.8
+      positions[offset + 1] = (ySeed - 0.5) * 6.25
+      positions[offset + 2] = (zSeed - 0.5) * 2.25
+      seeds[offset] = Math.random()
+      seeds[offset + 1] = Math.random()
+      seeds[offset + 2] = Math.random()
+    }
     const result = new THREE.BufferGeometry()
     result.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    result.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+    result.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 3))
     return result
-  }, [colors, positions])
-  const material = useMemo(() => new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, opacity: viewingMode === 'daylight' ? 0.42 : 0.33 }), [viewingMode])
+  }, [maxCount])
+  const material = useRef<THREE.ShaderMaterial>(null)
+  const reducedMotion = useMemo(() => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches, [])
 
-  useFrame(() => {
-    const left = source.channels[0]
-    const right = source.channels[Math.min(1, source.channels.length - 1)] ?? left
-    const center = Math.floor(getTime() * source.sampleRate)
-    const windowSamples = Math.max(96, Math.floor(source.sampleRate * 0.032 / settings.temporalZoom))
-    for (let rib = 0; rib < count; rib += 1) {
-      const progress = rib / Math.max(1, count - 1)
-      const sampleIndex = Math.max(0, Math.min(left.length - 1, center + Math.floor((progress - 0.5) * windowSamples)))
-      const pressure = magnifyPressure(((left[sampleIndex] ?? 0) + (right[sampleIndex] ?? 0)) * 0.5)
-      // Each rib is an enlarged slice of air. Quiet slices recede so the eye reads
-      // coherent compression/rarefaction fronts instead of an undifferentiated grid.
-      const x = (progress - 0.5) * 11.7 + pressure * settings.amplitude * 0.62
-      const visibility = 0.13 + Math.min(1, Math.abs(pressure) * 4.4) * 0.87
-      const warm = pressure >= 0
-      const color = viewingMode === 'daylight'
-        ? warm ? [0.48, 0.19, 0.01] : [0.01, 0.30, 0.27]
-        : warm ? [0.94, 0.56, 0.22] : [0.16, 0.69, 0.64]
-      for (let end = 0; end < 2; end += 1) {
-        const offset = (rib * 2 + end) * 3
-        positions[offset] = x
-        positions[offset + 1] = end === 0 ? -3.0 : 3.0
-        positions[offset + 2] = 0.18
-        colors[offset] = color[0] * visibility
-        colors[offset + 1] = color[1] * visibility
-        colors[offset + 2] = color[2] * visibility
-      }
+  useFrame((state) => {
+    if (material.current) {
+      material.current.uniforms.uTime.value = state.clock.elapsedTime
+      material.current.uniforms.uAmplitude.value = settings.amplitude
+      material.current.uniforms.uDensity.value = settings.density
+      material.current.uniforms.uListener.value = settings.listenerPosition
+      material.current.uniforms.uDaylight.value = viewingMode === 'daylight' ? 1 : 0
     }
-    geometry.attributes.position.needsUpdate = true
-    geometry.attributes.color.needsUpdate = true
   })
 
-  useEffect(() => () => { geometry.dispose(); material.dispose() }, [geometry, material])
-  return <lineSegments geometry={geometry} material={material} />
+  useEffect(() => () => geometry.dispose(), [geometry])
+  return (
+    <points geometry={geometry} frustumCulled={false}>
+      <shaderMaterial
+        ref={material}
+        vertexShader={particleVertexShader}
+        fragmentShader={particleFragmentShader}
+        transparent
+        depthWrite={false}
+        depthTest={false}
+        blending={viewingMode === 'daylight' ? THREE.NormalBlending : THREE.AdditiveBlending}
+        uniforms={{
+          uWave: { value: texture },
+          uTime: { value: 0 },
+          uAmplitude: { value: settings.amplitude },
+          uDensity: { value: settings.density },
+          uListener: { value: settings.listenerPosition },
+          uMotion: { value: reducedMotion ? 0 : 1 },
+          uDaylight: { value: viewingMode === 'daylight' ? 1 : 0 },
+        }}
+      />
+    </points>
+  )
 }
 
 function AirField({ source, settings, getTime, viewingMode }: Omit<Props, 'analysis'>) {
@@ -194,7 +271,7 @@ function AirField({ source, settings, getTime, viewingMode }: Omit<Props, 'analy
           }}
         />
       </mesh>
-      <AirRibs source={source} settings={settings} getTime={getTime} viewingMode={viewingMode} guided={false} />
+      <ParticleAtmosphere settings={settings} viewingMode={viewingMode} texture={texture} />
       <mesh position={[-5.35, 1.65, 0.35]}><ringGeometry args={[0.34, 0.37, 64]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#075f57' : '#5cc9bd'} transparent opacity={0.8} /></mesh>
       <mesh position={[-5.35, -1.65, 0.35]}><ringGeometry args={[0.34, 0.37, 64]} /><meshBasicMaterial color={viewingMode === 'daylight' ? '#8a4c05' : '#e4a852'} transparent opacity={0.8} /></mesh>
       <mesh position={[4.65, settings.listenerPosition * 1.7, 0.45]}>
