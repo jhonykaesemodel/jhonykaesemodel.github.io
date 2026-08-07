@@ -9,13 +9,18 @@ export default function InfoPanel({ onClose }: { onClose: () => void }) {
         <h2 id="info-title">A truthful signal.<br />An imagined space.</h2>
         <p>The movement begins with the decoded samples in your audio file. Every view follows the playback clock and selects the sample window around that instant.</p>
         <dl>
-          <div><dt>Air</dt><dd>Two digital channels become idealized plane waves. Their visible displacement is greatly magnified.</dd></div>
+          <div><dt>Air</dt><dd>Two digital channels become a continuous pressure field. Warm fronts mean compression; cool fronts mean rarefaction. Slice spacing and displacement are greatly magnified.</dd></div>
           <div><dt>Signal</dt><dd>The exact average of the left and right PCM samples surrounding this instant.</dd></div>
-          <div><dt>Perception</dt><dd>Frequency energy separated into logarithmic bands—an analogy for the inner ear, not a model of the brain.</dd></div>
+          <div><dt>Perception</dt><dd>The spiral is an expressive basilar-membrane map: high frequencies excite its outer base and low frequencies its inner apex. The outgoing fibers encode calculated frequency activity, level, and onset—not literal neurons or measured brain activity.</dd></div>
           <div><dt>Playback</dt><dd>On iPhone and iPad, Safari’s native media player carries the sound while the same local file supplies the decoded visual signal.</dd></div>
           <div><dt>Viewing</dt><dd>Night and daylight use different contrast and blending. They display the same samples and analysis.</dd></div>
         </dl>
-        <p className="caveat">This is not a reconstruction of your room, speakers, or literal molecular positions. Color, distance, density, and time are expressive scales used to make pressure visible.</p>
+        <p className="caveat">This is not a reconstruction of your room, speakers, literal molecular positions, or brain. Color, distance, neural geometry, density, and time are expressive scales. The decoded pressure signal and frequency analysis are real.</p>
+        <div className="info-sources">
+          <span>PHYSIOLOGY</span>
+          <a href="https://www.nidcd.nih.gov/health/how-do-we-hear" target="_blank" rel="noreferrer">NIDCD · How do we hear? ↗</a>
+          <a href="https://www.ncbi.nlm.nih.gov/books/NBK11105/" target="_blank" rel="noreferrer">NCBI · Tuning and timing in the auditory nerve ↗</a>
+        </div>
         <button className="primary-button" onClick={onClose}>Return to the field</button>
       </section>
     </div>

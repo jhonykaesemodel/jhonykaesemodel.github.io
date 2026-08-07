@@ -11,7 +11,7 @@ export const guidedTimeline: GuidedMoment[] = [
   {
     at: 5, until: 13, mode: 'air', temporalZoom: 0.8, amplitude: 0.75,
     caption: 'Pressure arrives.',
-    detail: 'Compression and rarefaction carry a changing signal through space.',
+    detail: 'Warm fronts crowd the air; cool fronts release it. Air oscillates locally while the pattern advances.',
     action: 'resume',
   },
   {
@@ -33,8 +33,8 @@ export const guidedTimeline: GuidedMoment[] = [
   },
   {
     at: 35, until: 45, mode: 'perception', temporalZoom: 1, amplitude: 1,
-    caption: 'Then the ear begins to separate the whole.',
-    detail: 'One pressure history becomes bands of activity—and perception begins.',
+    caption: 'The ear unfolds one wave into a world.',
+    detail: 'The cochlea maps frequency to place. Hair cells turn motion into neural timing and intensity.',
   },
 ]
 
