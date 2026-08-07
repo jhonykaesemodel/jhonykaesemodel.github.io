@@ -47,6 +47,34 @@ export function analyzeFrequencyWindow(
   return output
 }
 
+export interface AuditoryFeatures {
+  level: number
+  onset: number
+  centroid: number
+}
+
+export function summarizeAuditoryActivity(
+  current: Float32Array,
+  previous: Float32Array,
+): AuditoryFeatures {
+  let energy = 0
+  let positiveChange = 0
+  let weighted = 0
+  let total = 0
+  for (let band = 0; band < current.length; band += 1) {
+    const value = Math.max(0, current[band] ?? 0)
+    energy += value * value
+    positiveChange += Math.max(0, value - (previous[band] ?? 0))
+    weighted += value * band
+    total += value
+  }
+  return {
+    level: current.length ? Math.min(1, Math.sqrt(energy / current.length) * 2.4) : 0,
+    onset: current.length ? Math.min(1, (positiveChange / current.length) * 5.5) : 0,
+    centroid: total > 0 && current.length > 1 ? weighted / total / (current.length - 1) : 0,
+  }
+}
+
 export function buildEnvelope(channel: Float32Array, blockSize: number): EnvelopeLevel {
   const length = Math.ceil(channel.length / blockSize)
   const mins = new Float32Array(length)

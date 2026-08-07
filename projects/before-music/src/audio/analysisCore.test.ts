@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, sumStereo } from './analysisCore'
+import { analyzeChannels, analyzeFrequencyWindow, buildEnvelope, createFrequencyKernels, sumStereo, summarizeAuditoryActivity } from './analysisCore'
 
 describe('audio analysis', () => {
   it('builds min/max envelope blocks without losing extrema', () => {
@@ -34,5 +34,15 @@ describe('audio analysis', () => {
     const tone = analyzeFrequencyWindow([signal], sampleRate * 3, kernels)
     expect(Math.max(...quiet)).toBeLessThan(0.01)
     expect(Math.max(...tone)).toBeGreaterThan(0.5)
+  })
+
+  it('extracts level, onset, and spectral center from auditory-band activity', () => {
+    const previous = new Float32Array([0.1, 0.1, 0.1, 0.1])
+    const current = new Float32Array([0.1, 0.2, 0.6, 0.9])
+    const features = summarizeAuditoryActivity(current, previous)
+    expect(features.level).toBeGreaterThan(0.5)
+    expect(features.onset).toBeGreaterThan(0)
+    expect(features.centroid).toBeGreaterThan(0.5)
+    expect(summarizeAuditoryActivity(previous, current).onset).toBe(0)
   })
 })

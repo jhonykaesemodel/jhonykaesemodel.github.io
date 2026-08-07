@@ -23,12 +23,12 @@ const format = (seconds: number) => `${Math.floor(seconds / 60)}:${Math.floor(se
 
 export default function LabControls(props: Props) {
   const modeCopy: Record<ViewMode, [string, string]> = {
-    air: ['AIR', 'An idealized field of compression and rarefaction'],
+    air: ['AIR', 'Warm fronts crowd the air. Cool fronts release it.'],
     signal: ['SIGNAL', 'Raw PCM samples around the listening instant'],
-    perception: ['PERCEPTION', 'Frequency activity separated into auditory bands'],
+    perception: ['PERCEPTION', 'One waveform unfolds into place, intensity, and timing'],
   }
   return (
-    <div className="lab-ui">
+    <div className={`lab-ui mode-${props.settings.mode}`}>
       <header className="experience-header">
         <span className="site-mark"><span className="mark-dot" />Before Music <em>LAB</em></span>
         <div><ViewingModeToggle mode={props.viewingMode} onChange={props.onViewingMode} /><button className="desktop-help" onClick={props.onInfo}><HelpCircle size={15} /> How to read this</button><button onClick={props.onReplace}><Upload size={14} /> Replace audio</button></div>
@@ -44,6 +44,20 @@ export default function LabControls(props: Props) {
           </button>
         ))}
       </nav>
+      {props.settings.mode === 'air' && (
+        <div className="process-labels air-process" aria-hidden="true">
+          <span>TWO VIRTUAL SOURCES</span>
+          <span>PRESSURE HISTORY ACROSS SPACE</span>
+          <span>LISTENING POINT</span>
+        </div>
+      )}
+      {props.settings.mode === 'perception' && (
+        <div className="process-labels perception-process" aria-hidden="true">
+          <span>ARRIVING PRESSURE</span>
+          <span>COCHLEAR PLACE MAP<br /><i>HIGH → LOW</i></span>
+          <span>NEURAL TIMING + LEVEL</span>
+        </div>
+      )}
       <aside className="parameter-panel">
         <p>FIELD PARAMETERS <span>ARTISTIC AMPLIFICATION</span></p>
         <label>Temporal zoom <output>{props.settings.temporalZoom.toFixed(1)}×</output><input type="range" min="0.5" max="8" step="0.1" value={props.settings.temporalZoom} onChange={(e) => props.onSettings({ temporalZoom: +e.target.value })} /></label>
