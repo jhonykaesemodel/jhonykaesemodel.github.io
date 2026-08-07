@@ -1,5 +1,4 @@
-import { Eye, EyeOff, HelpCircle, Pause, Play, RotateCcw } from 'lucide-react'
-import { visibility } from '../physics/model'
+import { CircleDot, HelpCircle, Pause, Play, RotateCcw, Waves } from 'lucide-react'
 import type { ExperimentSettings } from '../types'
 
 interface Props {
@@ -13,43 +12,44 @@ interface Props {
   onEmit: () => void
   onClear: () => void
   onInfo: () => void
+  onLight: () => void
 }
 
 export default function LabControls(props: Props) {
-  const update = (next: Partial<ExperimentSettings>) => props.onSettings(next)
-  const d = props.settings.distinguishability
-  const pathLabel = d < .08 ? 'NO RECORD' : d > .92 ? 'PATH KNOWABLE' : 'PARTIAL TRACE'
+  const double = props.settings.slitMode === 'double'
+  const marked = props.settings.distinguishability > 0.5
+  const update = (next: Partial<ExperimentSettings>) => {
+    props.onRunning(false)
+    props.onSettings(next)
+  }
   return (
     <div className="lab-controls">
       <header className="experience-header">
         <span className="brand"><i />The Space Between <em>LAB</em></span>
-        <button onClick={props.onInfo}><HelpCircle size={14} /> Model & limits</button>
+        <div><button onClick={props.onLight}><Waves size={14} /> What is light?</button><button onClick={props.onInfo}><HelpCircle size={14} /> Model & limits</button></div>
       </header>
 
       <section className="lab-intro">
-        <p className="eyebrow">WHAT CAN THE UNIVERSE DISTINGUISH?</p>
-        <h2>{pathLabel}</h2>
-        <p>Path knowledge <strong>{Math.round(d * 100)}%</strong> · fringe visibility <strong>{Math.round(visibility(d) * 100)}%</strong></p>
+        <p className="eyebrow">{double ? marked ? 'TWO OPENINGS · PATH RECORDED' : 'TWO OPENINGS · PATH UNKNOWN' : 'START HERE · ONE OPENING'}</p>
+        <h2>{double ? marked ? 'The gaps fill in.' : 'Some arrivals become impossible.' : 'Possibility spreads.'}</h2>
+        <p>{double ? marked ? 'Path information prevents the alternatives from interfering.' : 'Two amplitudes reinforce and cancel before an event appears.' : 'Build the broad one-slit pattern. Then open the second slit.'}</p>
       </section>
 
-      <aside className="control-panel">
-        <div className="control-heading"><span>APPARATUS</span><button onClick={props.onClear}><RotateCcw size={13} /> Reset screen</button></div>
-        <label className="major-control">Which-path trace <output>{Math.round(d * 100)}%</output><input type="range" min="0" max="1" step="0.01" value={d} onChange={(e) => update({ distinguishability: +e.target.value })} /></label>
-        <p className="tradeoff"><i style={{ width: `${visibility(d) * 100}%` }} /> visible interference</p>
-        <label>Wavelength <output>{props.settings.wavelength.toFixed(2)}</output><input type="range" min="0.35" max="1.1" step="0.01" value={props.settings.wavelength} onChange={(e) => update({ wavelength: +e.target.value })} /></label>
-        <label>Slit separation <output>{props.settings.slitSeparation.toFixed(1)}</output><input type="range" min="2.2" max="7" step="0.1" value={props.settings.slitSeparation} onChange={(e) => update({ slitSeparation: +e.target.value })} /></label>
-        <label>Slit width <output>{props.settings.slitWidth.toFixed(1)}</output><input type="range" min="0.65" max="2.6" step="0.05" value={props.settings.slitWidth} onChange={(e) => update({ slitWidth: +e.target.value })} /></label>
-        <div className="slit-choice" role="group" aria-label="Open slits">
-          {(['upper', 'both', 'lower'] as const).map((mode) => <button key={mode} className={props.settings.slitMode === mode ? 'active' : ''} onClick={() => update({ slitMode: mode })}>{mode}</button>)}
+      <aside className="control-panel simple-controls">
+        <div className="control-heading"><span>OPENINGS</span><button onClick={props.onClear}><RotateCcw size={13} /> Clear detector</button></div>
+        <div className="opening-choice" role="group" aria-label="Number of open slits">
+          <button className={!double ? 'active' : ''} onClick={() => update({ slitMode: 'single', distinguishability: 0 })}><span>01</span><b>One slit</b><small>Learn the spread</small></button>
+          <button className={double ? 'active' : ''} onClick={() => update({ slitMode: 'double', distinguishability: 0 })}><span>02</span><b>Two slits</b><small>Reveal interference</small></button>
         </div>
-        <button className="amplitude-toggle" onClick={() => props.onAmplitude(!props.showAmplitude)}>{props.showAmplitude ? <Eye size={14} /> : <EyeOff size={14} />} Amplitude field</button>
+        <button className={`concept-toggle ${props.showAmplitude ? 'active' : ''}`} onClick={() => props.onAmplitude(!props.showAmplitude)}><Waves size={15} /><span><b>{props.showAmplitude ? 'Hide possibility wave' : 'See possibility wave'}</b><small>Phase surface · visual analogy</small></span></button>
+        {double && <button className={`concept-toggle path-toggle ${marked ? 'active marked' : ''}`} onClick={() => update({ distinguishability: marked ? 0 : 1 })}><CircleDot size={15} /><span><b>{marked ? 'Erase path record' : 'Mark which slit'}</b><small>{marked ? 'Let alternatives interfere again' : 'Make the two paths distinguishable'}</small></span></button>}
       </aside>
 
       <section className="lab-transport">
         <div><span>{props.detections.toLocaleString()}</span><small>DETECTION EVENTS</small></div>
         <button onClick={props.onEmit}>Release one</button>
-        <button className="stream" onClick={() => props.onRunning(!props.running)}>{props.running ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} {props.running ? 'Pause stream' : 'Start stream'}</button>
-        <label>Rate <input aria-label="Detection rate" type="range" min="1" max="120" value={props.settings.rate} onChange={(e) => update({ rate: +e.target.value })} /></label>
+        <button className="stream" onClick={() => props.onRunning(!props.running)}>{props.running ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />} {props.running ? 'Pause' : 'Build the pattern'}</button>
+        <label>Rate <input aria-label="Detection rate" type="range" min="1" max="160" value={props.settings.rate} onChange={(e) => props.onSettings({ rate: +e.target.value })} /></label>
       </section>
     </div>
   )

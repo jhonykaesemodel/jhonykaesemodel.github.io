@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { defaultSettings, intensityAt, probabilityDistribution, sampleDetection, seededRandom, sinc, visibility } from './model'
+import { defaultSettings, intensityAt, probabilityDistribution, sampleDetection, seededRandom, sinc, slitPositions, visibility, waveAmplitudeAt } from './model'
 
 describe('double-slit model', () => {
   it('handles the sinc limit and visibility tradeoff', () => {
@@ -18,11 +18,28 @@ describe('double-slit model', () => {
   })
 
   it('removes a dark fringe when path information is complete', () => {
+    const double = { ...defaultSettings, slitMode: 'double' as const }
     const darkFringe = defaultSettings.wavelength / (0.4 * defaultSettings.slitSeparation)
-    const coherent = intensityAt(darkFringe, { ...defaultSettings, distinguishability: 0 })
-    const distinguishable = intensityAt(darkFringe, { ...defaultSettings, distinguishability: 1 })
+    const coherent = intensityAt(darkFringe, { ...double, distinguishability: 0 })
+    const distinguishable = intensityAt(darkFringe, { ...double, distinguishability: 1 })
     expect(coherent).toBeLessThan(1e-8)
     expect(distinguishable).toBeGreaterThan(.5)
+  })
+
+  it('introduces interference only after the second slit opens', () => {
+    expect(slitPositions(defaultSettings)).toEqual([0])
+    expect(slitPositions({ ...defaultSettings, slitMode: 'double' })).toHaveLength(2)
+    const y = defaultSettings.wavelength / (0.4 * defaultSettings.slitSeparation)
+    expect(intensityAt(y, defaultSettings)).toBeGreaterThan(0.2)
+    expect(intensityAt(y, { ...defaultSettings, slitMode: 'double' })).toBeLessThan(1e-8)
+  })
+
+  it('adds both slit contributions in the explanatory wave field', () => {
+    const one = waveAmplitudeAt(2, 0.4, 0.7, defaultSettings)
+    const two = waveAmplitudeAt(2, 0.4, 0.7, { ...defaultSettings, slitMode: 'double' })
+    expect(Number.isFinite(one)).toBe(true)
+    expect(Number.isFinite(two)).toBe(true)
+    expect(two).not.toBeCloseTo(one, 5)
   })
 
   it('samples reproducible detections within the screen', () => {
