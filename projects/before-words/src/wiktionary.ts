@@ -1,4 +1,14 @@
-import type { Confidence, EtymologyEntry, EtymologyLookup, EtymologyNode } from './model'
+import {
+  findSharedAncestry,
+  flattenLineage,
+  normalizeHistoricalForm,
+  type Confidence,
+  type EtymologyEntry,
+  type EtymologyLookup,
+  type EtymologyNode,
+  type FamilyMatch,
+  type RelatedCandidate,
+} from './model'
 
 const API = 'https://en.wiktionary.org/w/api.php'
 
@@ -53,11 +63,12 @@ function confidenceFor(term: RawTreeTerm): Confidence {
 function convertTerm(term: RawTreeTerm, relation?: string): EtymologyNode | null {
   if (!term.term || !term.lang_name) return null
   nodeSequence += 1
+  const id = `wikt-${nodeSequence}`
   const ancestors = (term.children ?? [])
     .flatMap((group) => group.terms?.map((child) => convertTerm(child, group.keyword_label || group.keyword)) ?? [])
     .filter((child): child is EtymologyNode => Boolean(child))
   return {
-    id: `wikt-${nodeSequence}`,
+    id,
     term: term.term,
     language: term.lang_name,
     langCode: term.lang,
@@ -158,6 +169,50 @@ function firstDefinition(languageSection: HTMLElement) {
   return cleanText(copy.textContent ?? '', 220) || 'No concise definition was found for this language.'
 }
 
+function relatedCandidates(word: string, languageSection: HTMLElement, etymologySections: HTMLElement[]) {
+  const candidates: RelatedCandidate[] = []
+  const addLink = (link: HTMLAnchorElement, relation: RelatedCandidate['relation']) => {
+      const candidate = cleanText(link.getAttribute('title') ?? link.textContent ?? '', 80)
+      if (!candidate || candidate.includes(':') || normalizeHistoricalForm(candidate) === normalizeHistoricalForm(word)) return
+      candidates.push({
+        word: candidate,
+        relation,
+        langCode: link.closest('[lang]')?.getAttribute('lang') || undefined,
+      })
+  }
+  const addLinksAfterCue = (container: Element, cue: string, relation: RelatedCandidate['relation']) => {
+    let active = false
+    for (const child of Array.from(container.childNodes)) {
+      const prose = child.textContent ?? ''
+      const cueStartsHere = !active && prose.toLocaleLowerCase().includes(cue)
+      if (cueStartsHere) active = true
+      if (active && child instanceof Element) {
+        const links = child.matches('.mention a[title], [lang] > a[title]')
+          ? [child as HTMLAnchorElement]
+          : Array.from(child.querySelectorAll<HTMLAnchorElement>('.mention a[title], [lang] > a[title]'))
+        links.forEach((link) => addLink(link, relation))
+      }
+      if (active && prose.includes('.') && !prose.toLocaleLowerCase().includes(cue)) break
+    }
+  }
+
+  etymologySections.forEach((section) => {
+    section.querySelectorAll('p, li').forEach((paragraph) => {
+      const prose = paragraph.textContent?.toLocaleLowerCase() ?? ''
+      if (prose.includes('doublet of')) addLinksAfterCue(paragraph, 'doublet', 'doublet')
+      else if (prose.includes('cognate with')) addLinksAfterCue(paragraph, 'cognate with', 'cognate')
+      else if (prose.includes('cognate of')) addLinksAfterCue(paragraph, 'cognate of', 'cognate')
+    })
+  })
+  languageSection.querySelectorAll('ol > li').forEach((definition) => {
+    if (/equivalent to/i.test(definition.textContent ?? '')) addLinksAfterCue(definition, 'equivalent to', 'name equivalent')
+  })
+
+  return candidates.filter((candidate, index, all) =>
+    all.findIndex((other) => normalizeHistoricalForm(other.word) === normalizeHistoricalForm(candidate.word)) === index,
+  )
+}
+
 function entryForLanguage(
   word: string,
   revision: number | undefined,
@@ -228,6 +283,7 @@ function entryForLanguage(
         ? `This entry identifies ${word} as a documented form of ${continuationTerm}; deeper ancestry continues on that entry.`
         : 'This language entry exists, but its ancestry is not structured enough to map safely.',
     continuationTerm: uniqueLineages.length === 0 ? continuationTerm || undefined : undefined,
+    relatedCandidates: relatedCandidates(word, languageSection, etymologySections),
   }
 }
 
@@ -247,7 +303,85 @@ export function mergeContinuation(entry: EtymologyEntry, continuation: Etymology
     notice: `${entry.word} is documented as a form of ${entry.continuationTerm}. The deeper path continues from that entry.`,
     continuationTerm: undefined,
     continuationSourceUrl: continuation.sourceUrl,
+    relatedCandidates: [...(entry.relatedCandidates ?? []), ...(continuation.relatedCandidates ?? [])]
+      .filter((candidate, index, all) => all.findIndex((other) =>
+        normalizeHistoricalForm(other.word) === normalizeHistoricalForm(candidate.word),
+      ) === index),
   }
+}
+
+function bestFamilyMatch(entry: EtymologyEntry, candidate: RelatedCandidate, lookup: EtymologyLookup): FamilyMatch | null {
+  const currentTerms = new Set(entry.lineages.flatMap((root) =>
+    flattenLineage(root).map(({ node }) => normalizeHistoricalForm(node.term)),
+  ))
+  if (currentTerms.has(normalizeHistoricalForm(candidate.word))) return null
+
+  let best: FamilyMatch | null = null
+  let candidateEntries = lookup.entries
+  if (candidate.langCode) {
+    try {
+      const expectedLanguage = new Intl.DisplayNames(['en'], { type: 'language' }).of(candidate.langCode)
+      const exactLanguageEntries = lookup.entries.filter((candidateEntry) =>
+        candidateEntry.language.localeCompare(expectedLanguage ?? '', undefined, { sensitivity: 'base' }) === 0,
+      )
+      if (exactLanguageEntries.length > 0) candidateEntries = exactLanguageEntries
+    } catch {
+      // Wikimedia also uses historical codes that Intl does not know; graph matching remains the fallback.
+    }
+  }
+  entry.lineages.forEach((leftRoot) => {
+    candidateEntries.forEach((candidateEntry) => {
+      candidateEntry.lineages.forEach((rightRoot) => {
+        const shared = findSharedAncestry(leftRoot, rightRoot)
+        if (!shared || (shared.leftDepth === 0 && shared.rightDepth === 0)) return
+        const match: FamilyMatch = {
+          ...shared,
+          word: candidateEntry.word,
+          language: candidateEntry.language,
+          relation: candidate.relation,
+          sourceUrl: candidateEntry.sourceUrl,
+        }
+        if (!best || match.leftDepth + match.rightDepth < best.leftDepth + best.rightDepth) best = match
+      })
+    })
+  })
+  return best
+}
+
+export async function findEtymologyFamily(entry: EtymologyEntry, signal?: AbortSignal) {
+  const relationOrder: Record<RelatedCandidate['relation'], number> = { 'name equivalent': 0, doublet: 1, cognate: 2 }
+  const currentTerms = new Set(entry.lineages.flatMap((root) =>
+    flattenLineage(root).map(({ node }) => normalizeHistoricalForm(node.term)),
+  ))
+  const candidates = (entry.relatedCandidates ?? [])
+    .filter((candidate) => !currentTerms.has(normalizeHistoricalForm(candidate.word)))
+    .sort((left, right) => relationOrder[left.relation] - relationOrder[right.relation])
+    .slice(0, 6)
+  const matches: Array<FamilyMatch | null> = []
+  for (const candidate of candidates) {
+    let match: FamilyMatch | null = null
+    for (let attempt = 0; attempt < 2 && !match; attempt += 1) {
+      try {
+        const lookup = await fetchEtymology(candidate.word, signal)
+        match = bestFamilyMatch(entry, candidate, lookup)
+      } catch {
+        if (signal?.aborted) break
+        if (attempt === 0) await new Promise((resolve) => window.setTimeout(resolve, 180))
+      }
+    }
+    matches.push(match)
+  }
+  return matches
+    .filter((match): match is FamilyMatch => Boolean(match))
+    .filter((match, index, all) => all.findIndex((other) =>
+      normalizeHistoricalForm(other.word) === normalizeHistoricalForm(match.word),
+    ) === index)
+    .sort((left, right) => {
+      return relationOrder[left.relation] - relationOrder[right.relation]
+      || (left.leftDepth + left.rightDepth) - (right.leftDepth + right.rightDepth)
+      || left.word.localeCompare(right.word)
+    })
+    .slice(0, 8)
 }
 
 export function parseWiktionaryLookup(payload: ParseResponse): EtymologyLookup {

@@ -8,8 +8,9 @@ import {
   story,
   type EtymologyEntry,
   type EtymologyNode,
+  type FamilyMatch,
 } from './model'
-import { fetchEtymology, mergeContinuation } from './wiktionary'
+import { fetchEtymology, findEtymologyFamily, mergeContinuation } from './wiktionary'
 
 type AppState = 'landing' | 'guided' | 'lab'
 
@@ -31,7 +32,8 @@ function EvidencePanel({ close }: { close: () => void }) {
         <p>
           The map reads language sections from English Wiktionary in your browser. That edition
           documents words and names from hundreds of languages. Structured lineage data is shown
-          when available; conservative text extraction is used otherwise.
+          when available; conservative text extraction is used otherwise. Suggested relatives are
+          checked by tracing both forms and looking for the same historical form in the same language.
         </p>
         <dl>
           <div><dt>Solid</dt><dd>A written form or borrowing described by the source.</dd></div>
@@ -40,6 +42,8 @@ function EvidencePanel({ close }: { close: () => void }) {
           <div><dt>Distance</dt><dd>Leftward position preserves ancestry order. It is not a calendar scale.</dd></div>
           <div><dt>Meaning</dt><dd>Current definitions do not reveal a word’s original or “true” meaning. Meanings change.</dd></div>
           <div><dt>Names</dt><dd>Personal spellings may have no dictionary record. Nearby documented spellings are suggestions, never assumed ancestry.</dd></div>
+          <div><dt>Family</dt><dd>A relative appears only when two independently retrieved traces share a normalized historical form and language. Similar spelling alone is never enough.</dd></div>
+          <div><dt>Oldest</dt><dd>“Oldest mapped” means the edge of this source’s evidence—not the first word ever spoken or one universal root.</dd></div>
         </dl>
         <h3>Sources & privacy</h3>
         <p>
@@ -142,6 +146,45 @@ function LineageChooser({
   )
 }
 
+function FamilyReveal({
+  entry,
+  matches,
+  loading,
+  onTrace,
+}: {
+  entry: EtymologyEntry
+  matches: FamilyMatch[]
+  loading: boolean
+  onTrace: (word: string) => void
+}) {
+  if (!loading && matches.length === 0) return null
+  return (
+    <aside className={`family-reveal ${loading ? 'loading' : ''}`} aria-live="polite">
+      <div>
+        <p className="eyebrow">ANCIENT FAMILY · VERIFIED</p>
+        <span>{loading
+          ? `Following nearby branches from ${entry.word}…`
+          : `${entry.word} is one branch. Each form here independently meets it in the past.`}</span>
+      </div>
+      {!loading && (
+        <div className="family-branches">
+          {matches.map((match) => (
+            <button key={`${match.language}-${match.word}`} onClick={() => onTrace(match.word)}>
+              <span>{match.relation}</span>
+              <b>{match.word}</b>
+              <small>meets at <em>{match.junction.term}</em> · {match.junction.language}</small>
+              {match.oldestShared.id !== match.junction.id && (
+                <small>shared trail continues to {match.oldestShared.term}</small>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+      {!loading && <small className="family-proof">Shown only after both traces contain the same normalized form and language. Select a branch to follow it.</small>}
+    </aside>
+  )
+}
+
 function Laboratory({ onInfo }: { onInfo: () => void }) {
   const [query, setQuery] = useState(fatherEntry.word)
   const [entries, setEntries] = useState<EtymologyEntry[]>([fatherEntry])
@@ -151,8 +194,11 @@ function Laboratory({ onInfo }: { onInfo: () => void }) {
   const [selected, setSelected] = useState<EtymologyNode | null>(fatherEntry.lineages[0])
   const [suggestions, setSuggestions] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+  const [familyLoading, setFamilyLoading] = useState(false)
+  const [family, setFamily] = useState<FamilyMatch[]>([])
   const [error, setError] = useState<string>()
   const request = useRef<AbortController | null>(null)
+  const familyRequest = useRef<AbortController | null>(null)
 
   const root = entry ? entry.lineages[lineage] ?? entry.lineages[0] : null
   const oldestDepth = root ? maxLineageDepth(root) : 0
@@ -166,6 +212,22 @@ function Laboratory({ onInfo }: { onInfo: () => void }) {
   }, [root, traceDepth])
 
   useEffect(() => () => request.current?.abort(), [])
+
+  useEffect(() => {
+    familyRequest.current?.abort()
+    setFamily([])
+    if (!entry?.relatedCandidates?.length) {
+      setFamilyLoading(false)
+      return
+    }
+    const controller = new AbortController()
+    familyRequest.current = controller
+    setFamilyLoading(true)
+    void findEtymologyFamily(entry, controller.signal)
+      .then((matches) => { if (!controller.signal.aborted) setFamily(matches) })
+      .finally(() => { if (familyRequest.current === controller) setFamilyLoading(false) })
+    return () => controller.abort()
+  }, [entry])
 
   const search = async (word: string) => {
     request.current?.abort()
@@ -264,6 +326,7 @@ function Laboratory({ onInfo }: { onInfo: () => void }) {
       {entry && root && selected && (
         <>
           <LanguageChooser entries={entries} entry={entry} onChange={changeLanguage} />
+          <FamilyReveal entry={entry} matches={family} loading={familyLoading} onTrace={(word) => void search(word)} />
           <AncestryMap
             entry={entry}
             lineage={lineage}

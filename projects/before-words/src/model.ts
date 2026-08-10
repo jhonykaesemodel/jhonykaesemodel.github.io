@@ -21,6 +21,27 @@ export interface EtymologyEntry {
   notice?: string
   continuationTerm?: string
   continuationSourceUrl?: string
+  relatedCandidates?: RelatedCandidate[]
+}
+
+export interface RelatedCandidate {
+  word: string
+  relation: 'doublet' | 'cognate' | 'name equivalent'
+  langCode?: string
+}
+
+export interface SharedAncestry {
+  junction: EtymologyNode
+  oldestShared: EtymologyNode
+  leftDepth: number
+  rightDepth: number
+}
+
+export interface FamilyMatch extends SharedAncestry {
+  word: string
+  language: string
+  relation: RelatedCandidate['relation']
+  sourceUrl: string
 }
 
 export interface EtymologyLookup {
@@ -160,4 +181,47 @@ export function countByConfidence(root: EtymologyNode) {
     (counts, { node }) => ({ ...counts, [node.confidence]: counts[node.confidence] + 1 }),
     { documented: 0, reconstructed: 0, uncertain: 0 } as Record<Confidence, number>,
   )
+}
+
+export function normalizeHistoricalForm(value: string) {
+  return value
+    .normalize('NFKD')
+    .replace(/\p{M}/gu, '')
+    .replace(/^[*†?]+/, '')
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, '')
+}
+
+export function canonicalNodeKey(node: EtymologyNode) {
+  const language = (node.langCode || node.language).toLocaleLowerCase().replace(/[^a-z0-9]+/g, '')
+  return `${language}:${normalizeHistoricalForm(node.term)}`
+}
+
+export function findSharedAncestry(left: EtymologyNode, right: EtymologyNode): SharedAncestry | null {
+  const leftNodes = flattenLineage(left)
+  const rightByKey = new Map<string, NodeAtDepth[]>()
+  flattenLineage(right).forEach((item) => {
+    const key = canonicalNodeKey(item.node)
+    rightByKey.set(key, [...(rightByKey.get(key) ?? []), item])
+  })
+
+  const shared = leftNodes.flatMap((leftItem) =>
+    (rightByKey.get(canonicalNodeKey(leftItem.node)) ?? []).map((rightItem) => ({ leftItem, rightItem })),
+  )
+  if (shared.length === 0) return null
+
+  const byNearestJunction = [...shared].sort((a, b) =>
+    (a.leftItem.depth + a.rightItem.depth) - (b.leftItem.depth + b.rightItem.depth),
+  )
+  const byOldestEvidence = [...shared].sort((a, b) =>
+    (b.leftItem.depth + b.rightItem.depth) - (a.leftItem.depth + a.rightItem.depth),
+  )
+  const junction = byNearestJunction[0]
+  const oldest = byOldestEvidence[0]
+  return {
+    junction: junction.leftItem.node,
+    oldestShared: oldest.leftItem.node,
+    leftDepth: junction.leftItem.depth,
+    rightDepth: junction.rightItem.depth,
+  }
 }
